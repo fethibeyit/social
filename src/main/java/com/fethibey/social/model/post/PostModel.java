@@ -1,4 +1,4 @@
-package com.fethibey.social.model;
+package com.fethibey.social.model.post;
 
 import lombok.Data;
 

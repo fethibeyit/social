@@ -12,9 +12,9 @@ public class Post extends BaseEntity {
     private String title;
     private String content;
     private Date publicationDate;
-    private Long views;
-    private Long likes;
-    private Long shares;
+    private int views = 0;
+    private int likes = 0;
+    private int shares =0;
 
 //    private User author;
 //    private List<Category> categories;

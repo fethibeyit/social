@@ -1,11 +1,10 @@
 package com.fethibey.social.controller;
 
-import com.fethibey.social.model.PostModel;
+import com.fethibey.social.model.post.PostCreateModel;
+import com.fethibey.social.model.post.PostModel;
 import com.fethibey.social.service.PostService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,6 +18,11 @@ public class PostController {
     @GetMapping
     public List<PostModel> GetAllPosts(){
         return service.getAllPost();
+    }
+
+    @PostMapping
+    public PostModel CreatePost(@RequestBody PostCreateModel model){
+        return service.createPost(model);
     }
 
 }
