@@ -38,4 +38,12 @@ public class PostController {
     public ResponseEntity<PostModel> updatePost(@PathVariable UUID id,  @RequestBody PostUpdateModel model) {
         return new ResponseEntity(service.updatePost(id, model),HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deletePost(@PathVariable UUID id){
+        service.deletePost(id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+
 }

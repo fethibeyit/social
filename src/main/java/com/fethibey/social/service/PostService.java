@@ -7,6 +7,7 @@ import com.fethibey.social.model.post.*;
 import com.fethibey.social.repository.PostRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +46,11 @@ public class PostService {
         var updated = UpdateMapper.map(model, entity);
         var updatedEntity = repository.save(updated);
         return mapper.map(updatedEntity, PostModel.class);
+    }
+
+    public void deletePost(UUID id){
+        var entity = repository.findById(id).orElseThrow(() -> new NotFoundException(id));
+        repository.delete(entity);
     }
 
 }
