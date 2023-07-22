@@ -5,6 +5,8 @@ import com.fethibey.social.model.post.PostModel;
 import com.fethibey.social.model.post.PostUpdateModel;
 import com.fethibey.social.service.PostService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,17 +20,22 @@ public class PostController {
     private final PostService service;
 
     @GetMapping
-    public List<PostModel> GetAllPosts(){
-        return service.getAllPost();
+    public ResponseEntity<List<PostModel>> getAllPosts(){
+        return new ResponseEntity(service.getAllPost(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PostModel> GetById(@PathVariable UUID id){
+        return new ResponseEntity(service.getById(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public PostModel CreatePost(@RequestBody PostCreateModel model){
-        return service.createPost(model);
+    public ResponseEntity<PostModel> createPost(@RequestBody PostCreateModel model){
+        return new ResponseEntity(service.createPost(model),HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public PostModel CreatePost(@PathVariable UUID id,  @RequestBody PostUpdateModel model) {
-        return service.updatePost(id, model);
+    public ResponseEntity<PostModel> updatePost(@PathVariable UUID id,  @RequestBody PostUpdateModel model) {
+        return new ResponseEntity(service.updatePost(id, model),HttpStatus.OK);
     }
 }

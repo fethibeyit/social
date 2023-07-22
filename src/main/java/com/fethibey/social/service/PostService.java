@@ -1,16 +1,13 @@
 package com.fethibey.social.service;
 
 import com.fethibey.social.entity.Post;
+import com.fethibey.social.exception.NotFoundException;
 import com.fethibey.social.helper.UpdateMapper;
-import com.fethibey.social.model.post.PostCreateModel;
-import com.fethibey.social.model.post.PostModel;
-import com.fethibey.social.model.post.PostUpdateModel;
+import com.fethibey.social.model.post.*;
 import com.fethibey.social.repository.PostRepository;
 import lombok.AllArgsConstructor;
-import org.apache.catalina.mapper.Mapper;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.Provider;
-import org.modelmapper.TypeMap;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -30,6 +27,12 @@ public class PostService {
         return result;
     }
 
+  public PostModel getById(UUID id){
+        var entity = repository.findById(id).orElseThrow(() -> new NotFoundException(id));
+        return mapper.map(entity, PostModel.class);
+  }
+
+
     public PostModel createPost(PostCreateModel model) {
         var entity = mapper.map(model, Post.class);
         entity.setPublicationDate(new Date(System.currentTimeMillis()));
@@ -38,12 +41,9 @@ public class PostService {
     }
 
     public PostModel updatePost(UUID id, PostUpdateModel model) {
-        var entity = repository.findById(id).orElseThrow(() -> new RuntimeException());
-
+        var entity = repository.findById(id).orElseThrow(() -> new NotFoundException(id));
         var updated = UpdateMapper.map(model, entity);
-
         var updatedEntity = repository.save(updated);
-
         return mapper.map(updatedEntity, PostModel.class);
     }
 
