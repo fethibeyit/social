@@ -4,6 +4,7 @@ import com.fethibey.social.model.post.PostCreateModel;
 import com.fethibey.social.model.post.PostModel;
 import com.fethibey.social.model.post.PostUpdateModel;
 import com.fethibey.social.service.PostService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,12 +31,12 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<PostModel> createPost(@RequestBody PostCreateModel model){
+    public ResponseEntity<PostModel> createPost(@Valid @RequestBody PostCreateModel model){
         return new ResponseEntity(service.createPost(model),HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PostModel> updatePost(@PathVariable UUID id,  @RequestBody PostUpdateModel model) {
+    public ResponseEntity<PostModel> updatePost(@PathVariable UUID id, @Valid @RequestBody PostUpdateModel model) {
         return new ResponseEntity(service.updatePost(id, model),HttpStatus.OK);
     }
 
