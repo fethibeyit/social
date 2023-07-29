@@ -1,5 +1,6 @@
 package com.fethibey.social.repository;
 
+import com.fethibey.social.entity.AppUser;
 import com.fethibey.social.entity.Post;
 import com.github.javafaker.Faker;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class DbInitializer implements CommandLineRunner {
 
     private PostRepository postRepository;
+    private AppUserRepository userRepository;
     @Override
     public void run(String... args) throws Exception {
 
@@ -22,6 +24,14 @@ public class DbInitializer implements CommandLineRunner {
         var random = ThreadLocalRandom.current();
 
         postRepository.deleteAll();
+        userRepository.deleteAll();
+
+        var user = new AppUser();
+        user.setFirstName("Jean");
+        user.setLastName("Tremblay");
+        user.setUserName("admin");
+
+        userRepository.save(user);
 
         for (int i = 0; i < 10; i++) {
             var post = new Post();
@@ -31,6 +41,7 @@ public class DbInitializer implements CommandLineRunner {
             post.setLikes(random.nextInt(0,50));
             post.setShares(random.nextInt(0,10));
             post.setPublicationDate(new Date(faker.date().past(10, TimeUnit.DAYS).toInstant().toEpochMilli()));
+            post.setAuthor(user);
             postRepository.save(post);
         }
 
