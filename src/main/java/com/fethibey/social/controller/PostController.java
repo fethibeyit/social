@@ -6,6 +6,8 @@ import com.fethibey.social.model.post.PostUpdateModel;
 import com.fethibey.social.service.PostService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,12 +23,13 @@ public class PostController {
     private final PostService service;
 
     @GetMapping
-    public ResponseEntity<List<PostModel>> getAllPosts(){
-        return new ResponseEntity(service.getAllPost(), HttpStatus.OK);
+    public ResponseEntity<List<PostModel>> getAllPostPageable(@RequestParam(defaultValue = "1")  int page, @RequestParam(defaultValue = "5")  int size){
+        Pageable paging = PageRequest.of(page-1, size);
+        return new ResponseEntity(service.getAllPostsPageable(paging), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PostModel> GetById(@PathVariable UUID id){
+    public ResponseEntity<PostModel> getById(@PathVariable UUID id){
         return new ResponseEntity(service.getById(id), HttpStatus.OK);
     }
 
