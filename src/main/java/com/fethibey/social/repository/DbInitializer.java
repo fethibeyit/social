@@ -5,6 +5,7 @@ import com.fethibey.social.entity.Post;
 import com.github.javafaker.Faker;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
@@ -17,6 +18,7 @@ public class DbInitializer implements CommandLineRunner {
 
     private PostRepository postRepository;
     private AppUserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
     @Override
     public void run(String... args) throws Exception {
 
@@ -29,7 +31,8 @@ public class DbInitializer implements CommandLineRunner {
         var user = new AppUser();
         user.setFirstName("Jean");
         user.setLastName("Tremblay");
-        user.setUserName("admin");
+        user.setUsername("admin");
+        user.setPassword(passwordEncoder.encode("pass"));
 
         userRepository.save(user);
 
