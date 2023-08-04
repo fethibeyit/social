@@ -2,7 +2,6 @@ package com.fethibey.social.service;
 
 import com.fethibey.social.entity.Post;
 import com.fethibey.social.exception.NotFoundException;
-import com.fethibey.social.helper.UpdateMapper;
 import com.fethibey.social.model.post.*;
 import com.fethibey.social.repository.PostRepository;
 import lombok.AllArgsConstructor;
@@ -21,7 +20,6 @@ public class PostService {
 
     private final PostRepository repository;
     private final ModelMapper mapper;
-
     public List<PostModel> getAllPost() {
 
         var result = repository.findAll().stream().map(x -> mapper.map(x, PostModel.class)).toList();
@@ -48,8 +46,8 @@ public class PostService {
 
     public PostModel updatePost(UUID id, PostUpdateModel model) {
         var entity = repository.findById(id).orElseThrow(() -> new NotFoundException(id));
-        var updated = UpdateMapper.map(model, entity);
-        var updatedEntity = repository.save(updated);
+        mapper.map(model, entity);
+        var updatedEntity = repository.save(entity);
         return mapper.map(updatedEntity, PostModel.class);
     }
 
