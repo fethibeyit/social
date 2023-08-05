@@ -6,6 +6,7 @@ import { PostListComponent } from './components/post-list/post-list.component';
 import { PostFormComponent } from './components/post-form/post-form.component';
 import {MaterialModule} from "../material/material.module";
 import {PostRoutingModule} from "./post-routing.module";
+import { PostCommandBarComponent } from './components/post-command-bar/post-command-bar.component';
 
 
 
@@ -14,7 +15,8 @@ import {PostRoutingModule} from "./post-routing.module";
     ListComponent,
     FormComponent,
     PostListComponent,
-    PostFormComponent
+    PostFormComponent,
+    PostCommandBarComponent
   ],
   imports: [
     CommonModule,
