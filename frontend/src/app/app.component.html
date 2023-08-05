@@ -1,11 +1,5 @@
 
-<div style="padding: 20px;">
-
-
-  <mat-card *ngFor="let post of posts">
-    <mat-card-header>{{post.title}}</mat-card-header>
-    <mat-card-content>{{post.content}}</mat-card-content>
-  </mat-card>
+<app-navbar></app-navbar>
+<div class="container">
+  <router-outlet></router-outlet>
 </div>
-
-

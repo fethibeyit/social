@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {HttpClientModule} from "@angular/common/http";
 import {MatCardModule} from "@angular/material/card";
+import {SharedModule} from "./shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {MatCardModule} from "@angular/material/card";
     HttpClientModule,
     BrowserAnimationsModule,
     MatSlideToggleModule,
-    MatCardModule
+    MatCardModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
