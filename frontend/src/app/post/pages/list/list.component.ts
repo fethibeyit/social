@@ -21,7 +21,6 @@ export class ListComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    console.log("get posts");
     this.getPosts();
   }
 
@@ -50,6 +49,15 @@ export class ListComponent implements OnInit{
   }
 
   selectPost(data: {post: Post; action: TableActions}) {
-    this.router.navigate(['posts', 'form', data.post.id]);
+    if(data.action === TableActions.View){
+      this.router.navigate(['posts', 'form', data.post.id]);
+    } else {
+      this.http.delete("http://localhost:8080/api/posts/" + data.post.id)
+        .subscribe({
+          next : value => {
+            this.posts = this.posts.filter(x => x.id !== data.post.id );
+          }
+        })
+    }
   }
 }

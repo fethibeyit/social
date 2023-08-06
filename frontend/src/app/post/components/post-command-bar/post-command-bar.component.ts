@@ -12,4 +12,6 @@ export class PostCommandBarComponent {
   emitAction(action: CommandBarActions) {
     this.action.emit(action);
   }
+
+  protected readonly CommandBarActions = CommandBarActions;
 }
