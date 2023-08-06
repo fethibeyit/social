@@ -1,4 +1,4 @@
 <!-- Dumb component command bar -->
-<app-post-command-bar/>
+<app-post-command-bar (action)="executeCommandBarAction($event)"/>
 <!-- Dumb component anti hero list -->
-<app-post-list [posts]="posts" [headers]="headers"/>
+<app-post-list [posts]="posts" (post)="selectPost($event)"  [headers]="headers"/>

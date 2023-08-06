@@ -10,7 +10,16 @@ const routes: Routes = [
   },
   {
     path: "form",
-    component: FormComponent,
+    children: [
+      {
+        path: "",
+        component: FormComponent
+      },
+      {
+        path: ":id",
+        component: FormComponent
+      }
+    ]
   },
 ];
 

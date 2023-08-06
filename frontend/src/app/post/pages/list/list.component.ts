@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Post} from "../../models/post.interface";
 import {HttpClient} from "@angular/common/http";
+import {CommandBarActions} from "../../enums/command-bar-actions.enum";
+import {Router} from "@angular/router";
+import {TableActions} from "../../enums/table-actions.enum";
 
 @Component({
   selector: 'app-list',
@@ -14,7 +17,7 @@ export class ListComponent implements OnInit{
     {headerName: "Title", fieldName: "title"},
     {headerName: "Content", fieldName: "content"}
   ]
-  constructor(private http:HttpClient) {
+  constructor(private http:HttpClient, private router:Router ) {
   }
 
   ngOnInit(): void {
@@ -31,4 +34,22 @@ export class ListComponent implements OnInit{
       })
   }
 
+  executeCommandBarAction(action: CommandBarActions) {
+    switch(action) {
+      case CommandBarActions.Create: {
+        this.router.navigate(["posts", "form"]);
+        return;
+      }
+      case CommandBarActions.DeleteAll: {
+        return;
+
+      }
+      default: ""
+
+    }
+  }
+
+  selectPost(data: {post: Post; action: TableActions}) {
+    this.router.navigate(['posts', 'form', data.post.id]);
+  }
 }

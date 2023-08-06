@@ -7,6 +7,7 @@ import { PostFormComponent } from './components/post-form/post-form.component';
 import {MaterialModule} from "../material/material.module";
 import {PostRoutingModule} from "./post-routing.module";
 import { PostCommandBarComponent } from './components/post-command-bar/post-command-bar.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -21,7 +22,8 @@ import { PostCommandBarComponent } from './components/post-command-bar/post-comm
   imports: [
     CommonModule,
     PostRoutingModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ]
 })
 export class PostModule { }
