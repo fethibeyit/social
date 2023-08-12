@@ -4,6 +4,10 @@ import {HttpClient} from "@angular/common/http";
 import {CommandBarActions} from "../../enums/command-bar-actions.enum";
 import {Router} from "@angular/router";
 import {TableActions} from "../../enums/table-actions.enum";
+import {AppState} from "../../../state/app-state";
+import {Store} from "@ngrx/store";
+import {selectPosts} from "../../state/post-selectors";
+import {PostActions} from "../../state/post-actions";
 
 @Component({
   selector: 'app-list',
@@ -13,15 +17,21 @@ import {TableActions} from "../../enums/table-actions.enum";
 export class ListComponent implements OnInit{
 
   posts : Post[] = [];
+  posts$ = this.store.select(selectPosts());
+
   headers: {headerName: string, fieldName: keyof Post}[] = [
     {headerName: "Title", fieldName: "title"},
     {headerName: "Content", fieldName: "content"}
   ]
-  constructor(private http:HttpClient, private router:Router ) {
-  }
+  constructor(
+    private http:HttpClient,
+    private router:Router ,
+    private store: Store<AppState>,
+    ) {}
 
   ngOnInit(): void {
-    this.getPosts();
+    this.store.dispatch({type: PostActions.GET_POST_LIST});
+    this.posts$.subscribe(data => this.posts = data as Post[]);
   }
 
   getPosts(){

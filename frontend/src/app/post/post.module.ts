@@ -10,6 +10,8 @@ import { PostCommandBarComponent } from './components/post-command-bar/post-comm
 import {ReactiveFormsModule} from "@angular/forms";
 import {StoreModule} from "@ngrx/store";
 import {PostReducer} from "./state/post-reducers";
+import {EffectsModule} from "@ngrx/effects";
+import {PostEffects} from "./state/post-effects";
 
 
 
@@ -26,7 +28,8 @@ import {PostReducer} from "./state/post-reducers";
     PostRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
-    StoreModule.forFeature('postState', PostReducer),
+    StoreModule.forFeature('PostState', PostReducer),
+    EffectsModule.forFeature([PostEffects])
   ]
 })
 export class PostModule { }
