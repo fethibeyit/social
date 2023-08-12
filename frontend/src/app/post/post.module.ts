@@ -8,6 +8,8 @@ import {MaterialModule} from "../material/material.module";
 import {PostRoutingModule} from "./post-routing.module";
 import { PostCommandBarComponent } from './components/post-command-bar/post-command-bar.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import {StoreModule} from "@ngrx/store";
+import {PostReducer} from "./state/post-reducers";
 
 
 
@@ -23,7 +25,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     CommonModule,
     PostRoutingModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forFeature('postState', PostReducer),
   ]
 })
 export class PostModule { }
