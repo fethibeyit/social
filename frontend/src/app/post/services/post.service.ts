@@ -27,4 +27,21 @@ export class PostService {
       catchError(err => throwError(() => err))
     )
   }
+
+  createPost(post : Post): Observable<Post>{
+    return this.http.post<Post>("http://localhost:8080/api/posts", post).pipe(
+      delay(1000),
+      tap((data: Post) => data),
+      catchError(err => throwError(() => err))
+    )
+  }
+
+  updatePost(post : Post): Observable<Post>{
+    return this.http.put<Post>("http://localhost:8080/api/posts/" + post.id , post).pipe(
+      delay(1000),
+      tap((data: Post) => data),
+      catchError(err => throwError(() => err))
+    )
+  }
+
 }

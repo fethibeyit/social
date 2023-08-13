@@ -10,19 +10,11 @@ export const PostActions = createActionGroup({
     'Delete post' : props<{ post: Post }>(),
     'Delete post success' : props<{ postId: string }>(),
     'Delete post failure' : props<{ error: string }>(),
+    'Create post' : props<{ post: Post }>(),
+    'Create post success' : props<{ post: Post }>(),
+    'Create post failure' : props<{ error: string }>(),
+    'Update post' : props<{ post: Post }>(),
+    'Update post success' : props<{ post: Post }>(),
+    'Update post failure' : props<{ error: string }>(),
   }
 })
-
-// export enum PostActions {
-//   GET_POST_LIST = '[Post] Get post list',
-//   SET_POST_LIST = '[post] Set Post list',
-// }
-
-// export const getPostList = createAction(
-//   PostActions.GET_POST_LIST,
-// );
-
-// export const setPostList = createAction(
-//   PostActions.SET_POST_LIST,
-//   props<{ Posts: ReadonlyArray<Post> }>(),
-// );

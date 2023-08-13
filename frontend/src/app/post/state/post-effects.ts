@@ -41,4 +41,28 @@ export class PostEffects {
     }, {dispatch: true}
   );
 
+  createPost$ = createEffect(() => {
+      return this.actions$.pipe(
+        ofType(PostActions.createPost),
+        mergeMap(({post}) => this.PostService.createPost(post)
+          .pipe(
+            map((post) => PostActions.createPostSuccess({post})),
+            catchError((error) => of(PostActions.createPostFailure({error: error.message})))
+          ))
+      )
+    }, {dispatch: true}
+  );
+
+  updatePost$ = createEffect(() => {
+      return this.actions$.pipe(
+        ofType(PostActions.updatePost),
+        mergeMap(({post}) => this.PostService.updatePost(post)
+          .pipe(
+            map((post) => PostActions.updatePostSuccess({post})),
+            catchError((error) => of(PostActions.updatePostFailure({error: error.message})))
+          ))
+      )
+    }, {dispatch: true}
+  );
+
 }
