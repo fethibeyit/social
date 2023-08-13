@@ -6,7 +6,7 @@ import {Router} from "@angular/router";
 import {TableActions} from "../../enums/table-actions.enum";
 import {AppState} from "../../../state/app-state";
 import {Store} from "@ngrx/store";
-import {selectPosts} from "../../state/post-selectors";
+import {selectError, selectLoading, selectPosts} from "../../state/post-selectors";
 import {PostActions} from "../../state/post-actions";
 
 @Component({
@@ -17,7 +17,12 @@ import {PostActions} from "../../state/post-actions";
 export class ListComponent implements OnInit{
 
   posts : Post[] = [];
+  error : string = '';
+
   posts$ = this.store.select(selectPosts());
+  loading$ = this.store.select(selectLoading());
+  error$ = this.store.select(selectError());
+
 
   headers: {headerName: string, fieldName: keyof Post}[] = [
     {headerName: "Title", fieldName: "title"},
@@ -30,8 +35,9 @@ export class ListComponent implements OnInit{
     ) {}
 
   ngOnInit(): void {
-    this.store.dispatch({type: PostActions.GET_POST_LIST});
+    this.store.dispatch(PostActions.getPostList());
     this.posts$.subscribe(data => this.posts = data as Post[]);
+    this.error$.subscribe(data => this.error = data as string);
   }
 
   getPosts(){

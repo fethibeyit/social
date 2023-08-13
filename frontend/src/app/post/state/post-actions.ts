@@ -1,16 +1,25 @@
-import { createAction, props } from '@ngrx/store';
+import {createActionGroup, emptyProps, props} from '@ngrx/store';
 import {Post} from "../models/post.interface";
 
-export enum PostActions {
-  GET_POST_LIST = '[Post] Get post list',
-  SET_POST_LIST = '[post] Set Post list',
-}
+export const PostActions = createActionGroup({
+  source: 'POST',
+  events: {
+    'Get post list' : emptyProps(),
+    'Get post list success' : props<{ posts: ReadonlyArray<Post> }>(),
+    'Get post list failure' : props<{ error: string }>(),
+  }
+})
 
-export const getPostList = createAction(
-  PostActions.GET_POST_LIST,
-);
+// export enum PostActions {
+//   GET_POST_LIST = '[Post] Get post list',
+//   SET_POST_LIST = '[post] Set Post list',
+// }
 
-export const setPostList = createAction(
-  PostActions.SET_POST_LIST,
-  props<{ Posts: ReadonlyArray<Post> }>(),
-);
+// export const getPostList = createAction(
+//   PostActions.GET_POST_LIST,
+// );
+
+// export const setPostList = createAction(
+//   PostActions.SET_POST_LIST,
+//   props<{ Posts: ReadonlyArray<Post> }>(),
+// );

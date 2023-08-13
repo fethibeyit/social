@@ -1,4 +1,14 @@
 <!-- Dumb component command bar -->
 <app-post-command-bar (action)="executeCommandBarAction($event)"/>
 <!-- Dumb component anti hero list -->
-<app-post-list [posts]="posts" (post)="selectPost($event)"  [headers]="headers"/>
+
+<ng-container *ngIf="(loading$ | async) === true" >
+  <div style="display: flex; justify-content: center; margin-top: 5em;">
+    <mat-spinner [diameter]="40"></mat-spinner>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="(loading$ | async) === false">
+  <div *ngIf="error.length > 0" class="alert alert-danger" >{{error}}</div>
+  <app-post-list *ngIf="error.length === 0" [posts]="posts" (post)="selectPost($event)"  [headers]="headers"/>
+</ng-container>
