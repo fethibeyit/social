@@ -12,8 +12,7 @@ import {StoreModule} from "@ngrx/store";
 import {PostReducer} from "./state/post-reducers";
 import {EffectsModule} from "@ngrx/effects";
 import {PostEffects} from "./state/post-effects";
-
-
+import {ErrorModule} from "../error/error.module";
 
 @NgModule({
   declarations: [
@@ -27,6 +26,7 @@ import {PostEffects} from "./state/post-effects";
     CommonModule,
     PostRoutingModule,
     MaterialModule,
+    ErrorModule,
     ReactiveFormsModule,
     StoreModule.forFeature('PostState', PostReducer),
     EffectsModule.forFeature([PostEffects])

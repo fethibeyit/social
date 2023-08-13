@@ -5,6 +5,7 @@ import {EMPTY, forkJoin, of} from 'rxjs';
 import { map, mergeMap, catchError, tap } from 'rxjs/operators';
 import {PostActions} from "./post-actions";
 import {PostService} from "../services/post.service";
+import {ErrorActions} from "../../error/state/error-actions";
 
 
 @Injectable()
@@ -35,7 +36,8 @@ export class PostEffects {
         mergeMap(({post}) => this.PostService.deletePost(post.id)
           .pipe(
             map(() => PostActions.deletePostSuccess({postId: post.id})),
-            catchError((error) => of(PostActions.deletePostFailure({error: error.message})))
+            catchError((error) => of(PostActions.deletePostFailure({error: error.message})
+            ))
           ))
       )
     }, {dispatch: true}

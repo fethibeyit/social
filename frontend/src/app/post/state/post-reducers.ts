@@ -2,6 +2,7 @@ import {createReducer, on} from "@ngrx/store";
 import {Post} from "../models/post.interface";
 import {PostActions} from "./post-actions";
 
+
 export interface Process {
   loading : boolean ;
   error : string | null;
@@ -36,7 +37,9 @@ export const PostReducer = createReducer(
   on(PostActions.deletePostSuccess, (state, { postId }) =>
     { return {...state, selected:null ,posts: state.posts.filter(x=> x.id!= postId), deleteProcess: {loading: false, error: null}}}),
   on(PostActions.deletePostFailure, (state, { error }) => {
-    return {...state, selected:null, deleteProcess:{loading:false, error}}}),
+    console.log(error);
+    return {...state, selected:null, deleteProcess:{loading:false, error}};
+  }),
   on(PostActions.createPost, (state, {post}) => {
     return {...state, selected:post, getProcess: {loading: true, error: null}}}),
   on(PostActions.createPostSuccess, (state, { post }) =>
