@@ -1,6 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Post} from "../../models/post.interface";
 import {TableActions} from "../../enums/table-actions.enum";
+import {Observable, of} from "rxjs";
+import {Store} from "@ngrx/store";
+import {selectDeleteProcess, selectPosts, selectSelected} from "../../state/post-selectors";
 
 @Component({
   selector: 'app-post-list',
@@ -10,11 +13,14 @@ import {TableActions} from "../../enums/table-actions.enum";
 export class PostListComponent implements OnInit{
 
   @Input() headers: Array<{headerName: string, fieldName: keyof Post}> = [];
-  @Input() posts: Array<Post> = [];
+  @Input() posts$: Observable<ReadonlyArray<Post>> = of([]);
   @Output() post = new EventEmitter<{post: Post, action :TableActions}>();
   headerFields: string[] = [];
 
-  constructor() { }
+  selected$ = this.store.select(selectSelected());
+  deleteProcess$ = this.store.select(selectDeleteProcess());
+
+  constructor(private store : Store) { }
 
   ngOnInit(): void {
     this.getHeaderFields();

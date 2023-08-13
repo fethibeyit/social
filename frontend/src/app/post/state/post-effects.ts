@@ -29,4 +29,16 @@ export class PostEffects {
   );
 
 
+  deletePost$ = createEffect(() => {
+      return this.actions$.pipe(
+        ofType(PostActions.deletePost),
+        mergeMap(({post}) => this.PostService.deletePost(post.id)
+          .pipe(
+            map(() => PostActions.deletePostSuccess({postId: post.id})),
+            catchError((error) => of(PostActions.deletePostFailure({error: error.message})))
+          ))
+      )
+    }, {dispatch: true}
+  );
+
 }

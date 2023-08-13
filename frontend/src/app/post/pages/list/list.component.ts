@@ -6,7 +6,11 @@ import {Router} from "@angular/router";
 import {TableActions} from "../../enums/table-actions.enum";
 import {AppState} from "../../../state/app-state";
 import {Store} from "@ngrx/store";
-import {selectError, selectLoading, selectPosts} from "../../state/post-selectors";
+import {
+  selectDeleteProcess,
+  selectGetProcess,
+  selectPosts
+} from "../../state/post-selectors";
 import {PostActions} from "../../state/post-actions";
 
 @Component({
@@ -16,12 +20,9 @@ import {PostActions} from "../../state/post-actions";
 })
 export class ListComponent implements OnInit{
 
-  posts : Post[] = [];
-  error : string = '';
-
   posts$ = this.store.select(selectPosts());
-  loading$ = this.store.select(selectLoading());
-  error$ = this.store.select(selectError());
+  getProcess$ = this.store.select(selectGetProcess());
+  deleteProcess = this.store.select(selectDeleteProcess());
 
 
   headers: {headerName: string, fieldName: keyof Post}[] = [
@@ -36,17 +37,6 @@ export class ListComponent implements OnInit{
 
   ngOnInit(): void {
     this.store.dispatch(PostActions.getPostList());
-    this.posts$.subscribe(data => this.posts = data as Post[]);
-    this.error$.subscribe(data => this.error = data as string);
-  }
-
-  getPosts(){
-    this.http.get("http://localhost:8080/api/posts")
-      .subscribe({
-        next : value => {
-          this.posts=value as Post[];
-        }
-      })
   }
 
   executeCommandBarAction(action: CommandBarActions) {
@@ -57,10 +47,8 @@ export class ListComponent implements OnInit{
       }
       case CommandBarActions.DeleteAll: {
         return;
-
       }
       default: ""
-
     }
   }
 
@@ -68,12 +56,7 @@ export class ListComponent implements OnInit{
     if(data.action === TableActions.View){
       this.router.navigate(['posts', 'form', data.post.id]);
     } else {
-      this.http.delete("http://localhost:8080/api/posts/" + data.post.id)
-        .subscribe({
-          next : value => {
-            this.posts = this.posts.filter(x => x.id !== data.post.id );
-          }
-        })
+      this.store.dispatch(PostActions.deletePost({post : data.post}));
     }
   }
 }

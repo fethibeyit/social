@@ -7,6 +7,9 @@ export const PostActions = createActionGroup({
     'Get post list' : emptyProps(),
     'Get post list success' : props<{ posts: ReadonlyArray<Post> }>(),
     'Get post list failure' : props<{ error: string }>(),
+    'Delete post' : props<{ post: Post }>(),
+    'Delete post success' : props<{ postId: string }>(),
+    'Delete post failure' : props<{ error: string }>(),
   }
 })
 

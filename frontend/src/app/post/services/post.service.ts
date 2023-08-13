@@ -20,4 +20,11 @@ export class PostService {
     )
   }
 
+  deletePost(postId: string) {
+    return this.http.delete<any>(`${environment.apiURL}/posts/${postId}`).pipe(
+      delay(1000),
+      tap((data: any) => data),
+      catchError(err => throwError(() => err))
+    )
+  }
 }
