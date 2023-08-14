@@ -6,11 +6,7 @@ import {Router} from "@angular/router";
 import {TableActions} from "../../enums/table-actions.enum";
 import {AppState} from "../../../state/app-state";
 import {Store} from "@ngrx/store";
-import {
-  selectDeleteProcess,
-  selectGetProcess,
-  selectPosts
-} from "../../state/post-selectors";
+import {selectLoading, selectPosts} from "../../state/post-selectors";
 import {PostActions} from "../../state/post-actions";
 
 @Component({
@@ -21,8 +17,7 @@ import {PostActions} from "../../state/post-actions";
 export class ListComponent implements OnInit{
 
   posts$ = this.store.select(selectPosts());
-  getProcess$ = this.store.select(selectGetProcess());
-  deleteProcess = this.store.select(selectDeleteProcess());
+  loading$ = this.store.select(selectLoading());
 
 
   headers: {headerName: string, fieldName: keyof Post}[] = [

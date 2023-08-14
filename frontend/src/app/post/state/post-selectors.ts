@@ -18,12 +18,12 @@ export const selectPost = (id: string) => createSelector(
   (state: PostState) => state.posts.find(p => p.id === id)
 )
 
-export const selectGetProcess = () => createSelector(
+export const selectLoading = () => createSelector(
   selectPostState,
-  (state: PostState) => state.getProcess
+  (state: PostState) => state.loading
 )
 
-export const selectDeleteProcess = () => createSelector(
+export const selectDeleteLoading= () => createSelector(
   selectPostState,
-  (state: PostState) => state.deleteProcess
+  (state: PostState) => state.deleteLoading
 )

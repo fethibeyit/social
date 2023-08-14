@@ -18,8 +18,8 @@
           <div style="display: flex; align-items: center;">
 
             <div style="margin-right: 10px; display: flex; align-items: center;">
-              <mat-icon fontIcon="delete" style="font-size: 18px; height: 18px;" *ngIf="(selected$ | async)?.id !== element.id  || (deleteProcess$ | async)?.loading === false"/>
-              <mat-spinner [diameter]="18"  class="delete-spinner"  *ngIf="(selected$ | async)?.id === element.id  && (deleteProcess$ | async)?.loading === true"/>
+              <mat-icon fontIcon="delete" style="font-size: 18px; height: 18px;" *ngIf="(selected$ | async)?.id !== element.id  || (deleteLoading$ | async) === false"/>
+              <mat-spinner [diameter]="18"  class="delete-spinner"  *ngIf="(selected$ | async)?.id === element.id  && (deleteLoading$ | async) === true"/>
             </div>
 
             <div>Delete</div>

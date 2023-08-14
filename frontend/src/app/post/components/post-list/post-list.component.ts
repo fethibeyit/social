@@ -3,7 +3,7 @@ import {Post} from "../../models/post.interface";
 import {TableActions} from "../../enums/table-actions.enum";
 import {Observable, of} from "rxjs";
 import {Store} from "@ngrx/store";
-import {selectDeleteProcess, selectPosts, selectSelected} from "../../state/post-selectors";
+import {selectDeleteLoading, selectSelected} from "../../state/post-selectors";
 
 @Component({
   selector: 'app-post-list',
@@ -18,7 +18,7 @@ export class PostListComponent implements OnInit{
   headerFields: string[] = [];
 
   selected$ = this.store.select(selectSelected());
-  deleteProcess$ = this.store.select(selectDeleteProcess());
+  deleteLoading$ = this.store.select(selectDeleteLoading());
 
   constructor(private store : Store) { }
 
