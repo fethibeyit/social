@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+
+  @Output() actionEmitter = new EventEmitter();
+  @Input() loggedIn = false;
+  submit(action: string) {
+    this.actionEmitter.emit(action);
+  }
 
 }
