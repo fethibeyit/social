@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin
 @AllArgsConstructor
 public class JwtAuthenticationController {
     private JwtEncoder jwtEncoder;
