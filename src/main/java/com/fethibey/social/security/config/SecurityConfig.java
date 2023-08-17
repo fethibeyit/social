@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .csrf(csrf-> csrf.disable())
                 .sessionManagement(sm->sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(ar->ar.requestMatchers("/auth/**").permitAll())
-                .authorizeHttpRequests(ar->ar.anyRequest().permitAll())
+                .authorizeHttpRequests(ar->ar.anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2->oauth2.jwt(Customizer.withDefaults()))
                 //.httpBasic(Customizer.withDefaults())
                 .build();

@@ -18,7 +18,7 @@ import java.util.UUID;
 @RestController
 @AllArgsConstructor
 @CrossOrigin
-@RequestMapping("api/posts")
+@RequestMapping("api/v1/posts")
 public class PostController {
 
     private final PostService service;

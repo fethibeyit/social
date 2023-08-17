@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MatCardModule} from "@angular/material/card";
 import {SharedModule} from "./shared/shared.module";
 import { StoreModule } from '@ngrx/store';
@@ -13,6 +13,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {environment} from "../environments/environment";
 import { EffectsModule } from '@ngrx/effects';
 import {ErrorModule} from "./error/error.module";
+import {HeaderInterceptor} from "./core/interceptors/header.interceptor";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,9 @@ import {ErrorModule} from "./error/error.module";
     EffectsModule.forRoot([]),
     ErrorModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
