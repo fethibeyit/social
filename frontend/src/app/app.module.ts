@@ -13,6 +13,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {environment} from "../environments/environment";
 import { EffectsModule } from '@ngrx/effects';
 import {ErrorModule} from "./error/error.module";
+import { JwtModule } from '@auth0/angular-jwt';
 import {HeaderInterceptor} from "./core/interceptors/header.interceptor";
 
 @NgModule({
@@ -30,10 +31,19 @@ import {HeaderInterceptor} from "./core/interceptors/header.interceptor";
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
     EffectsModule.forRoot([]),
-    ErrorModule
+    ErrorModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('token');
+        },
+        allowedDomains: ['localhost:8080'],
+        disallowedRoutes: ['http://localhost:8080/auth']
+      }
+    })
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true }
+    // { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
