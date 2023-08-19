@@ -8,6 +8,12 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import {RouterLink} from "@angular/router";
 import {AuthRoutingModule} from "./auth-routing.module";
+import {StoreModule} from "@ngrx/store";
+import {PostReducer} from "../post/state/post-reducers";
+import {EffectsModule} from "@ngrx/effects";
+import {PostEffects} from "../post/state/post-effects";
+import {AuthReducer} from "./state/auth-reducers";
+import {AuthEffects} from "./state/auth-effects";
 
 
 
@@ -24,7 +30,9 @@ import {AuthRoutingModule} from "./auth-routing.module";
     ReactiveFormsModule,
     CoreModule,
     RouterLink,
-    AuthRoutingModule
+    AuthRoutingModule,
+    StoreModule.forFeature('AuthState', AuthReducer),
+    EffectsModule.forFeature([AuthEffects])
   ]
 })
 export class AuthModule { }
