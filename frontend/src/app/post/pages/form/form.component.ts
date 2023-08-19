@@ -6,13 +6,15 @@ import {Post} from "../../models/post.interface";
 
 import {PostActions} from "../../state/post-actions";
 import {Store} from "@ngrx/store";
+import {Observable} from "rxjs";
+import {CanComponentDeactivate} from "../../../core/guards/form.guard";
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
 })
-export class FormComponent implements OnInit{
+export class FormComponent implements OnInit, CanComponentDeactivate{
   id = "";
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
@@ -29,5 +31,10 @@ export class FormComponent implements OnInit{
       this.store.dispatch(PostActions.updatePost({post: data.value}));
     }
     this.router.navigate((["posts"]));
+  }
+
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+    const confirmation = window.confirm('Are you sure?');
+    return confirmation;
   }
 }

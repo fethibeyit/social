@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
 import {ListComponent} from "./pages/list/list.component";
 import {FormComponent} from "./pages/form/form.component";
+import {FormGuard} from "../core/guards/form.guard";
 
 const routes: Routes = [
   {
@@ -13,11 +14,13 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        component: FormComponent
+        component: FormComponent,
+        canDeactivate: [FormGuard]
       },
       {
         path: ":id",
-        component: FormComponent
+        component: FormComponent,
+        canDeactivate: [FormGuard]
       }
     ]
   },
