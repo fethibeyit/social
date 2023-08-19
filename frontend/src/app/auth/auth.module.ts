@@ -8,14 +8,16 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import {RouterLink} from "@angular/router";
 import {AuthRoutingModule} from "./auth-routing.module";
-import {StoreModule} from "@ngrx/store";
-import {PostReducer} from "../post/state/post-reducers";
+import {ActionReducer, MetaReducer, StoreModule} from "@ngrx/store";
 import {EffectsModule} from "@ngrx/effects";
-import {PostEffects} from "../post/state/post-effects";
 import {AuthReducer} from "./state/auth-reducers";
 import {AuthEffects} from "./state/auth-effects";
+import {localStorageSync} from "ngrx-store-localstorage";
 
-
+export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
+  return localStorageSync({keys: ['token']})(reducer);
+}
+const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 
 @NgModule({
   declarations: [
@@ -31,7 +33,7 @@ import {AuthEffects} from "./state/auth-effects";
     CoreModule,
     RouterLink,
     AuthRoutingModule,
-    StoreModule.forFeature('AuthState', AuthReducer),
+    StoreModule.forFeature('AuthState', AuthReducer, {metaReducers}),
     EffectsModule.forFeature([AuthEffects])
   ]
 })

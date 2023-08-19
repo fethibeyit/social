@@ -21,6 +21,7 @@ export class AuthEffects {
         mergeMap(({credentials})  => this.authService.login(credentials)
           .pipe(
             map(data => AuthActions.setToken({token: data['access-token']})),
+            tap(() => this.router.navigate(["posts"])),
             catchError((error) => of(AuthActions.authError({error: error.message})))
           ))
       )
