@@ -1,5 +1,6 @@
 import {createReducer, on} from "@ngrx/store";
 import {PostActions} from "../../post/state/post-actions";
+import {AuthActions} from "../../auth/state/auth-actions";
 
 export interface ErrorState {
   error: string;
@@ -12,19 +13,18 @@ export const initialState: ErrorState = {
 export const ErrorReducer = createReducer(
   initialState,
   on(PostActions.getPostListFailure, (state, { error}) => {
-    console.log(error);
     return {...state,error: error};
   }),
   on(PostActions.createPostFailure, (state, { error}) => {
-    console.log(error);
     return {...state,error: error};
   }),
   on(PostActions.updatePostFailure, (state, { error}) => {
-    console.log(error);
     return {...state,error: error};
   }),
   on(PostActions.deletePostFailure, (state, { error}) => {
-    console.log(error);
+    return {...state,error: error};
+  }),
+  on(AuthActions.authError, (state, { error}) => {
     return {...state,error: error};
   }),
 );
