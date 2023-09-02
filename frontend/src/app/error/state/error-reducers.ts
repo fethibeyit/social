@@ -13,18 +13,18 @@ export const initialState: ErrorState = {
 export const ErrorReducer = createReducer(
   initialState,
   on(PostActions.getPostListFailure, (state, { error}) => {
-    return {...state,error: error};
+    return {...state, error};
   }),
   on(PostActions.createPostFailure, (state, { error}) => {
-    return {...state,error: error};
+    return {...state, error};
   }),
   on(PostActions.updatePostFailure, (state, { error}) => {
-    return {...state,error: error};
+    return {...state, error};
   }),
   on(PostActions.deletePostFailure, (state, { error}) => {
-    return {...state,error: error};
+    return {...state, error};
   }),
   on(AuthActions.authError, (state, { error}) => {
-    return {...state,error: error};
+    return {...state, error};
   }),
 );
