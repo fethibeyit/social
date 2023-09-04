@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1.2
-RUN --mount=type=secret,id=_env,dst=/etc/secrets/.env cat /etc/secrets/.env
 
 FROM maven:3.8.5-openjdk-17 AS build
+RUN --mount=type=secret,id=_env,dst=/etc/secrets/.env cat /etc/secrets/.env
 COPY . .
 RUN mvn clean package -Dspring.profiles.active=prod
 
