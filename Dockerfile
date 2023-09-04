@@ -13,4 +13,4 @@ RUN mvn clean package -Dspring.profiles.active=prod
 FROM openjdk:17-jdk-slim
 COPY --from=build /target/social-0.0.1-SNAPSHOT.jar social-app.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "social-app.jar"]
+ENTRYPOINT ["java", "-jar", "social-app.jar" , "-Dspring.profiles.active=prod"]
