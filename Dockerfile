@@ -1,6 +1,7 @@
 FROM maven:3.8.5-openjdk-17 AS build
 COPY . .
 RUN echo "hello world"
+RUN echo $RENDER_EXTERNAL_URL
 RUN echo $DB_URL
 RUN echo $DB_USER
 RUN echo $DB_PASS
