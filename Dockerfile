@@ -1,12 +1,8 @@
+# syntax = docker/dockerfile:1.2
+RUN --mount=type=secret,id=_env,dst=/etc/secrets/.env cat /etc/secrets/.env
+
 FROM maven:3.8.5-openjdk-17 AS build
 COPY . .
-RUN echo "hello world"
-RUN env
-RUN echo $PATH
-RUN echo $RENDER_EXTERNAL_URL
-RUN echo $DB_URL
-RUN echo $DB_USER
-RUN echo $DB_PASS
 RUN mvn clean package -Dspring.profiles.active=prod
 
 FROM openjdk:17-jdk-slim
