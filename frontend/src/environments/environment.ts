@@ -1,5 +1,5 @@
 export const environment = {
-  production: false,
-  apiURL: "http://localhost:8080/api/v1",
-  authURL: "http://localhost:8080"
+  production: true,
+  apiURL: "https://social-app-z771.onrender.com/api/v1",
+  authURL: "https://social-app-z771.onrender.com"
 };
