@@ -1,8 +1,10 @@
-# syntax = docker/dockerfile:1.2
+# syntax = docker/dockerfile:1
 
 FROM maven:3.8.5-openjdk-17 AS build
-RUN --mount=type=secret,id=secretkeys,dst=/etc/secrets/secretkeys
+#RUN --mount=type=secret,id=secretkeys,dst=/etc/secrets/secretkeys
+ARG DATABASE_URL
 COPY . .
+RUN echo $DATABASE_URL
 RUN env
 RUN mvn clean package -Dspring.profiles.active=prod
 
