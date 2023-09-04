@@ -1,8 +1,10 @@
 # syntax = docker/dockerfile:1.2
 
 FROM maven:3.8.5-openjdk-17 AS build
-RUN --mount=type=secret,id=_env,dst=/etc/secrets/.env cat /etc/secrets/.env
+RUN --mount=type=secret,id=secretkeys,dst=/etc/secrets/secretkeys cat /etc/secrets/secretkeys
 COPY . .
+RUN cat /etc/secrets/secretkeys
+RUN env
 RUN mvn clean package -Dspring.profiles.active=prod
 
 FROM openjdk:17-jdk-slim
