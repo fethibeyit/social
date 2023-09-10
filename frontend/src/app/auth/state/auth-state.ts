@@ -19,7 +19,7 @@ type LocalStateContext = StateContext<AuthStateModel>;
 })
 @Injectable()
 export class AuthState {
-  constructor(private AuthService : AuthenticateService) {}
+  constructor(private authService : AuthenticateService) {}
 
 
   @Selector()
@@ -34,7 +34,7 @@ export class AuthState {
   @Action(Auth.Login)
   protected async login(ctx: LocalStateContext, action: Auth.Login): Promise<void> {
     const { credentials } = action;
-    const data = await this.AuthService.login(credentials).toPromise();
+    const data = await this.authService.login(credentials).toPromise();
     ctx.patchState({ token: data["access-token"] });
   }
 

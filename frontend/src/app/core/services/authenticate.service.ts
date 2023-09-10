@@ -11,6 +11,8 @@ import {UserCredentials} from "../../auth/models/userCredentials.interface";
 })
 export class AuthenticateService {
 
+  public redirectUrl : string | null = null;
+
   constructor(private http: HttpClient,
               private jwtHelper: JwtHelperService,) {
   }
