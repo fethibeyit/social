@@ -1,10 +1,13 @@
 import {NgModule, Optional, SkipSelf} from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {NgxsModule} from "@ngxs/store";
+import {AuthState} from "../auth/state/auth-state";
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule
+    CommonModule,
+    NgxsModule.forFeature([AuthState])
   ]
 })
 export class CoreModule {

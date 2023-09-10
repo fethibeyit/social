@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Post} from "../../models/post.interface";
+import {PostModel} from "../../models/postModel.interface";
 import {TableActions} from "../../enums/table-actions.enum";
 import {Observable, of} from "rxjs";
-import {Store} from "@ngrx/store";
-import {selectDeleteLoading, selectSelected} from "../../state/post-selectors";
+import {Select} from "@ngxs/store";
+import {PostState} from "../../state/post-state";
 
 @Component({
   selector: 'app-post-list',
@@ -12,15 +12,13 @@ import {selectDeleteLoading, selectSelected} from "../../state/post-selectors";
 })
 export class PostListComponent implements OnInit{
 
-  @Input() headers: Array<{headerName: string, fieldName: keyof Post}> = [];
-  @Input() posts$: Observable<ReadonlyArray<Post>> = of([]);
-  @Output() post = new EventEmitter<{post: Post, action :TableActions}>();
+  @Input() headers: Array<{headerName: string, fieldName: keyof PostModel}> = [];
+  @Input() posts$: Observable<ReadonlyArray<PostModel>> = of([]);
+  @Output() post = new EventEmitter<{post: PostModel, action :TableActions}>();
   headerFields: string[] = [];
 
-  selected$ = this.store.select(selectSelected());
-  deleteLoading$ = this.store.select(selectDeleteLoading());
-
-  constructor(private store : Store) { }
+  @Select(PostState.selectedPost) selected$!: Observable<PostModel | null>;
+  @Select(PostState.deleteLoading) deleteLoading$!: Observable<boolean>;
 
   ngOnInit(): void {
     this.getHeaderFields();
@@ -31,7 +29,7 @@ export class PostListComponent implements OnInit{
     this.headerFields.push("actions");
   }
 
-  selectPost(post: Post, action: TableActions) {
+  selectPost(post: PostModel, action: TableActions) {
     this.post.emit({post, action});
   }
 

@@ -1,20 +1,22 @@
-import {createActionGroup, emptyProps, props} from '@ngrx/store';
-import {Post} from "../models/post.interface";
+import {PostModel} from "../models/postModel.interface";
 
-export const PostActions = createActionGroup({
-  source: 'POST',
-  events: {
-    'Get post list' : emptyProps(),
-    'Get post list success' : props<{ posts: ReadonlyArray<Post> }>(),
-    'Get post list failure' : props<{ error: string }>(),
-    'Delete post' : props<{ post: Post }>(),
-    'Delete post success' : props<{ postId: string }>(),
-    'Delete post failure' : props<{ error: string }>(),
-    'Create post' : props<{ post: Post }>(),
-    'Create post success' : props<{ post: Post }>(),
-    'Create post failure' : props<{ error: string }>(),
-    'Update post' : props<{ post: Post }>(),
-    'Update post success' : props<{ post: Post }>(),
-    'Update post failure' : props<{ error: string }>(),
+export namespace Post {
+  export class Create {
+    static readonly type = '[POST] Create';
+    constructor(public post: PostModel) {}
   }
-})
+
+  export class Update {
+    static readonly type = '[POST] Update';
+    constructor(public post: PostModel) {}
+  }
+
+  export class GetList {
+    static readonly type = '[POST] Get List';
+  }
+
+  export class Delete {
+    static readonly type = '[POST] Delete';
+    constructor(public post: PostModel) {}
+  }
+}

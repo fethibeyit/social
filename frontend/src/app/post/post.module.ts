@@ -8,11 +8,9 @@ import {MaterialModule} from "../material/material.module";
 import {PostRoutingModule} from "./post-routing.module";
 import { PostCommandBarComponent } from './components/post-command-bar/post-command-bar.component';
 import {ReactiveFormsModule} from "@angular/forms";
-import {StoreModule} from "@ngrx/store";
-import {PostReducer} from "./state/post-reducers";
-import {EffectsModule} from "@ngrx/effects";
-import {PostEffects} from "./state/post-effects";
 import {ErrorModule} from "../error/error.module";
+import {NgxsModule} from "@ngxs/store";
+import {PostState} from "./state/post-state";
 
 @NgModule({
   declarations: [
@@ -28,8 +26,7 @@ import {ErrorModule} from "../error/error.module";
     MaterialModule,
     ErrorModule,
     ReactiveFormsModule,
-    StoreModule.forFeature('PostState', PostReducer),
-    EffectsModule.forFeature([PostEffects])
+    NgxsModule.forFeature([PostState]),
   ]
 })
 export class PostModule { }

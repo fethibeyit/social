@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable, throwError} from "rxjs";
-import {Post} from "../models/post.interface";
+import {PostModel} from "../models/postModel.interface";
 import {environment} from "../../../environments/environment";
 import {catchError, tap} from "rxjs/operators";
 
@@ -12,9 +12,9 @@ export class PostService {
 
   constructor(private http: HttpClient) { }
 
-  getPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(`${environment.apiURL}/posts`).pipe(
-      tap((data: Post[]) => data),
+  getPosts(): Observable<PostModel[]> {
+    return this.http.get<PostModel[]>(`${environment.apiURL}/posts`).pipe(
+      tap((data: PostModel[]) => data),
       catchError(err => throwError(() => err))
     )
   }
@@ -26,16 +26,16 @@ export class PostService {
     )
   }
 
-  createPost(post : Post): Observable<Post>{
-    return this.http.post<Post>("http://localhost:8080/api/posts", post).pipe(
-      tap((data: Post) => data),
+  createPost(post : PostModel): Observable<PostModel>{
+    return this.http.post<PostModel>("http://localhost:8080/api/posts", post).pipe(
+      tap((data: PostModel) => data),
       catchError(err => throwError(() => err))
     )
   }
 
-  updatePost(post : Post): Observable<Post>{
-    return this.http.put<Post>("http://localhost:8080/api/posts/" + post.id , post).pipe(
-      tap((data: Post) => data),
+  updatePost(post : PostModel): Observable<PostModel>{
+    return this.http.put<PostModel>("http://localhost:8080/api/posts/" + post.id , post).pipe(
+      tap((data: PostModel) => data),
       catchError(err => throwError(() => err))
     )
   }

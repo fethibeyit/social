@@ -1,13 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormActions} from "../../enums/form-actions.enum";
-import {HttpClient} from "@angular/common/http";
-import {Post} from "../../models/post.interface";
-
-import {PostActions} from "../../state/post-actions";
-import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {CanComponentDeactivate} from "../../../core/guards/form.guard";
+import {Store} from "@ngxs/store";
+import {Post} from "../../state/post-actions";
 
 @Component({
   selector: 'app-form',
@@ -26,9 +23,9 @@ export class FormComponent implements OnInit, CanComponentDeactivate{
 
   formAction(data: {value: any; action: FormActions}) {
     if(data.action === FormActions.Create){
-      this.store.dispatch(PostActions.createPost({post: data.value}));
+      this.store.dispatch(new Post.Create(data.value));
     } else if (data.action === FormActions.Update){
-      this.store.dispatch(PostActions.updatePost({post: data.value}));
+      this.store.dispatch(new Post.Update(data.value));
     }
     this.router.navigate((["posts"]));
   }

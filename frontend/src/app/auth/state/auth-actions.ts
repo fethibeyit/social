@@ -1,12 +1,17 @@
-import {createActionGroup, emptyProps, props} from '@ngrx/store';
 import {UserCredentials} from "../models/userCredentials.interface";
 
-export const AuthActions = createActionGroup({
-  source: 'AUTH',
-  events: {
-    'Login' : props<{ credentials: UserCredentials }>(),
-    'Set token' : props<{ token: string }>(),
-    'Auth error' : props<{ error: string }>(),
-    'Create user' : emptyProps(),
+export namespace Auth {
+  export class Login {
+    static readonly type = '[AUTH] Login';
+    constructor(public credentials: UserCredentials) {}
   }
-})
+
+  export class Logout {
+    static readonly type = '[AUTH] Logout';
+  }
+
+  export class CreateUser {
+    static readonly type = '[AUTH] Create User';
+    constructor(public user: string) {}
+  }
+}

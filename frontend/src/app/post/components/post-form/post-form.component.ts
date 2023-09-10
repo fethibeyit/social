@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {FormActions} from "../../enums/form-actions.enum";
 import {HttpClient} from "@angular/common/http";
-import {Post} from "../../models/post.interface";
+import {PostModel} from "../../models/postModel.interface";
 
 @Component({
   selector: 'app-post-form',
@@ -22,7 +22,6 @@ export class PostFormComponent implements OnInit{
       title: [''],
       content: ['']
     })
-
   }
 
   ngOnInit(): void {
@@ -40,7 +39,7 @@ export class PostFormComponent implements OnInit{
     this.http.get("http://localhost:8080/api/posts/" + this.selectedId)
       .subscribe({
         next : value => {
-          this.form.setValue(value as Post);
+          this.form.setValue(value as PostModel);
         }
       })
   }

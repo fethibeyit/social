@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable, throwError} from "rxjs";
 import {environment} from "../../../environments/environment";
@@ -12,7 +12,8 @@ import {UserCredentials} from "../../auth/models/userCredentials.interface";
 export class AuthenticateService {
 
   constructor(private http: HttpClient,
-              private jwtHelper: JwtHelperService) { }
+              private jwtHelper: JwtHelperService,) {
+  }
 
   login(data: UserCredentials): Observable<any> {
     return this.http.post<any>(`${environment.authURL}/auth`, data).pipe(
@@ -29,7 +30,7 @@ export class AuthenticateService {
   }
 
   isAuthenticated(): boolean {
-    const token = localStorage.getItem('token') ?? '';
+    const token = localStorage.getItem('auth.token') ?? '';
     return !this.jwtHelper.isTokenExpired(token);
   }
 }
