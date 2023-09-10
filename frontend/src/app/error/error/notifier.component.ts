@@ -1,16 +1,12 @@
 // import {Component, OnInit} from '@angular/core';
-// import {selectError} from "../state/error-selectors";
 // import {MatSnackBar} from "@angular/material/snack-bar";
 // import {NotifierSnackbarComponent} from "../error-snackbar/notifier-snackbar.component";
-// import { filter } from "rxjs/operators";
 //
 // @Component({
 //   selector: 'app-error',
 //   template: ''
 // })
 // export class NotifierComponent implements OnInit {
-//
-//   error$ = this.store.select(selectError());
 //
 //   constructor(
 //     private store : Store,

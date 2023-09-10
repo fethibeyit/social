@@ -25,7 +25,7 @@ import {AuthState} from "./state/auth-state";
     CoreModule,
     RouterLink,
     AuthRoutingModule,
-    NgxsModule.forFeature([AuthState]),
+    NgxsModule.forFeature([AuthState] , ),
   ]
 })
 export class AuthModule { }

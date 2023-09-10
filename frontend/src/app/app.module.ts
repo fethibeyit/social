@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {ErrorHandler, Injectable, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +14,8 @@ import {HeaderInterceptor} from "./core/interceptors/header.interceptor";
 import {NgxsModule, NoopNgxsExecutionStrategy} from "@ngxs/store";
 import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
 import {NgxsStoragePluginModule} from "@ngxs/storage-plugin";
+import {AppErrorHandler} from "./error/handler/app-error-handler";
+
 
 @NgModule({
   declarations: [
@@ -44,6 +46,7 @@ import {NgxsStoragePluginModule} from "@ngxs/storage-plugin";
     })
   ],
   providers: [
+    { provide: ErrorHandler, useClass: AppErrorHandler}
     // { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

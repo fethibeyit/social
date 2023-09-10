@@ -1,1 +1,5 @@
 <app-auth-form (submitEmitter)="submit($event)" />
+<p  *ngIf=" loading$ | async">Loading</p>
+<p style="color: red;" *ngIf=" error$ | async">{{error$ | async}}</p>
+
+

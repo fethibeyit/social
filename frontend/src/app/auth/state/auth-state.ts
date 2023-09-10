@@ -2,10 +2,12 @@ import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {Injectable} from "@angular/core";
 import {AuthenticateService} from "../../core/services/authenticate.service";
 import {Auth} from "./auth-actions";
+import {HttpErrorResponse} from "@angular/common/http";
 
 export interface AuthStateModel {
   token: string;
   error: string | null;
+  loading : boolean;
 }
 
 type LocalStateContext = StateContext<AuthStateModel>;
@@ -15,6 +17,7 @@ type LocalStateContext = StateContext<AuthStateModel>;
   defaults: {
     token: "",
     error: null,
+    loading : false
   },
 })
 @Injectable()
@@ -31,11 +34,29 @@ export class AuthState {
     return state.error;
   }
 
+  @Selector()
+  static loading(state: AuthStateModel): boolean {
+    return state.loading;
+  }
+
   @Action(Auth.Login)
   protected async login(ctx: LocalStateContext, action: Auth.Login): Promise<void> {
     const { credentials } = action;
-    const data = await this.authService.login(credentials).toPromise();
-    ctx.patchState({ token: data["access-token"] });
+    ctx.patchState({loading: true , error: null})
+    try{
+      const data = await this.authService.login(credentials).toPromise();
+      ctx.patchState({ token: data["access-token"], loading: false});
+    } catch (err : any){
+      ctx.patchState({ loading: false });
+      console.log("error:", err)
+      if(err.status === 401){
+        ctx.patchState({error : "Le nom d'utlisateur ou le mot de passe sont invalides !"})
+      } else {
+        // ctx.patchState({error : "Erreur du serveur ou de connexion !"})
+        throw (err);
+      }
+    }
+
   }
 
 }
