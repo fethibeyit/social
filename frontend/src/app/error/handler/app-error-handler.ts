@@ -6,10 +6,10 @@ import {ErrorService} from "../service/error.service";
 })
 export class AppErrorHandler implements ErrorHandler {
 
-  constructor(private errorService : ErrorService) {
-  }
+  constructor( private errorService : ErrorService) {}
+
   handleError(error: any) {
-    console.log('ERROR! ', error);
-    this.errorService.displayError(error.message); // to do
+    this.errorService.triggerAction(error.message);
   }
+
 }

@@ -46,7 +46,7 @@ import {AppErrorHandler} from "./error/handler/app-error-handler";
     })
   ],
   providers: [
-    { provide: ErrorHandler, useClass: AppErrorHandler}
+    { provide: ErrorHandler, useClass: AppErrorHandler},
     // { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

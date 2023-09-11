@@ -1,21 +1,22 @@
-import { NgModule } from '@angular/core';
+import {NgModule, Optional, SkipSelf} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MaterialModule} from "../material/material.module";
 import { NotifierSnackbarComponent } from './error-snackbar/notifier-snackbar.component';
-
+import {NotifierComponent} from "./error/notifier.component";
 
 @NgModule({
   declarations: [
-    // NotifierComponent,
-    NotifierSnackbarComponent
+    NotifierComponent,
+    NotifierSnackbarComponent,
   ],
   exports: [
-    // NotifierComponent
+    NotifierComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
-    // StoreModule.forFeature('ErrorState', ErrorReducer),
+  ],
+  providers : [
   ]
 })
-export class ErrorModule { }
+export class ErrorModule {}

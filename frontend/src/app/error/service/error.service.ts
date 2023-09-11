@@ -1,25 +1,15 @@
 import { Injectable } from '@angular/core';
-import {NotifierSnackbarComponent} from "../error-snackbar/notifier-snackbar.component";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ErrorService {
 
-  constructor(private snackBar : MatSnackBar) { }
+  public actionSubject = new Subject<string>();
 
-  public displayError(error : string){
-    this.openSnackBar(error, 'error');
-  }
-
-  openSnackBar(message: string, type: string) {
-    this.snackBar.openFromComponent(NotifierSnackbarComponent, {
-      data: message,
-      duration: 2000,
-      verticalPosition: 'top',
-      panelClass: [type]
-    });
+  triggerAction(action: string) {
+    this.actionSubject.next(action);
   }
 
 }

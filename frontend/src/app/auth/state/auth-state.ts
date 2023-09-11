@@ -2,7 +2,6 @@ import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {Injectable} from "@angular/core";
 import {AuthenticateService} from "../../core/services/authenticate.service";
 import {Auth} from "./auth-actions";
-import {HttpErrorResponse} from "@angular/common/http";
 
 export interface AuthStateModel {
   token: string;
@@ -23,7 +22,6 @@ type LocalStateContext = StateContext<AuthStateModel>;
 @Injectable()
 export class AuthState {
   constructor(private authService : AuthenticateService) {}
-
 
   @Selector()
   static token(state: AuthStateModel): string {
@@ -48,11 +46,9 @@ export class AuthState {
       ctx.patchState({ token: data["access-token"], loading: false});
     } catch (err : any){
       ctx.patchState({ loading: false });
-      console.log("error:", err)
       if(err.status === 401){
         ctx.patchState({error : "Le nom d'utlisateur ou le mot de passe sont invalides !"})
       } else {
-        // ctx.patchState({error : "Erreur du serveur ou de connexion !"})
         throw (err);
       }
     }
