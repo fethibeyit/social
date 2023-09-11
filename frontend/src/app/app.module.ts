@@ -8,13 +8,13 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MatCardModule} from "@angular/material/card";
 import {SharedModule} from "./shared/shared.module";
 import {environment} from "../environments/environment";
-import {ErrorModule} from "./error/error.module";
+import {NotifierModule} from "./notifier/notifier.module";
 import { JwtModule } from '@auth0/angular-jwt';
 import {HeaderInterceptor} from "./core/interceptors/header.interceptor";
 import {NgxsModule, NoopNgxsExecutionStrategy} from "@ngxs/store";
 import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
 import {NgxsStoragePluginModule} from "@ngxs/storage-plugin";
-import {AppErrorHandler} from "./error/handler/app-error-handler";
+import {AppErrorHandler} from "./core/handlers/app-error-handler";
 
 
 @NgModule({
@@ -36,7 +36,7 @@ import {AppErrorHandler} from "./error/handler/app-error-handler";
     }),
     NgxsReduxDevtoolsPluginModule.forRoot({disabled:environment.production, maxAge:25}),
     NgxsStoragePluginModule.forRoot({ key: "auth.token" }),
-    ErrorModule,
+    NotifierModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => JSON.parse(localStorage.getItem("auth.token") ?? ""),

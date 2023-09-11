@@ -8,7 +8,7 @@ import {MaterialModule} from "../material/material.module";
 import {PostRoutingModule} from "./post-routing.module";
 import { PostCommandBarComponent } from './components/post-command-bar/post-command-bar.component';
 import {ReactiveFormsModule} from "@angular/forms";
-import {ErrorModule} from "../error/error.module";
+import {NotifierModule} from "../notifier/notifier.module";
 import {NgxsModule} from "@ngxs/store";
 import {PostState} from "./state/post-state";
 
@@ -24,7 +24,7 @@ import {PostState} from "./state/post-state";
     CommonModule,
     PostRoutingModule,
     MaterialModule,
-    ErrorModule,
+    NotifierModule,
     ReactiveFormsModule,
     NgxsModule.forFeature([PostState]),
   ]

@@ -4,7 +4,7 @@ import {Subject} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
-export class ErrorService {
+export class NotifierService {
 
   public actionSubject = new Subject<string>();
 

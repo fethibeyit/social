@@ -1,8 +1,8 @@
-import {NgModule, Optional, SkipSelf} from '@angular/core';
+import {NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MaterialModule} from "../material/material.module";
-import { NotifierSnackbarComponent } from './error-snackbar/notifier-snackbar.component';
-import {NotifierComponent} from "./error/notifier.component";
+import { NotifierSnackbarComponent } from './notifier-snackbar/notifier-snackbar.component';
+import {NotifierComponent} from "./notifier/notifier.component";
 
 @NgModule({
   declarations: [
@@ -19,4 +19,4 @@ import {NotifierComponent} from "./error/notifier.component";
   providers : [
   ]
 })
-export class ErrorModule {}
+export class NotifierModule {}

@@ -6,9 +6,9 @@ import {
   ViewContainerRef
 } from '@angular/core';
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {NotifierSnackbarComponent} from "../error-snackbar/notifier-snackbar.component";
+import {NotifierSnackbarComponent} from "../notifier-snackbar/notifier-snackbar.component";
 import {Subscription} from "rxjs";
-import {ErrorService} from "../service/error.service";
+import {NotifierService} from "../service/notifier.service";
 
 @Component({
   selector: 'app-error',
@@ -21,16 +21,12 @@ export class NotifierComponent implements OnDestroy {
 
   constructor(
     private snackBar : MatSnackBar,
-    private errorService : ErrorService,
+    private notifierService : NotifierService,
     private cd: ChangeDetectorRef
   ) {
-    this.actionSubscription = this.errorService.actionSubject.subscribe( error => {
-      this.displayError(error);
+    this.actionSubscription = this.notifierService.actionSubject.subscribe( message => {
+      this.openSnackBar(message, 'error');
     });
-  }
-
-  public displayError(error : string){
-    this.openSnackBar(error, 'error');
   }
 
   openSnackBar(message: string, type: string) {
