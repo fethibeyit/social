@@ -4,8 +4,6 @@ import {PostModel} from "../models/postModel.interface";
 import {PostService} from "../services/post.service";
 import {Post} from "./post-actions";
 
-
-
 export interface PostStateModel {
   posts: ReadonlyArray<PostModel>;
   loading : boolean;
@@ -56,29 +54,49 @@ export class PostState implements NgxsOnInit {
 
   @Action(Post.GetList)
   protected async getList(ctx: LocalStateContext, action: Post.GetList): Promise<void> {
-    const data = await this.PostService.getPosts().toPromise();
-    ctx.patchState({ posts: data });
+    ctx.patchState({loading: true})
+    try{
+      const data = await this.PostService.getPosts().toPromise();
+      ctx.patchState({ posts: data});
+    }finally {
+      ctx.patchState({loading: false})
+    }
   }
 
   @Action(Post.Create)
   protected async createPost(ctx: LocalStateContext, action: Post.Create): Promise<void> {
     const { post } = action;
-    const data = await this.PostService.createPost(post).toPromise();
-    ctx.patchState( {posts : [...ctx.getState().posts, post]});
+    ctx.patchState({loading: true})
+    try{
+      const data = await this.PostService.createPost(post).toPromise();
+      if (data) ctx.patchState( {posts : [...ctx.getState().posts, data]});
+    }finally {
+      ctx.patchState({loading: false})
+    }
   }
 
   @Action(Post.Update)
   protected async updatePost(ctx: LocalStateContext, action: Post.Update): Promise<void> {
     const { post } = action;
-    const data = await this.PostService.updatePost(post).toPromise();
-    ctx.patchState( {posts : ctx.getState().posts.map(x => x.id === post.id ? post : x)});
+    ctx.patchState({loading: true})
+    try{
+      const data = await this.PostService.updatePost(post).toPromise();
+      ctx.patchState( {posts : ctx.getState().posts.map(x => x.id === post.id ? post : x)});
+    }finally {
+      ctx.patchState({loading: false})
+    }
   }
 
   @Action(Post.Delete)
   protected async deletePost(ctx: LocalStateContext, action: Post.Delete): Promise<void> {
     const { post } = action;
-    const data = await this.PostService.deletePost(post.id).toPromise();
-    ctx.patchState( {posts : ctx.getState().posts.filter(x=> x.id!= post.id)});
+    ctx.patchState({deleteLoading: true, selected : post})
+    try{
+      const data = await this.PostService.deletePost(post.id).toPromise();
+      ctx.patchState( {posts : ctx.getState().posts.filter(x=> x.id!= post.id)});
+    }finally {
+      ctx.patchState({deleteLoading: false, selected: null})
+    }
   }
 
 }

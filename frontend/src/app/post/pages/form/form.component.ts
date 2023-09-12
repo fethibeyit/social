@@ -31,7 +31,10 @@ export class FormComponent implements OnInit, CanComponentDeactivate{
   }
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
-    const confirmation = window.confirm('Are you sure?');
-    return confirmation;
+
+    console.log(this.id)
+    if(this.id)     return window.confirm('Are you sure?');
+
+    return true;
   }
 }

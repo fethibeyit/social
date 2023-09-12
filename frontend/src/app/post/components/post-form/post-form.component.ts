@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {FormActions} from "../../enums/form-actions.enum";
 import {HttpClient} from "@angular/common/http";
 import {PostModel} from "../../models/postModel.interface";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-post-form',
@@ -14,13 +15,18 @@ export class PostFormComponent implements OnInit{
   @Input() selectedId = "";
   @Input() actionButton: FormActions = FormActions.Create;
   @Output() action = new EventEmitter();
+
   form: FormGroup;
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.form = this.fb.group({
       id: [''],
       title: [''],
-      content: ['']
+      content: [''],
+      publicationDate : null,
+      views : [],
+      likes : [],
+      shares : []
     })
   }
 
@@ -36,7 +42,7 @@ export class PostFormComponent implements OnInit{
   }
 
   patchDataValues () {
-    this.http.get("http://localhost:8080/api/posts/" + this.selectedId)
+    this.http.get(`${environment.apiURL}/posts/${this.selectedId}`)
       .subscribe({
         next : value => {
           this.form.setValue(value as PostModel);

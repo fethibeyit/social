@@ -52,7 +52,6 @@ export class AuthState {
         throw (err);
       }
     }
-
   }
 
 }
