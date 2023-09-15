@@ -1,30 +1,30 @@
-<mat-card>
+<div class="mat-elevation-z3 p-3" style="border-radius: 10px">
 
-  <mat-card-title>{{title}}</mat-card-title>
-  <mat-card-content>
-    <form [formGroup]="form" (ngSubmit)="submit()">
-      <p *ngIf="error" class="error">
-        {{ error }}
-      </p>
-      <p>
-        <mat-form-field>
-          <input type="text" matInput placeholder="Username" formControlName="username">
-        </mat-form-field>
-      </p>
+  <form [formGroup]="form" (ngSubmit)="submit()">
 
-      <p>
-        <mat-form-field>
-          <input type="password" matInput placeholder="Password" formControlName="password">
-        </mat-form-field>
-      </p>
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <input type="text" matInput placeholder="Nom d'utilisateur" formControlName="username">
+      </mat-form-field>
 
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <input type="password" matInput placeholder="Mot de passe" formControlName="password">
+      </mat-form-field>
 
+      <button type="submit" mat-raised-button color="primary" style="width: 100%; height: 56px; font-size: 1.2rem;" >
+        Se connecter
+        <mat-icon iconPositionEnd  >
+          <mat-spinner  *ngIf="loading$ | async" diameter="15" style="--mdc-circular-progress-active-indicator-color:white;" ></mat-spinner>
+        </mat-icon>
+      </button>
 
-      <div class="button">
-        <button type="submit" mat-button>{{title}}</button>
-      </div>
-      <p *ngIf="title == 'Login'" class="link" [routerLink]="['register']" routerLinkActive="router-link-active" >Create account</p>
-      <p *ngIf="title == 'Register'" class="link" [routerLink]="['']" routerLinkActive="router-link-active" >Sign In</p>
-    </form>
-  </mat-card-content>
-</mat-card>
+      <p style="color: red; text-align: center; font-size: 0.8rem;" *ngIf=" error$ | async">{{error$ | async}}</p>
+
+  </form>
+
+  <hr>
+
+  <div style="display: flex; justify-content: center;">
+    <button [routerLink]="['register']" routerLinkActive="router-link-active" class="btn btn-success " style="width: 80%; height: 56px; font-size: 1.2rem;">Créer un compte</button>
+  </div>
+
+</div>

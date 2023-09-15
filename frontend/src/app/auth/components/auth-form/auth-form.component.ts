@@ -1,5 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {Select} from "@ngxs/store";
+import {AuthState} from "../../state/auth-state";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-auth-form',
@@ -8,9 +11,11 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 })
 export class AuthFormComponent implements OnInit {
 
-  @Input() error: string = "";
-  @Input() title: string = "Login"
   @Output() submitEmitter = new EventEmitter();
+
+  @Select(AuthState.loading) loading$!: Observable<boolean>;
+  @Select(AuthState.error) error$!: Observable<string | null>;
+
   form: FormGroup;
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({

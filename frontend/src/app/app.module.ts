@@ -16,7 +16,6 @@ import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
 import {NgxsStoragePluginModule} from "@ngxs/storage-plugin";
 import {AppErrorHandler} from "./core/handlers/app-error-handler";
 
-
 @NgModule({
   declarations: [
     AppComponent
@@ -43,7 +42,7 @@ import {AppErrorHandler} from "./core/handlers/app-error-handler";
         allowedDomains: ['localhost:8080'],
         disallowedRoutes: ['http://localhost:8080/auth']
       }
-    })
+    }),
   ],
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler},
