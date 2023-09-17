@@ -10,10 +10,10 @@
         <input type="password" matInput placeholder="Mot de passe" formControlName="password">
       </mat-form-field>
 
-      <button type="submit" class="btn btn-primary btn-login" style="width: 100%;" >
+      <button type="submit" class="btn btn-primary btn-login" style="width: 100%; display: flex; align-items: center; justify-content: center" >
         Se connecter
-        <mat-icon iconPositionEnd  >
-          <mat-spinner  *ngIf="loading$ | async" diameter="15" style="--mdc-circular-progress-active-indicator-color:white;" ></mat-spinner>
+        <mat-icon *ngIf="loading$ | async" iconPositionEnd style="margin-left: 20px;" >
+          <mat-spinner   diameter="20" style="--mdc-circular-progress-active-indicator-color:white;" ></mat-spinner>
         </mat-icon>
       </button>
 

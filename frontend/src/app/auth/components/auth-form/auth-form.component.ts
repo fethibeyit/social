@@ -9,7 +9,7 @@ import {Observable} from "rxjs";
   templateUrl: './auth-form.component.html',
   styleUrls: ['./auth-form.component.scss']
 })
-export class AuthFormComponent implements OnInit {
+export class AuthFormComponent {
 
   @Output() submitEmitter = new EventEmitter();
 
@@ -23,9 +23,6 @@ export class AuthFormComponent implements OnInit {
       password: ['']
     })
 
-  }
-
-  ngOnInit(): void {
   }
 
   submit() {

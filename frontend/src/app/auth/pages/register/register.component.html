@@ -1,1 +1,56 @@
-<p>register works!</p>
+<div style="display: flex; height: 90vh; justify-content: center; align-items: center;" >
+  <div class="mat-elevation-z3 p-3" style="border-radius: 10px; width: 432px;">
+
+    <h1>S'inscrire</h1>
+    <p>C'est rapide et facile.</p>
+
+    <hr>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+      <div class="row"  style="width: 100%; margin: 0" >
+        <mat-form-field appearance="outline" class="col-6" style="padding: 0 10px 0 0;">
+          <input type="text" matInput placeholder="Prénom" formControlName="firstname">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-6" style="padding: 0 0 0 10px;" >
+          <input type="text" matInput placeholder="Nom de famille" formControlName="lastname">
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <input type="email" matInput placeholder="Adresse courriel" formControlName="email">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <input type="password" matInput placeholder="Mot de passe" formControlName="password">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <input type="password" matInput placeholder="Confirmation du mot de passe" formControlName="confirmPassword">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <input type="text" matInput placeholder="Date de naissance" formControlName="dateOfBirth">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <input type="text" matInput placeholder="Sexe" formControlName="sex">
+      </mat-form-field>
+
+      <p>En cliquant sur S’inscrire, vous acceptez nos Conditions d’utilisation,
+        notre Politique de confidentialité et notre Politique d’utilisation des témoins.
+        Vous pourriez recevoir des notifications de notre part par texto,
+        mais vous pouvez vous désinscrire à tout moment.</p>
+
+      <button type="submit" class="btn btn-success btn-login" style="width: 60%; display: flex; align-items: center; justify-content: center" >
+        S'inscrire
+        <mat-icon *ngIf="loading$ | async" iconPositionEnd style="margin-left: 20px;" >
+          <mat-spinner   diameter="20" style="--mdc-circular-progress-active-indicator-color:white;" ></mat-spinner>
+        </mat-icon>
+      </button>
+
+    </form>
+
+  </div>
+</div>
