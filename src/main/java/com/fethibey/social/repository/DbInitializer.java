@@ -25,6 +25,8 @@ public class DbInitializer implements CommandLineRunner {
         Faker faker = new Faker();
         var random = ThreadLocalRandom.current();
 
+        if(userRepository.count() > 0 ) return;
+
         postRepository.deleteAll();
         userRepository.deleteAll();
 
