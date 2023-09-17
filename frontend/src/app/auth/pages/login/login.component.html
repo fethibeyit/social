@@ -2,15 +2,20 @@
 <div class="container-fluid">
 
   <div class="row pt-3">
-    <div class="col-sm-6 p-3">
-      <h1 style="font-size: 2rem; color: #3f51b5; font-weight: bolder" >Social App</h1>
-      <h3 >google</h3>
-      <h3 >facebook</h3>
-      <h3 >twitter</h3>
-      <h3 >linkdin</h3>
+    <div class="col-md-6 p-3" style="display: flex; justify-content: center">
+      <div style="width: 396px;">
+
+        <h1 style="font-size: 2rem; font-weight: bolder" class="text-primary">Social App</h1>
+        <h3 >google</h3>
+        <h3 >facebook</h3>
+        <h3 >twitter</h3>
+        <h3 >linkdin</h3>
+
+      </div>
+
     </div>
 
-    <div class="col-sm-6 p-3">
+    <div class="col-md-6 p-3" style="display: flex; justify-content: center">
       <app-auth-form (submitEmitter)="submit($event)" />
     </div>
   </div>

@@ -8,7 +8,7 @@ import {environment} from "../../../../environments/environment";
 @Component({
   selector: 'app-post-form',
   templateUrl: './post-form.component.html',
-  styleUrls: ['./post-form.component.css']
+  styleUrls: ['./post-form.component.scss']
 })
 export class PostFormComponent implements OnInit{
 

@@ -1,0 +1,104 @@
+
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$app-blue-palette: (
+  50: #e3f3ff,
+  100: #bbdfff,
+  200: #8ecdff,
+  300: #5bb8ff,
+  400: #2fa8ff,
+  500: #0098ff,
+  600: #0b8aff,
+  700: #1876f2,
+  800: #1d64df,
+  900: #2243c0,
+  contrast: (
+    50: rgba(black, 1),
+    100: rgba(black, 1),
+    200: rgba(black, 1),
+    300: rgba(black, 1),
+    400: rgba(black, 1),
+    500: rgba(black, 1),
+    600: rgba(black, 1),
+    700: rgba(black, 1),
+    800: rgba(black, 1),
+    900: rgba(black, 1)
+  )
+);
+
+$app-green-palette: (
+  50: #e8f6e6,
+  100: #c8e9c2,
+  200: #a5db9a,
+  300: #7fcd70,
+  400: #60c24f,
+  500: #42b72a,
+  600: #37a821,
+  700: #289613,
+  800: #188501,
+  900: #006600,
+  contrast: (
+    50: rgba(black, 1),
+    100: rgba(black, 1),
+    200: rgba(black, 1),
+    300: rgba(black, 1),
+    400: rgba(black, 1),
+    500: rgba(black, 1),
+    600: rgba(black, 1),
+    700: rgba(black, 1),
+    800: rgba(black, 1),
+    900: rgba(black, 1)
+  )
+);
+
+$app-red-palette: (
+  50: #ffebef,
+  100: #ffcdd5,
+  200: #f1999e,
+  300: #e87078,
+  400: #f34d57,
+  500: #fa383e,
+  600: #eb2e3d,
+  700: #d82237,
+  800: #cb1a2f,
+  900: #bd0423,
+  contrast: (
+    50: rgba(black, 1),
+    100: rgba(black, 1),
+    200: rgba(black, 1),
+    300: rgba(black, 1),
+    400: rgba(black, 1),
+    500: rgba(black, 1),
+    600: rgba(black, 1),
+    700: rgba(black, 1),
+    800: rgba(black, 1),
+    900: rgba(black, 1)
+  )
+);
+
+$app-primary: mat.define-palette($app-blue-palette, 700);
+$app-accent: mat.define-palette($app-green-palette, 500);
+$app-warn: mat.define-palette($app-red-palette, 500);
+//$my-accent: mat.define-palette(mat.$green-palette, 500);
+
+$my-theme: mat.define-light-theme((
+  color: (
+    primary: $app-primary,
+    accent: $app-accent,
+    warn: $app-warn
+  ),
+  density: 0,
+));
+
+// Emit theme-dependent styles for common features used across multiple components.
+@include mat.core-theme($my-theme);
+
+// Emit styles for MatButton based on `$my-theme`. Because the configuration
+// passed to `define-light-theme` omits typography, `button-theme` will not
+// emit any typography styles.
+@include mat.all-component-themes($my-theme);
+
+// Include the theme mixins for other components you use here.
+
