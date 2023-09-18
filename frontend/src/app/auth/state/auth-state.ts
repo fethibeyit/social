@@ -57,7 +57,6 @@ export class AuthState {
   @Action(Auth.CreateUser)
   protected async createUser(ctx: LocalStateContext, action: Auth.CreateUser): Promise<void> {
     const { appUser } = action;
-    console.log("action", appUser)
     ctx.patchState({loading: true , error: null})
     try{
       const data = await this.authService.register(appUser).toPromise();
@@ -65,6 +64,11 @@ export class AuthState {
     }finally {
       ctx.patchState({loading: false})
     }
+  }
+
+  @Action(Auth.Logout)
+  protected async logout(ctx: LocalStateContext, action: Auth.Logout): Promise<void> {
+    ctx.patchState({token: '' , error: null})
   }
 
 }

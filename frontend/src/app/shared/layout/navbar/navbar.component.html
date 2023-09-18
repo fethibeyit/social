@@ -2,7 +2,7 @@
   <mat-toolbar color="primary">
     <span>Social App</span>
     <span class="example-spacer"></span>
-    <button *ngIf="loggedIn" (click)="submit('logout')"
+    <button *ngIf="authService.isAuthenticated()" (click)="logout()"
             mat-icon-button>
       <mat-icon>logout</mat-icon>
     </button>

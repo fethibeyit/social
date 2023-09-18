@@ -5,6 +5,7 @@ import {AuthState} from "../../state/auth-state";
 import {Observable} from "rxjs";
 import {AppUserCreateModel} from "../../models/appUserCreateModel.interface";
 import {Auth} from "../../state/auth-actions";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,11 @@ export class RegisterComponent {
   @Select(AuthState.loading) loading$!: Observable<boolean>;
 
   form: FormGroup;
-  constructor(private fb: FormBuilder, private store: Store ) {
+  constructor(
+    private fb: FormBuilder,
+    private store: Store,
+    private router: Router
+  ) {
     this.form = this.fb.group({
       firstname: [''],
       lastname: [''],
@@ -37,12 +42,9 @@ export class RegisterComponent {
       email: this.form.value["email"],
       password: this.form.value["password"]
     }
-
-    console.log(appuser);
-
-    this.store.dispatch(new Auth.CreateUser(appuser));
-
-
+    this.store.dispatch(new Auth.CreateUser(appuser)).subscribe(()=>
+        this.router.navigate(['/login'])
+    );
   }
 
 }
