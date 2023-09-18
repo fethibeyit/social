@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {Select} from "@ngxs/store";
+import {Select, Store} from "@ngxs/store";
 import {AuthState} from "../../state/auth-state";
 import {Observable} from "rxjs";
+import {AppUserCreateModel} from "../../models/appUserCreateModel.interface";
+import {Auth} from "../../state/auth-actions";
 
 @Component({
   selector: 'app-register',
@@ -14,7 +16,7 @@ export class RegisterComponent {
   @Select(AuthState.loading) loading$!: Observable<boolean>;
 
   form: FormGroup;
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private store: Store ) {
     this.form = this.fb.group({
       firstname: [''],
       lastname: [''],
@@ -26,8 +28,21 @@ export class RegisterComponent {
     })
   }
 
+
+
   submit() {
-    console.log(this.form);
+    let appuser : AppUserCreateModel = {
+      firstname : this.form.value["firstname"],
+      lastname: this.form.value["lastname"],
+      email: this.form.value["email"],
+      password: this.form.value["password"]
+    }
+
+    console.log(appuser);
+
+    this.store.dispatch(new Auth.CreateUser(appuser));
+
+
   }
 
 }

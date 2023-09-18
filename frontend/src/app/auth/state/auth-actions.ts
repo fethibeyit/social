@@ -1,4 +1,5 @@
 import {UserCredentials} from "../models/userCredentials.interface";
+import {AppUserCreateModel} from "../models/appUserCreateModel.interface";
 
 export namespace Auth {
   export class Login {
@@ -12,6 +13,6 @@ export namespace Auth {
 
   export class CreateUser {
     static readonly type = '[AUTH] Create User';
-    constructor(public user: string) {}
+    constructor(public appUser: AppUserCreateModel) {}
   }
 }

@@ -54,4 +54,17 @@ export class AuthState {
     }
   }
 
+  @Action(Auth.CreateUser)
+  protected async createUser(ctx: LocalStateContext, action: Auth.CreateUser): Promise<void> {
+    const { appUser } = action;
+    console.log("action", appUser)
+    ctx.patchState({loading: true , error: null})
+    try{
+      const data = await this.authService.register(appUser).toPromise();
+      // ctx.patchState({ loading: false}); todo
+    }finally {
+      ctx.patchState({loading: false})
+    }
+  }
+
 }

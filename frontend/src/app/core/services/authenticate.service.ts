@@ -5,6 +5,7 @@ import {environment} from "../../../environments/environment";
 import {catchError, tap} from "rxjs/operators";
 import { JwtHelperService } from '@auth0/angular-jwt';
 import {UserCredentials} from "../../auth/models/userCredentials.interface";
+import {AppUserCreateModel} from "../../auth/models/appUserCreateModel.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +26,9 @@ export class AuthenticateService {
     )
   }
 
-  register(data: UserCredentials): Observable<any> {
-    return this.http.post<any>(`${environment.authURL}/register`, data).pipe(
+  register(user: AppUserCreateModel): Observable<any> {
+    console.log("service", user)
+    return this.http.post<any>(`${environment.authURL}/register`, user).pipe(
       tap((data: any) => data),
       catchError(err => throwError(() => err))
     )

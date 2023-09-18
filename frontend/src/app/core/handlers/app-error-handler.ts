@@ -9,6 +9,7 @@ export class AppErrorHandler implements ErrorHandler {
   constructor( private errorService : NotifierService) {}
 
   handleError(error: any) {
+    console.log(error)
     this.errorService.triggerAction(error.message);
   }
 

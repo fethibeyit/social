@@ -38,9 +38,9 @@ import {AppErrorHandler} from "./core/handlers/app-error-handler";
     NotifierModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => JSON.parse(localStorage.getItem("auth.token") ?? ""),
-        allowedDomains: ['localhost:8080'],
-        disallowedRoutes: ['http://localhost:8080/auth']
+        tokenGetter: () => JSON.parse(localStorage.getItem("auth.token") ?? "{}"),
+        allowedDomains: [environment.domainURL],
+        disallowedRoutes: [ environment.authURL + '/auth' , environment.authURL +'/register']
       }
     }),
   ],

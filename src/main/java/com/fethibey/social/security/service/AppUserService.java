@@ -1,7 +1,6 @@
 package com.fethibey.social.security.service;
 
 import com.fethibey.social.entity.AppUser;
-import com.fethibey.social.entity.Post;
 import com.fethibey.social.model.user.AppUserCreateModel;
 import com.fethibey.social.repository.AppUserRepository;
 import lombok.AllArgsConstructor;
@@ -16,15 +15,20 @@ import java.util.ArrayList;
 
 @Service
 @AllArgsConstructor
-public class AppUserDetailsService implements UserDetailsService {
+public class AppUserService {
 
     private AppUserRepository repository;
+    private final ModelMapper mapper;
+    private PasswordEncoder passwordEncoder;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var user = repository.findByUsername(username);
-        if(user == null) throw new UsernameNotFoundException("User not found with username: " + username);
-        return user;
+    public void createAppUser(AppUserCreateModel model){
+        var entity = mapper.map(model, AppUser.class);
+        entity.setUsername(model.getEmail());
+        entity.setPassword(passwordEncoder.encode(model.getPassword()));
+        entity.setPosts(new ArrayList<>());
+        // todo
+        repository.save(entity);
     }
+
 
 }
