@@ -27,7 +27,6 @@ export class AuthenticateService {
   }
 
   register(user: AppUserCreateModel): Observable<any> {
-    console.log("service", user)
     return this.http.post<any>(`${environment.authURL}/register`, user).pipe(
       tap((data: any) => data),
       catchError(err => throwError(() => err))

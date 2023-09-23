@@ -15,7 +15,7 @@ public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO,
             generator = "UUID")
-    private UUID id;
-    private Date createdAt = new Date(System.currentTimeMillis());
-    private Date deleted = null;
+    protected UUID id;
+    protected Date createdAt = new Date(System.currentTimeMillis());
+    protected Date deleted = null;
 }

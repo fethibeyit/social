@@ -1,7 +1,8 @@
 package com.fethibey.social.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fethibey.social.enums.SocialProvider;
+import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -19,6 +21,14 @@ public class AppUser extends BaseEntity implements UserDetails {
     private String firstName;
     private String lastName;
     private String email;
+
+    @Enumerated(EnumType.STRING)
+    private SocialProvider provider;
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = { @JoinColumn(name = "ROLE_ID") })
+    private Set<AppRole> roles;
 
     @OneToMany(mappedBy = "author")
     private List<Post> posts;

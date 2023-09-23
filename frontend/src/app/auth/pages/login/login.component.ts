@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthenticateService} from "../../../core/services/authenticate.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {UserCredentials} from "../../models/userCredentials.interface";
 import {Store} from "@ngxs/store";
 import {Auth} from "../../state/auth-actions";
@@ -11,16 +11,29 @@ import {Auth} from "../../state/auth-actions";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 
 
 
   constructor(private authService: AuthenticateService,
               private store: Store,
-              private router: Router
+              private router: Router,
+              private route: ActivatedRoute
               ) {
     this.checkJWT();
   }
+
+  ngOnInit(): void {
+    const token: string | null = this.route.snapshot.queryParamMap.get('token');
+    const error: string | null = this.route.snapshot.queryParamMap.get('error');
+   if(token){
+     console.log("token", token)
+    }
+    else if(error){
+     console.log("error", error)
+    }
+  }
+
 
   submit(credentials:UserCredentials) {
     this.store.dispatch(new Auth.Login(credentials)).subscribe(()=> {
