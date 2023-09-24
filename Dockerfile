@@ -17,4 +17,5 @@ ARG DATABASE_PASSWORD
 ARG JWT_SECRET
 COPY --from=build /target/social-0.0.1-SNAPSHOT.jar social-app.jar
 EXPOSE 8080
+
 ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=prod", "social-app.jar"]
