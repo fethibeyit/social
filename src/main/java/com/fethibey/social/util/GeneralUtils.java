@@ -34,6 +34,6 @@ public class GeneralUtils {
     public static AppUserInfo buildUserInfo(LocalUser localUser) {
         List<String> roles = localUser.getAuthorities().stream().map(item -> item.getAuthority()).collect(Collectors.toList());
         AppUser user = localUser.getUser();
-        return new AppUserInfo(user.getId().toString(), user.getFirstName(), user.getEmail(), roles);
+        return new AppUserInfo(user.getId().toString(), user.getFullName(), user.getEmail(), roles);
     }
 }

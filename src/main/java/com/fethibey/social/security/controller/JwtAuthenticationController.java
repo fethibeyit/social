@@ -1,5 +1,6 @@
 package com.fethibey.social.security.controller;
 
+import com.fethibey.social.entity.AppUser;
 import com.fethibey.social.model.post.PostModel;
 import com.fethibey.social.model.user.AppUserCreateModel;
 import com.fethibey.social.repository.AppUserRepository;
@@ -38,13 +39,15 @@ public class JwtAuthenticationController {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword())
         );
+
+        AppUser user = userService.findUserByEmail(authentication.getName());
         Instant now=Instant.now();
         String scope= authentication.getAuthorities()
                 .stream().map(auth->auth.getAuthority())
                 .collect(Collectors.joining(" "));
         JwtClaimsSet jwtClaimsSet=JwtClaimsSet.builder()
                 .issuedAt(now)
-                .subject(authentication.getName())
+                .subject(user.getId().toString())
                 .expiresAt(now.plus(5, ChronoUnit.MINUTES))
                 .claim("scope",scope)
                 .build();

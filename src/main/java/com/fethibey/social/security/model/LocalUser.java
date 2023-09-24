@@ -49,7 +49,7 @@ public class LocalUser extends User implements OAuth2User, OidcUser {
 
     @Override
     public String getName() {
-        return this.user.getFirstName();
+        return this.user.getFullName();
     }
 
     @Override

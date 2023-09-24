@@ -16,11 +16,11 @@ import java.util.Set;
 @Data
 public class AppUser extends BaseEntity implements UserDetails {
 
-    private String username;
-    private String password;
-    private String firstName;
-    private String lastName;
     private String email;
+    private String password;
+    private String fullName;
+
+    private String providerUserId;
 
     @Enumerated(EnumType.STRING)
     private SocialProvider provider;
@@ -33,9 +33,28 @@ public class AppUser extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "author")
     private List<Post> posts;
 
+    private boolean enabled = true;
+
+    private boolean locked = false;
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return new ArrayList<GrantedAuthority>();
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled ;
+    }
+    @Override
+    public boolean isAccountNonLocked() {
+        return !locked;
     }
 
     @Override
@@ -44,17 +63,9 @@ public class AppUser extends BaseEntity implements UserDetails {
     }
 
     @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+
 }

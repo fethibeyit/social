@@ -31,10 +31,9 @@ public class DbInitializer implements CommandLineRunner {
         userRepository.deleteAll();
 
         var user = new AppUser();
-        user.setFirstName("Jean");
-        user.setLastName("Tremblay");
-        user.setUsername("admin");
-        user.setPassword(passwordEncoder.encode("pass"));
+        user.setFullName("Jean Tremblay");
+        user.setEmail("admin@test.com");
+        user.setPassword(passwordEncoder.encode("123456"));
 
         userRepository.save(user);
 

@@ -36,7 +36,6 @@ public class AppUserService {
 
     public void createAppUser(AppUserCreateModel model){
         var entity = mapper.map(model, AppUser.class);
-        entity.setUsername(model.getEmail());
         entity.setPassword(passwordEncoder.encode(model.getPassword()));
         entity.setPosts(new ArrayList<>());
         // todo
@@ -58,7 +57,7 @@ public class AppUserService {
 
     private AppUser buildUser(final SignUpRequest formDTO) {
         AppUser user = new AppUser();
-        user.setFirstName(formDTO.getDisplayName());
+        user.setFullName(formDTO.getDisplayName());
         user.setEmail(formDTO.getEmail());
         user.setPassword(passwordEncoder.encode(formDTO.getPassword()));
         final HashSet<AppRole> roles = new HashSet<AppRole>();
@@ -100,7 +99,7 @@ public class AppUserService {
     }
 
     private AppUser updateExistingUser(AppUser existingUser, OAuth2UserInfo oAuth2UserInfo) {
-        existingUser.setFirstName(oAuth2UserInfo.getName());
+        existingUser.setFullName(oAuth2UserInfo.getName());
         return repository.save(existingUser);
     }
 
