@@ -66,6 +66,7 @@ public class SecurityConfig {
 //                .authorizeHttpRequests(ar->ar.anyRequest().authenticated())
 //                .oauth2ResourceServer(oauth2->oauth2.jwt(Customizer.withDefaults()))
                 .oauth2Login(oauth2 -> {
+                    oauth2.loginPage("/oauth_login");
                     oauth2.authorizationEndpoint(ae ->
                             ae.authorizationRequestRepository(cookieAuthorizationRequestRepository()));
                     oauth2.redirectionEndpoint(Customizer.withDefaults());

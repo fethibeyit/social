@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Slf4j
-@AllArgsConstructor
-@RestController
-@RequestMapping("/api/auth")
+//@Slf4j
+//@AllArgsConstructor
+//@RestController
+//@RequestMapping("/api/auth")
 public class AuthController {
 
 
@@ -45,7 +45,7 @@ public class AuthController {
 		try {
 			userService.registerNewUser(signUpRequest);
 		} catch (UserAlreadyExistAuthenticationException e) {
-			log.error("Exception Ocurred", e);
+//			log.error("Exception Ocurred", e);
 			return new ResponseEntity<>(new ApiResponse(false, "Email Address already in use!"), HttpStatus.BAD_REQUEST);
 		}
 		return ResponseEntity.ok().body(new ApiResponse(true, "User registered successfully"));
