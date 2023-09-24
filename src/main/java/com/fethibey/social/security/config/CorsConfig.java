@@ -31,7 +31,7 @@ import java.util.Locale;
 @AllArgsConstructor
 public class CorsConfig {
 
-    private final JwtConfigProperties jwtConfig;
+    private AppProperties appProperties;
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
@@ -76,12 +76,12 @@ public class CorsConfig {
 
     @Bean
     JwtEncoder jwtEncoder(){
-        String secretKey = jwtConfig.secret();
+        String secretKey = appProperties.getAuth().getTokenSecret();
         return new NimbusJwtEncoder(new ImmutableSecret<>(secretKey.getBytes()));
     }
     @Bean
     JwtDecoder jwtDecoder(){
-        String secretKey = jwtConfig.secret();
+        String secretKey = appProperties.getAuth().getTokenSecret();
         SecretKeySpec secretKeySpec = new SecretKeySpec(secretKey.getBytes(), "RSA");
         return NimbusJwtDecoder.withSecretKey(secretKeySpec).macAlgorithm(MacAlgorithm.HS512).build();
     }
