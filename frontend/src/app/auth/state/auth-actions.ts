@@ -7,6 +7,11 @@ export namespace Auth {
     constructor(public credentials: UserCredentials) {}
   }
 
+  export class SetToken {
+    static readonly type = '[AUTH] Set Token';
+    constructor(public token: string) {}
+  }
+
   export class Logout {
     static readonly type = '[AUTH] Logout';
   }

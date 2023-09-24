@@ -11,44 +11,50 @@ import {Auth} from "../../state/auth-actions";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit{
-
+export class LoginComponent implements OnInit {
 
 
   constructor(private authService: AuthenticateService,
               private store: Store,
               private router: Router,
               private route: ActivatedRoute
-              ) {
+  ) {
     this.checkJWT();
   }
 
   ngOnInit(): void {
     const token: string | null = this.route.snapshot.queryParamMap.get('token');
     const error: string | null = this.route.snapshot.queryParamMap.get('error');
-   if(token){
-     console.log("token", token)
-    }
-    else if(error){
-     console.log("error", error)
+    if (token) {
+      console.log("token", token)
+      this.store.dispatch(new Auth.SetToken(token)).subscribe(() => {
+        if (this.authService.isAuthenticated()) {
+          const redirectUrl = this.authService.redirectUrl || '/';
+          this.authService.redirectUrl = null;
+          this.router.navigateByUrl(redirectUrl)
+        }
+      });
+    } else if (error) {
+      console.log("error", error)
     }
   }
 
 
-  submit(credentials:UserCredentials) {
-    this.store.dispatch(new Auth.Login(credentials)).subscribe(()=> {
-      if(this.authService.isAuthenticated()) {
+  submit(credentials: UserCredentials) {
+    this.store.dispatch(new Auth.Login(credentials)).subscribe(() => {
+      if (this.authService.isAuthenticated()) {
         const redirectUrl = this.authService.redirectUrl || '/';
         this.authService.redirectUrl = null;
         this.router.navigateByUrl(redirectUrl)
       }
-    })
+    });
   }
 
   checkJWT() {
-    if(this.authService.isAuthenticated()) {
+    if (this.authService.isAuthenticated()) {
       this.router.navigate(['/']);
     }
   }
 
 }
+

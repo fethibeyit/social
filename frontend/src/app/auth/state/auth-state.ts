@@ -54,6 +54,12 @@ export class AuthState {
     }
   }
 
+  @Action(Auth.SetToken)
+  protected async setToken(ctx: LocalStateContext, action: Auth.SetToken): Promise<void> {
+    const { token } = action;
+    ctx.patchState({ token: token});
+  }
+
   @Action(Auth.CreateUser)
   protected async createUser(ctx: LocalStateContext, action: Auth.CreateUser): Promise<void> {
     const { appUser } = action;
