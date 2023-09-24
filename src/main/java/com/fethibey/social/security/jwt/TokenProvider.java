@@ -32,6 +32,9 @@ public class TokenProvider {
 	@Autowired
 	private JwtEncoder jwtEncoder;
 
+	@Autowired
+	private JwtDecoder jwtDecoder;
+
 	private static final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
 
 	private AppProperties appProperties;
@@ -77,15 +80,28 @@ public class TokenProvider {
 	}
 
 	public UUID getUserIdFromToken(String token) {
-		Claims claims = Jwts.parser().setSigningKey(appProperties.getAuth().getTokenSecret()).parseClaimsJws(token).getBody();
 
-		return UUID.fromString(claims.getSubject());
+		var jwt = jwtDecoder.decode(token);
+		return UUID.fromString(jwt.getSubject());
+
+
+//		Claims claims = Jwts.parser().setSigningKey(appProperties.getAuth().getTokenSecret()).parseClaimsJws(token).getBody();
+//
+//		return (claims.getSubject());
 	}
 
 	public boolean validateToken(String authToken) {
+
 		try {
-			Jwts.parser().setSigningKey(appProperties.getAuth().getTokenSecret()).parseClaimsJws(authToken);
+			jwtDecoder.decode(authToken);
 			return true;
+
+//		try {
+//			Jwts.parser().setSigningKey(appProperties.getAuth().getTokenSecret()).parseClaimsJws(authToken);
+//			return true;
+		} catch (JwtException ex) {
+			logger.error("Invalid JWT");
+
 		} catch (SignatureException ex) {
 			logger.error("Invalid JWT signature");
 		} catch (MalformedJwtException ex) {

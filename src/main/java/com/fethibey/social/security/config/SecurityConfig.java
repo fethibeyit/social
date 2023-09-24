@@ -35,6 +35,7 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.client.RestTemplate;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -77,6 +78,8 @@ public class SecurityConfig {
                     oauth2.successHandler(oAuth2AuthenticationSuccessHandler);
                     oauth2.failureHandler(oAuth2AuthenticationFailureHandler);
                 })
+                .addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+
         //.httpBasic(Customizer.withDefaults())
                 .build();
     }
