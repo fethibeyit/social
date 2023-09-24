@@ -4,8 +4,8 @@ import {delay, Observable, throwError} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {catchError, tap} from "rxjs/operators";
 import { JwtHelperService } from '@auth0/angular-jwt';
-import {UserCredentials} from "../../auth/models/userCredentials.interface";
-import {AppUserCreateModel} from "../../auth/models/appUserCreateModel.interface";
+import {UserCredentials} from "../models/userCredentials.interface";
+import {AppUserCreateModel} from "../models/appUserCreateModel.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,13 @@ export class AuthenticateService {
 
   login(data: UserCredentials): Observable<any> {
     return this.http.post<any>(`${environment.authURL}/auth`, data).pipe(
-      delay(2000),
+      tap((data: any) => data),
+      catchError(err => throwError(() => err))
+    )
+  }
+
+  getProfile(): Observable<any> {
+    return this.http.get<any>(`${environment.apiURL}/profile`).pipe(
       tap((data: any) => data),
       catchError(err => throwError(() => err))
     )

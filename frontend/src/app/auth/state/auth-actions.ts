@@ -12,6 +12,10 @@ export namespace Auth {
     constructor(public token: string) {}
   }
 
+  export class GetProfile {
+    static readonly type = '[AUTH] Get Profile';
+  }
+
   export class Logout {
     static readonly type = '[AUTH] Logout';
   }

@@ -1,10 +1,11 @@
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {Injectable} from "@angular/core";
-import {AuthenticateService} from "../../core/services/authenticate.service";
+import {AuthenticateService} from "../services/authenticate.service";
 import {Auth} from "./auth-actions";
 
 export interface AuthStateModel {
   token: string;
+  profile: string;
   error: string | null;
   loading : boolean;
 }
@@ -15,6 +16,7 @@ type LocalStateContext = StateContext<AuthStateModel>;
   name: 'auth',
   defaults: {
     token: "",
+    profile: "",
     error: null,
     loading : false
   },
@@ -26,6 +28,11 @@ export class AuthState {
   @Selector()
   static token(state: AuthStateModel): string {
     return state.token;
+  }
+
+  @Selector()
+  static profile(state: AuthStateModel): string {
+    return state?.profile ?? "";
   }
   @Selector()
   static error(state: AuthStateModel): string | null {
@@ -58,6 +65,18 @@ export class AuthState {
   protected async setToken(ctx: LocalStateContext, action: Auth.SetToken): Promise<void> {
     const { token } = action;
     ctx.patchState({ token: token});
+
+  }
+
+  @Action(Auth.GetProfile)
+  protected async getProfile(ctx: LocalStateContext, action: Auth.GetProfile): Promise<void> {
+    ctx.patchState({loading: true , error: null})
+    try{
+      const data = await this.authService.getProfile().toPromise();
+      ctx.patchState({profile: data["profile"]})
+    }finally {
+      ctx.patchState({loading: false})
+    }
   }
 
   @Action(Auth.CreateUser)
@@ -66,7 +85,6 @@ export class AuthState {
     ctx.patchState({loading: true , error: null})
     try{
       const data = await this.authService.register(appUser).toPromise();
-      // ctx.patchState({ loading: false}); todo
     }finally {
       ctx.patchState({loading: false})
     }
@@ -74,7 +92,7 @@ export class AuthState {
 
   @Action(Auth.Logout)
   protected async logout(ctx: LocalStateContext, action: Auth.Logout): Promise<void> {
-    ctx.patchState({token: '' , error: null})
+    ctx.patchState({token: '', profile: '' , error: null})
   }
 
 }

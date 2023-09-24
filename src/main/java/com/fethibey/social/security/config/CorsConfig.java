@@ -33,18 +33,22 @@ public class CorsConfig {
 
     private AppProperties appProperties;
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/**")
-                        .allowedOrigins("localhost:4200")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")
-                        .allowCredentials(true);
-            }
-        };
-    }
+//    @Bean
+//    public WebMvcConfigurer corsConfigurer() {
+//        return new WebMvcConfigurer() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry.addMapping("/api/**")
+//                        .allowedOrigins("localhost:4200")
+//                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+//                        .allowCredentials(true);
+//                registry.addMapping("/auth")
+//                        .allowedOrigins("localhost:4200")
+//                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+//                        .allowCredentials(true);
+//            }
+//        };
+//    }
 
     @Bean
     public MessageSource messageSource() {

@@ -1,6 +1,6 @@
 import {CanLoad, Route, Router, UrlSegment, UrlTree} from '@angular/router';
 import {Injectable} from "@angular/core";
-import {AuthenticateService} from "../services/authenticate.service";
+import {AuthenticateService} from "../../auth/services/authenticate.service";
 import {Observable} from "rxjs";
 import {Location} from "@angular/common";
 

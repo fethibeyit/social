@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthenticateService} from "../../../core/services/authenticate.service";
+import {AuthenticateService} from "../../services/authenticate.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserCredentials} from "../../models/userCredentials.interface";
 import {Store} from "@ngxs/store";
@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
       console.log("token", token)
       this.store.dispatch(new Auth.SetToken(token)).subscribe(() => {
         if (this.authService.isAuthenticated()) {
+          this.store.dispatch(new Auth.GetProfile());
           const redirectUrl = this.authService.redirectUrl || '/';
           this.authService.redirectUrl = null;
           this.router.navigateByUrl(redirectUrl)
@@ -43,6 +44,7 @@ export class LoginComponent implements OnInit {
   submit(credentials: UserCredentials) {
     this.store.dispatch(new Auth.Login(credentials)).subscribe(() => {
       if (this.authService.isAuthenticated()) {
+        this.store.dispatch(new Auth.GetProfile());
         const redirectUrl = this.authService.redirectUrl || '/';
         this.authService.redirectUrl = null;
         this.router.navigateByUrl(redirectUrl)

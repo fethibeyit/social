@@ -7,7 +7,6 @@ import {AuthState} from "../auth/state/auth-state";
   declarations: [],
   imports: [
     CommonModule,
-    NgxsModule.forFeature([AuthState])
   ]
 })
 export class CoreModule {

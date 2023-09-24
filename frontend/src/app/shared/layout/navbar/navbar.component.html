@@ -2,6 +2,7 @@
   <mat-toolbar color="primary">
     <span>Social App</span>
     <span class="example-spacer"></span>
+    {{profile$ | async}}
     <button *ngIf="authService.isAuthenticated()" (click)="logout()"
             mat-icon-button>
       <mat-icon>logout</mat-icon>

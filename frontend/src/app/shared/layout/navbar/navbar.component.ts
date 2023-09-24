@@ -1,8 +1,10 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {AuthenticateService} from "../../../core/services/authenticate.service";
-import {Store} from "@ngxs/store";
+import {AuthenticateService} from "../../../auth/services/authenticate.service";
+import {Select, Store} from "@ngxs/store";
 import {Auth} from "../../../auth/state/auth-actions";
 import {Router} from "@angular/router";
+import {Observable} from "rxjs";
+import {AuthState} from "../../../auth/state/auth-state";
 
 @Component({
   selector: 'app-navbar',
@@ -10,6 +12,8 @@ import {Router} from "@angular/router";
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
+
+  @Select(AuthState.profile) profile$!: Observable<string> ;
 
   constructor( public authService: AuthenticateService,
               private store: Store,
