@@ -37,9 +37,9 @@ export class LoginComponent implements OnInit {
       });
     } else if (error) {
       console.log("error", error)
+      throw new Error(error);
     }
   }
-
 
   submit(credentials: UserCredentials) {
     this.store.dispatch(new Auth.Login(credentials)).subscribe(() => {

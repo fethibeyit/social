@@ -86,7 +86,8 @@ public class AppUserService {
         SignUpRequest userDetails = toUserRegistrationObject(registrationId, oAuth2UserInfo);
         AppUser user = findUserByEmail(oAuth2UserInfo.getEmail());
         if (user != null) {
-            if (!user.getProvider().equals(registrationId) && !user.getProvider().equals(SocialProvider.LOCAL.getProviderType())) {
+            var provider = user.getProvider().getProviderType();
+            if (!provider.equals(registrationId) && !user.getProvider().equals(SocialProvider.LOCAL.getProviderType())) {
                 throw new OAuth2AuthenticationProcessingException(
                         "Looks like you're signed up with " + user.getProvider() + " account. Please use your " + user.getProvider() + " account to login.");
             }
