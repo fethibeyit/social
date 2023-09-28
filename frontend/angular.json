@@ -5,6 +5,29 @@
   "projects": {
     "frontend": {
       "projectType": "application",
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "fr": {
+            "translation": "src/locale/messages.fr.xlf"
+          }
+        },
+        "architect": {
+          "build": {
+            "builder": "@angular-devkit/build-angular:browser",
+            "options": {
+              "localize": true,
+              "i18nMissingTranslation": "error",
+              "browserTarget": "frontend:build",
+              "format": "xlf",
+              "outputPath": "src/locale"
+            },
+            "configurations": {
+            },
+            "defaultConfiguration": "production"
+          }
+        }
+      },
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
@@ -38,6 +61,9 @@
             ]
           },
           "configurations": {
+            "fr": {
+              "localize": ["fr"]
+            },
             "production": {
               "budgets": [
                 {
@@ -78,6 +104,9 @@
             },
             "development": {
               "browserTarget": "frontend:build:development"
+            },
+            "fr" : {
+              "browserTarget": "frontend:build:development,fr"
             }
           },
           "defaultConfiguration": "development"
