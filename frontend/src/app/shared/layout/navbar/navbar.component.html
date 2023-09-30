@@ -8,5 +8,12 @@
       <mat-icon>logout</mat-icon>
     </button>
 
+    <ul >
+      <li style="list-style: none;"  *ngFor="let locale of localesList">
+        <a style="color: white;" href="/{{locale.code}}/"> {{locale.label}}</a>
+      </li>
+    </ul>
+
+
   </mat-toolbar>
 </p>

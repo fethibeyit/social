@@ -13,6 +13,11 @@ import {AuthState} from "../../../auth/state/auth-state";
 })
 export class NavbarComponent {
 
+  localesList = [
+    { code : 'en-US', label: 'English'},
+    { code : 'fr', label: 'Français'}
+  ];
+
   @Select(AuthState.profile) profile$!: Observable<string> ;
 
   constructor( public authService: AuthenticateService,
