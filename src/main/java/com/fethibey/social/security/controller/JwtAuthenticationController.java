@@ -38,33 +38,13 @@ public class JwtAuthenticationController {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword())
         );
-
         var jwt = tokenProvider.createToken(authentication);
-
-//        LocalUser userPrincipal = (LocalUser) authentication.getPrincipal();
-//        Instant now=Instant.now();
-//        String scope= authentication.getAuthorities()
-//                .stream().map(auth->auth.getAuthority())
-//                .collect(Collectors.joining(" "));
-//        JwtClaimsSet jwtClaimsSet=JwtClaimsSet.builder()
-//                .issuedAt(now)
-//                .subject(userPrincipal.getUser().getId().toString())
-//                .expiresAt(now.plus(5, ChronoUnit.MINUTES))
-//                .claim("scope",scope)
-//                .build();
-//        JwtEncoderParameters jwtEncoderParameters=
-//                JwtEncoderParameters.from(
-//                        JwsHeader.with(MacAlgorithm.HS512).build(),
-//                        jwtClaimsSet
-//                );
-//        Jwt jwt = jwtEncoder.encode(jwtEncoderParameters);
         return Map.of("access-token",jwt);
     }
 
     @PostMapping("/register")
     public ResponseEntity register(@Valid @RequestBody AppUserCreateModel model){
         userService.createAppUser(model);
-
         return new ResponseEntity(HttpStatus.OK);
     }
 }
