@@ -38,7 +38,10 @@ public class AppUserService {
         var entity = mapper.map(model, AppUser.class);
         entity.setPassword(passwordEncoder.encode(model.getPassword()));
         entity.setPosts(new ArrayList<>());
-        // todo
+        entity.setProvider(SocialProvider.LOCAL);
+        var roles = new HashSet<AppRole>();
+        roles.add(roleRepository.findByName(AppRole.ROLE_USER));
+        entity.setRoles(roles);
         repository.save(entity);
     }
 

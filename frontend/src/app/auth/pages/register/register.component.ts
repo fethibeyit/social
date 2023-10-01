@@ -36,8 +36,7 @@ export class RegisterComponent {
 
   submit() {
     let appuser : AppUserCreateModel = {
-      firstname : this.form.value["fullname"],
-      lastname: this.form.value["fullname"],
+      fullname : this.form.value["fullname"],
       email: this.form.value["email"],
       password: this.form.value["password"]
     }
