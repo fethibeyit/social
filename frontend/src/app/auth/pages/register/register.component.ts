@@ -23,8 +23,7 @@ export class RegisterComponent {
     private router: Router
   ) {
     this.form = this.fb.group({
-      firstname: [''],
-      lastname: [''],
+      fullname: [''],
       email: [''],
       password: [''],
       confirmPassword: [''],
@@ -37,8 +36,8 @@ export class RegisterComponent {
 
   submit() {
     let appuser : AppUserCreateModel = {
-      firstname : this.form.value["firstname"],
-      lastname: this.form.value["lastname"],
+      firstname : this.form.value["fullname"],
+      lastname: this.form.value["fullname"],
       email: this.form.value["email"],
       password: this.form.value["password"]
     }

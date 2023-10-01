@@ -11,6 +11,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {NotifierModule} from "../notifier/notifier.module";
 import {NgxsModule} from "@ngxs/store";
 import {PostState} from "./state/post-state";
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
   declarations: [
@@ -20,13 +21,14 @@ import {PostState} from "./state/post-state";
     PostFormComponent,
     PostCommandBarComponent
   ],
-  imports: [
-    CommonModule,
-    PostRoutingModule,
-    MaterialModule,
-    NotifierModule,
-    ReactiveFormsModule,
-    NgxsModule.forFeature([PostState]),
-  ]
+    imports: [
+        CommonModule,
+        PostRoutingModule,
+        MaterialModule,
+        NotifierModule,
+        ReactiveFormsModule,
+        NgxsModule.forFeature([PostState]),
+        TranslateModule,
+    ]
 })
 export class PostModule { }

@@ -1,19 +1,33 @@
-<p>
-  <mat-toolbar color="primary">
-    <span>Social App</span>
-    <span class="example-spacer"></span>
-    {{profile$ | async}}
-    <button *ngIf="authService.isAuthenticated()" (click)="logout()"
-            mat-icon-button>
-      <mat-icon>logout</mat-icon>
-    </button>
 
-    <ul >
-      <li style="list-style: none;"  *ngFor="let locale of localesList">
-        <a style="color: white;" href="/{{locale.code}}/"> {{locale.label}}</a>
-      </li>
-    </ul>
+  <mat-toolbar color="primary" >
+    <div class="navbar-container" >
 
+      <div>
+        <span style="color: white" >{{"Social App" | translate}}</span>
+      </div>
+
+      <div class="navbar-end" >
+        <span style="color: white;">{{profile$ | async}}</span>
+        <button *ngIf="authService.isAuthenticated()" (click)="logout()" style="color: white"
+                mat-icon-button>
+          <mat-icon>logout</mat-icon>
+        </button>
+        <mat-select class="select-lang" [(ngModel)]="selectedLanguage" (selectionChange)="selectLanguage()"  >
+          <mat-option *ngFor="let lang of languages" [value]="lang.value" >{{lang.display}}</mat-option>
+        </mat-select>
+
+      </div>
+
+
+
+    </div>
+
+
+
+<!--    <ul >-->
+<!--      <li style="list-style: none;"><a style="color: white" (click)="changeLang('en')">English</a></li>-->
+<!--      <li style="list-style: none;"><a style="color: white" (click)="changeLang('fr')">Francais</a></li>-->
+<!--    </ul>-->
 
   </mat-toolbar>
-</p>
+

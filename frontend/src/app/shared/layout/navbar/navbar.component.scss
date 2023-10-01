@@ -1,3 +1,30 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+
+.select-lang {
+  color: white ;
+  background-color:inherit;
+  width: 120px;
+}
+
+.navbar-container{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-end{
+  display: flex;
+  width: 100%;
+  justify-content: end;
+  align-items: center;
+}
+
+::ng-deep .cdk-overlay-pane { position: absolute !important;}
+
+::ng-deep .mat-mdc-select-arrow-wrapper svg {
+  color: white;
+}
+

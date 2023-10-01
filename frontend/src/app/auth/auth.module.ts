@@ -10,6 +10,7 @@ import {RouterLink} from "@angular/router";
 import {AuthRoutingModule} from "./auth-routing.module";
 import {NgxsModule} from "@ngxs/store";
 import {AuthState} from "./state/auth-state";
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
   declarations: [
@@ -17,15 +18,16 @@ import {AuthState} from "./state/auth-state";
     LoginComponent,
     RegisterComponent
   ],
-  imports: [
-    CommonModule,
-    MaterialModule,
-    FormsModule,
-    ReactiveFormsModule,
-    CoreModule,
-    RouterLink,
-    AuthRoutingModule,
-    NgxsModule.forFeature([AuthState])
-  ]
+    imports: [
+        CommonModule,
+        MaterialModule,
+        FormsModule,
+        ReactiveFormsModule,
+        CoreModule,
+        RouterLink,
+        AuthRoutingModule,
+        NgxsModule.forFeature([AuthState]),
+        TranslateModule
+    ]
 })
 export class AuthModule { }

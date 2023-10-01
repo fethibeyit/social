@@ -5,6 +5,7 @@ import {Auth} from "../../../auth/state/auth-actions";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {AuthState} from "../../../auth/state/auth-state";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-navbar',
@@ -13,22 +14,28 @@ import {AuthState} from "../../../auth/state/auth-state";
 })
 export class NavbarComponent {
 
-  localesList = [
-    { code : 'en-US', label: 'English'},
-    { code : 'fr', label: 'Français'}
-  ];
-
   @Select(AuthState.profile) profile$!: Observable<string> ;
 
+  languages = [
+    {value : "en", display : "English"},
+    {value : "fr", display : "Français"}
+  ];
+
+  selectedLanguage = "en";
+
   constructor( public authService: AuthenticateService,
-              private store: Store,
-              private router: Router
+               private store: Store,
+               private router: Router,
+               private translate: TranslateService
   ) {}
-
-
 
   logout() {
     this.store.dispatch(new Auth.Logout()).subscribe(() => this.router.navigate(['/login']))
   }
+
+  selectLanguage() {
+    this.translate.use(this.selectedLanguage);
+  }
+
 
 }

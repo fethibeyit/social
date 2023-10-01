@@ -1,10 +1,10 @@
-import {ErrorHandler, Injectable, NgModule} from '@angular/core';
+import {ErrorHandler, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {MatCardModule} from "@angular/material/card";
 import {SharedModule} from "./shared/shared.module";
 import {environment} from "../environments/environment";
@@ -15,6 +15,12 @@ import {NgxsModule, NoopNgxsExecutionStrategy} from "@ngxs/store";
 import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
 import {NgxsStoragePluginModule} from "@ngxs/storage-plugin";
 import {AppErrorHandler} from "./core/handlers/app-error-handler";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -43,6 +49,14 @@ import {AppErrorHandler} from "./core/handlers/app-error-handler";
         disallowedRoutes: [ environment.authURL + '/auth' , environment.authURL +'/register']
       }
     }),
+    TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler},
@@ -51,3 +65,4 @@ import {AppErrorHandler} from "./core/handlers/app-error-handler";
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

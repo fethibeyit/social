@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {CanComponentDeactivate} from "../../../core/guards/form.guard";
 import {Store} from "@ngxs/store";
 import {Post} from "../../state/post-actions";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-form',
@@ -15,7 +16,9 @@ export class FormComponent implements OnInit, CanComponentDeactivate{
   id = "";
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
-              private store : Store) { }
+              private store : Store,
+              private translate : TranslateService
+  ) { }
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.params['id'];
@@ -32,9 +35,9 @@ export class FormComponent implements OnInit, CanComponentDeactivate{
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
 
-    console.log(this.id)
-    if(this.id)     return window.confirm('Are you sure?');
-
+    if(this.id) {
+      this.translate.get('Are you sure?').subscribe( msg => window.confirm(msg) );
+    }
     return true;
   }
 }

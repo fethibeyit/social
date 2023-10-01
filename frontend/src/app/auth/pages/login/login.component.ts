@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
     const token: string | null = this.route.snapshot.queryParamMap.get('token');
     const error: string | null = this.route.snapshot.queryParamMap.get('error');
     if (token) {
-      console.log("token", token)
       this.store.dispatch(new Auth.SetToken(token)).subscribe(() => {
         if (this.authService.isAuthenticated()) {
           this.store.dispatch(new Auth.GetProfile());
@@ -36,7 +35,6 @@ export class LoginComponent implements OnInit {
         }
       });
     } else if (error) {
-      console.log("error", error)
       throw new Error(error);
     }
   }

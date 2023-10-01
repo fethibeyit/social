@@ -2,12 +2,12 @@
   <mat-toolbar>
     <button mat-raised-button color="primary" (click)="emitAction(CommandBarActions.Create)">
       <mat-icon>fiber_new</mat-icon>
-      <ng-container i18n>Create</ng-container>
+      {{"Create" | translate}}
     </button>
     &nbsp;
     <button  mat-raised-button color="warn" (click)="emitAction(CommandBarActions.DeleteAll)">
       <mat-icon>delete</mat-icon>
-      <ng-container i18n>Delete all</ng-container>
+      {{"Delete all" | translate}}
     </button>
   </mat-toolbar>
 </p>
