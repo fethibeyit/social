@@ -8,7 +8,7 @@ ARG DATABASE_PASSWORD
 ARG JWT_SECRET
 COPY . .
 
-RUN mvn clean package -Dspring.profiles.active=prod -Pprod
+RUN mvn clean package -Pprod
 
 FROM openjdk:17-jdk-slim
 ARG DATABASE_URL

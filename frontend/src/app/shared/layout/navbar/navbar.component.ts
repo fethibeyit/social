@@ -27,7 +27,12 @@ export class NavbarComponent {
                private store: Store,
                private router: Router,
                private translate: TranslateService
-  ) {}
+  ) {
+    this.languages.forEach(l => {
+      if (navigator.language.startsWith(l.value)) this.selectedLanguage = l.value;
+    })
+    this.translate.use(this.selectedLanguage);
+  }
 
   logout() {
     this.store.dispatch(new Auth.Logout()).subscribe(() => this.router.navigate(['/login']))

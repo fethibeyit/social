@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {MaterialModule} from "../material/material.module";
 import { NotifierSnackbarComponent } from './notifier-snackbar/notifier-snackbar.component';
 import {NotifierComponent} from "./notifier/notifier.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
   declarations: [
@@ -12,10 +13,11 @@ import {NotifierComponent} from "./notifier/notifier.component";
   exports: [
     NotifierComponent
   ],
-  imports: [
-    CommonModule,
-    MaterialModule,
-  ],
+    imports: [
+        CommonModule,
+        MaterialModule,
+        TranslateModule,
+    ],
   providers : [
   ]
 })

@@ -92,7 +92,7 @@ public class AppUserService {
             var provider = user.getProvider().getProviderType();
             if (!provider.equals(registrationId) && !user.getProvider().equals(SocialProvider.LOCAL.getProviderType())) {
                 throw new OAuth2AuthenticationProcessingException(
-                        "Looks like you're signed up with " + user.getProvider() + " account. Please use your " + user.getProvider() + " account to login.");
+                        "You are signed up with " + user.getProvider().getProviderType() + " account. Please use your " + user.getProvider().getProviderType() + " account to login.");
             }
             user = updateExistingUser(user, oAuth2UserInfo);
         } else {

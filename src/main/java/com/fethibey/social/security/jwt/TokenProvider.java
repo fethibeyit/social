@@ -1,7 +1,6 @@
 package com.fethibey.social.security.jwt;
 
 import com.fethibey.social.security.config.AppProperties;
-
 import com.fethibey.social.security.model.LocalUser;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
@@ -40,17 +39,6 @@ public class TokenProvider {
 	public String createToken(Authentication authentication) {
 		LocalUser userPrincipal = (LocalUser) authentication.getPrincipal();
 
-//		Date now = new Date();
-//		Date expiryDate = new Date(now.getTime() + appProperties.getAuth().getTokenExpirationMsec());
-
-//		String token = "";
-//		try{
-//			token = Jwts.builder().setSubject(userPrincipal.getUser().getId().toString()).setIssuedAt(new Date()).setExpiration(expiryDate)
-//					.signWith(SignatureAlgorithm.HS512, appProperties.getAuth().getTokenSecret()).compact();
-//		}catch (Exception ex){
-//			System.out.println(ex.getMessage());
-//		}
-
 		Instant now=Instant.now();
 		String scope= authentication.getAuthorities()
 				.stream().map(auth->auth.getAuthority())
@@ -67,21 +55,13 @@ public class TokenProvider {
 						jwtClaimsSet
 				);
 		Jwt jwt = jwtEncoder.encode(jwtEncoderParameters);
-//		return Map.of("access-token",jwt.getTokenValue());
-
 
 		return jwt.getTokenValue();
 	}
 
 	public UUID getUserIdFromToken(String token) {
-
 		var jwt = jwtDecoder.decode(token);
 		return UUID.fromString(jwt.getSubject());
-
-
-//		Claims claims = Jwts.parser().setSigningKey(appProperties.getAuth().getTokenSecret()).parseClaimsJws(token).getBody();
-//
-//		return (claims.getSubject());
 	}
 
 	public boolean validateToken(String authToken) {
@@ -90,9 +70,6 @@ public class TokenProvider {
 			jwtDecoder.decode(authToken);
 			return true;
 
-//		try {
-//			Jwts.parser().setSigningKey(appProperties.getAuth().getTokenSecret()).parseClaimsJws(authToken);
-//			return true;
 		} catch (JwtException ex) {
 			logger.error("Invalid JWT");
 
