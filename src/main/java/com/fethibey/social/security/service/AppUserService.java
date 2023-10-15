@@ -108,8 +108,13 @@ public class AppUserService {
     }
 
     private SignUpRequest toUserRegistrationObject(String registrationId, OAuth2UserInfo oAuth2UserInfo) {
-        return SignUpRequest.getBuilder().addProviderUserID(oAuth2UserInfo.getId()).addDisplayName(oAuth2UserInfo.getName()).addEmail(oAuth2UserInfo.getEmail())
-                .addSocialProvider(GeneralUtils.toSocialProvider(registrationId)).addPassword("changeit").build();
+        return SignUpRequest.getBuilder()
+                .addProviderUserID(oAuth2UserInfo.getId())
+                .addDisplayName(oAuth2UserInfo.getName())
+                .addEmail(oAuth2UserInfo.getEmail())
+                .addSocialProvider(GeneralUtils.toSocialProvider(registrationId))
+                .addPassword("")
+                .build();
     }
 
     public Optional<AppUser> findUserById(UUID id) {

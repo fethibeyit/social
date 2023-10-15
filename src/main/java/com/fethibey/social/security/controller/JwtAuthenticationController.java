@@ -29,6 +29,7 @@ public class JwtAuthenticationController {
     @GetMapping("/api/v1/profile")
     public Map<String,String> infos(Authentication authentication){
         LocalUser userPrincipal = (LocalUser) authentication.getPrincipal();
+        var authorities = userPrincipal.getAuthorities();
         String name = userPrincipal.getName();
         return Map.of("profile",name);
     }

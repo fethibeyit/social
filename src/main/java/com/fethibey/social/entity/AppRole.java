@@ -9,6 +9,7 @@ import java.util.Set;
 @Entity
 @Data
 @NoArgsConstructor
+@Table(name = "roles")
 public class AppRole extends BaseEntity{
 
     public static final String USER = "USER";

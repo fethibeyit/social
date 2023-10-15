@@ -39,7 +39,6 @@ public class PostService {
 
     public PostModel createPost(PostCreateModel model) {
         var entity = mapper.map(model, Post.class);
-        entity.setPublicationDate(new Date(System.currentTimeMillis()));
         var createdEntity = repository.save(entity);
         return mapper.map(createdEntity, PostModel.class);
     }

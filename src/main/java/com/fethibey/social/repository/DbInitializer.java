@@ -58,11 +58,8 @@ public class DbInitializer implements CommandLineRunner {
             var post = new Post();
             post.setTitle(faker.book().title());
             post.setContent(faker.lorem().paragraph());
-            post.setViews(random.nextInt(0,100));
-            post.setLikes(random.nextInt(0,50));
-            post.setShares(random.nextInt(0,10));
-            post.setPublicationDate(new Date(faker.date().past(10, TimeUnit.DAYS).toInstant().toEpochMilli()));
             post.setAuthor(user);
+//            post.setLikes(new HashSet<>());
             postRepository.save(post);
         }
 

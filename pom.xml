@@ -107,6 +107,13 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Utilities -->
+		<dependency>
+			<groupId>de.mobiuscode.nameof</groupId>
+			<artifactId>nameof</artifactId>
+			<version>1.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<profiles>

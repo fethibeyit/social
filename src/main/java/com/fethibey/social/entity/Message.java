@@ -10,34 +10,24 @@ import java.util.Set;
 
 @Entity
 @Data
-@Table(name = "posts")
-public class Post extends BaseEntity {
+@Table(name = "messages")
+public class Message extends BaseEntity {
 
-    private String title;
     private String content;
 
     @OneToMany
     private Set<Like> likes;
 
-    @OneToMany(mappedBy = "post")
-    private Set<Share> shares;
-
     @OneToMany
     private Set<Image> images;
-
-    @OneToMany(mappedBy = "post")
-    private Set<Comment> comments;
 
     @OneToMany
     private Set<Tag> tags;
 
     @ManyToOne
-    private AppUser author;
+    private AppUser sender;
 
     @ManyToOne
-    private Group group;
-
-    @ManyToOne
-    private Page page;
-
+    private Conversation conversation;
+    
 }
