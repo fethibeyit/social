@@ -1,6 +1,7 @@
 package com.fethibey.social.entity;
 
 import com.fethibey.social.enums.LikeType;
+import com.fethibey.social.model.BaseModel;
 import jakarta.persistence.*;
 import lombok.Data;
 
