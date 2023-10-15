@@ -1,9 +1,6 @@
 package com.fethibey.social.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Set;
@@ -13,6 +10,7 @@ import java.util.Set;
 @Table(name = "comments")
 public class Comment extends BaseEntity {
 
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     @ManyToOne

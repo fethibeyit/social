@@ -12,7 +12,7 @@ import java.util.UUID;
 public class PostCreateModel {
 
     @NotNull(message = "Title is required")
-    @Length(min = 2, max = 50, message = "Title must contain at least 2 characters and a maximum of 50 characters")
+    @Length(min = 2, max = 200, message = "Title must contain at least 2 characters and a maximum of 200 characters")
     private String title;
 
     @NotNull(message = "Content is required")
