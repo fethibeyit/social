@@ -38,6 +38,10 @@ public class AppUser extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "user")
     private Set<UserGroup> groups;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private Set<Tag> tags;
+
     @OneToMany(mappedBy = "user")
     private Set<UserConversation> conversations;
 

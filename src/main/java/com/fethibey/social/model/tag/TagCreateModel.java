@@ -8,7 +8,7 @@ import java.util.UUID;
 public class TagCreateModel {
 
     private int position;
-    private UUID userId;
+    private UUID user_id ;
     private UUID groupId;
     private UUID pageId;
 

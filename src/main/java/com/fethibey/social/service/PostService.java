@@ -34,35 +34,28 @@ public class PostService {
         return result;
     }
 
-    public List<PostModel> getAllPostsPageable(Pageable pageable){
+    public List<PostModel> getAllPostsPageable(Pageable pageable) {
         var result = repository.findAll(pageable).getContent().stream().map(x -> mapper.map(x, PostModel.class)).toList();
         return result;
     }
 
-  public PostModel getById(UUID id){
+    public PostModel getById(UUID id) {
         var entity = repository.findById(id).orElseThrow(() -> new NotFoundException(id));
         return mapper.map(entity, PostModel.class);
-  }
+    }
 
 
     public PostModel createPost(PostCreateModel model, Authentication authentication) {
-            var entity = mapper.map(model, Post.class);
-            var userEmail  = authentication.getName();
-            var currentUser = userRepository.findByEmail(userEmail);
-            if (currentUser == null) throw new NotFoundException();
-            entity.setAuthor(currentUser);
-
-
-//
-//        for (Tag tag: entity.getTags()) {
-//            tagRepository.save(tag);
-//        }
-
+        var entity = mapper.map(model, Post.class);
+        var userEmail = authentication.getName();
+        var currentUser = userRepository.findByEmail(userEmail);
+        if (currentUser == null) throw new NotFoundException();
+        entity.setAuthor(currentUser);
         Post createdEntity = null;
         try {
             createdEntity = repository.saveAndFlush(entity);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
         }
         return mapper.map(createdEntity, PostModel.class);
     }
@@ -74,7 +67,7 @@ public class PostService {
         return mapper.map(updatedEntity, PostModel.class);
     }
 
-    public void deletePost(UUID id){
+    public void deletePost(UUID id) {
         var entity = repository.findById(id).orElseThrow(() -> new NotFoundException(id));
         repository.delete(entity);
     }
