@@ -15,19 +15,22 @@ public class Post extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "post_id")
     private Set<Like> likes;
 
     @OneToMany(mappedBy = "post")
     private Set<Share> shares;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "post_id")
     private Set<Image> images;
 
     @OneToMany(mappedBy = "post")
     private Set<Comment> comments;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "post_id")
     private Set<Tag> tags;
 
     @ManyToOne

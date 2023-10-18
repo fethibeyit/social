@@ -29,6 +29,7 @@ export class PostService {
   }
 
   createPost(post : PostModel): Observable<PostModel>{
+    post.tags = [{position:25}, {position:30}];
     return this.http.post<PostModel>(`${environment.apiURL}/posts`, post).pipe(
       delay(1000),
       tap((data: PostModel) => data),

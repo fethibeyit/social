@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,8 +35,8 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<PostModel> createPost(@Valid @RequestBody PostCreateModel model){
-        return new ResponseEntity(service.createPost(model),HttpStatus.CREATED);
+    public ResponseEntity<PostModel> createPost(@Valid @RequestBody PostCreateModel model, Authentication authentication){
+        return new ResponseEntity(service.createPost(model, authentication),HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

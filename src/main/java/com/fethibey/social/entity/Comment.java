@@ -19,13 +19,16 @@ public class Comment extends BaseEntity {
     @ManyToOne
     private Post post;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "comment_id")
     private Set<Tag> tags;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "comment_id")
     private Set<Like> likes;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "reply_id")
     private Set<Comment> replies;
 
 }

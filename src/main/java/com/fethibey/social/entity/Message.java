@@ -1,9 +1,6 @@
 package com.fethibey.social.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Set;
@@ -15,13 +12,16 @@ public class Message extends BaseEntity {
 
     private String content;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "message_id")
     private Set<Like> likes;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "message_id")
     private Set<Image> images;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "message_id")
     private Set<Tag> tags;
 
     @ManyToOne
