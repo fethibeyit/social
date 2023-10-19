@@ -16,7 +16,7 @@ import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
-//@Component
+@Component
 @AllArgsConstructor
 public class DbInitializer implements CommandLineRunner {
 

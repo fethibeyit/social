@@ -5,6 +5,7 @@ import com.fethibey.social.model.cooment.CommentModel;
 import com.fethibey.social.model.like.LikeModel;
 import com.fethibey.social.model.share.ShareModel;
 import com.fethibey.social.model.tag.TagModel;
+import com.fethibey.social.model.user.AppUserModel;
 import lombok.Data;
 
 import java.util.Set;
@@ -19,7 +20,7 @@ public class PostModel extends BaseModel {
     private Set<TagModel> tags;
     private Set<ShareModel> shares;
     private Set<CommentModel> comments;
-    private UUID authorId;
+    private AppUserModel author;
     private UUID groupId;
     private UUID pageId;
 

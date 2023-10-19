@@ -51,12 +51,7 @@ public class PostService {
         var currentUser = userRepository.findByEmail(userEmail);
         if (currentUser == null) throw new NotFoundException();
         entity.setAuthor(currentUser);
-        Post createdEntity = null;
-        try {
-            createdEntity = repository.saveAndFlush(entity);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        var createdEntity = repository.saveAndFlush(entity);
         return mapper.map(createdEntity, PostModel.class);
     }
 
