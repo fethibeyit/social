@@ -1,7 +1,7 @@
 package com.fethibey.social.model.post;
 
 import com.fethibey.social.model.BaseModel;
-import com.fethibey.social.model.cooment.CommentModel;
+import com.fethibey.social.model.comment.CommentModel;
 import com.fethibey.social.model.like.LikeModel;
 import com.fethibey.social.model.share.ShareModel;
 import com.fethibey.social.model.tag.TagModel;

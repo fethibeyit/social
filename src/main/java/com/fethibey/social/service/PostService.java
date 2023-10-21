@@ -25,7 +25,6 @@ public class PostService {
 
     private final PostRepository repository;
     private final AppUserRepository userRepository;
-    private final TagRepository tagRepository;
     private final ModelMapper mapper;
 
     public List<PostModel> getAllPost() {

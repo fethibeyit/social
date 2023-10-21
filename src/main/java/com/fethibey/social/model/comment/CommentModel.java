@@ -1,4 +1,4 @@
-package com.fethibey.social.model.cooment;
+package com.fethibey.social.model.comment;
 
 import com.fethibey.social.model.BaseModel;
 import com.fethibey.social.model.like.LikeModel;

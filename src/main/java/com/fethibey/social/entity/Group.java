@@ -16,7 +16,7 @@ public class Group extends BaseEntity {
     private String name;
 
     @OneToOne
-    private Image coverPicture;
+    private AppFile coverPicture;
 
     @OneToMany(mappedBy = "group")
     private Set<Post> posts;

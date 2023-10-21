@@ -24,7 +24,7 @@ public class Post extends BaseEntity {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id")
-    private Set<Image> images;
+    private Set<AppFile> appFiles;
 
     @OneToMany(mappedBy = "post")
     private Set<Comment> comments;
