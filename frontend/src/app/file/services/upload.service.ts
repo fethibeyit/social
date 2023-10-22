@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpEvent, HttpRequest} from "@angular/common/http";
 import {delay, Observable, throwError} from "rxjs";
 import {environment} from "../../../environments/environment";
-import {PostModel} from "../models/postModel.interface";
+import {PostModel} from "../../post/models/postModel.interface";
 import {catchError, tap} from "rxjs/operators";
 import {FileModel} from "../models/fileModel.interface";
 

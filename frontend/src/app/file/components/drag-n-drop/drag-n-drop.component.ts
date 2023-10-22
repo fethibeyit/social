@@ -7,11 +7,11 @@ import {UploadService} from "../../services/upload.service";
 import {HttpEventType, HttpResponse} from "@angular/common/http";
 
 @Component({
-  selector: 'app-post-drag-drop',
-  templateUrl: './post-drag-drop.component.html',
-  styleUrls: ['./post-drag-drop.component.scss']
+  selector: 'app-drag-n-drop',
+  templateUrl: './drag-n-drop.component.html',
+  styleUrls: ['./drag-n-drop.component.scss']
 })
-export class PostDragDropComponent {
+export class DragNDropComponent {
   public files: FileImageModel[] = [];
 
   constructor(

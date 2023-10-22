@@ -3,7 +3,7 @@ import {Directive, EventEmitter, HostBinding, HostListener, Output} from '@angul
 @Directive({
   selector: '[fileDragDrop]'
 })
-export class FileDragDropDirective {
+export class DragNDropDirective {
 
   //@Input() private allowed_extensions : Array<string> = ['png', 'jpg', 'bmp'];
   @Output() private filesChangeEmiter : EventEmitter<(File|null)[]> = new EventEmitter();

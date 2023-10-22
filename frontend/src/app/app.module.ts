@@ -17,6 +17,7 @@ import {NgxsStoragePluginModule} from "@ngxs/storage-plugin";
 import {AppErrorHandler} from "./core/handlers/app-error-handler";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {FileModule} from "./file/file.module";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -31,9 +32,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatSlideToggleModule,
-    MatCardModule,
     SharedModule,
+    NotifierModule,
+    FileModule,
     NgxsModule.forRoot([], {
       developmentMode: !environment.production,
       selectorOptions: { injectContainerState: false, suppressErrors: false },
@@ -41,7 +42,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     NgxsReduxDevtoolsPluginModule.forRoot({disabled:environment.production, maxAge:25}),
     NgxsStoragePluginModule.forRoot({ key: "auth.token" }),
-    NotifierModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => JSON.parse(localStorage.getItem("auth.token") ?? "{}"),
