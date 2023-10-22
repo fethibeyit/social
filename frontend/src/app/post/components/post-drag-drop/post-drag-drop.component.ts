@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogConfirmComponent} from "../dialog-confirm/dialog-confirm.component";
-import {FileModel} from "../../models/fileModel.interface";
+import {FileImageModel} from "../../models/fileImageModel.interface";
+import {UploadService} from "../../services/upload.service";
+import {HttpEventType, HttpResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-post-drag-drop',
@@ -10,9 +12,13 @@ import {FileModel} from "../../models/fileModel.interface";
   styleUrls: ['./post-drag-drop.component.scss']
 })
 export class PostDragDropComponent {
-  public files: FileModel[] = [];
+  public files: FileImageModel[] = [];
 
-  constructor(private _snackBar: MatSnackBar, public dialog: MatDialog){}
+  constructor(
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog,
+    private uploadService: UploadService
+    ){}
 
   // onFileChange(pFileList: File[]){
   //   this.files = pFileList;
@@ -36,7 +42,7 @@ export class PostDragDropComponent {
   populateFiles(files : (File | null)[]){
       this.files = [];
       for (let i =0 ; i < files.length; ++i) {
-        let result : FileModel = {file : files[i], src : URL.createObjectURL(files[i]!)}
+        let result : FileImageModel = {file : files[i], src : URL.createObjectURL(files[i]!)}
         this.files.push(result);
       }
       this._snackBar.open("Successfully upload!", 'Close', {
@@ -71,5 +77,23 @@ export class PostDragDropComponent {
     this.files.splice(index, 1);
   }
 
-  protected readonly URL = URL;
+  upload(): void {
+    if (this.files) {
+      const file: File | null = this.files[0].file;
+
+      if (file) {
+        this.uploadService.upload(file).subscribe(
+          (event: any) => {
+            if (event.type === HttpEventType.UploadProgress) {
+              console.log("progress", Math.round(100 * event.loaded / event.total)) ;
+            } else if (event instanceof HttpResponse) {
+              console.log("upload", event);
+            }
+          },
+          (err: any) => {
+            console.log(err);
+          });
+      }
+    }
+  }
 }

@@ -1,5 +1,5 @@
 export interface FileModel {
-  file : File | null;
-  src : string;
-
+  id : string;
+  name : string;
+  type : string;
 }

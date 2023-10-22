@@ -25,6 +25,12 @@
       <span>{{f.file?.name}}</span>
     </div>
   </div>
+
+  <button class="btn btn-success btn-sm" [disabled]="!files" (click)="upload()">
+    Upload
+  </button>
+
+
   <!--
   <div>
     <mat-list>
