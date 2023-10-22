@@ -4,6 +4,8 @@ import {DragNDropComponent} from "./components/drag-n-drop/drag-n-drop.component
 import {DragNDropDirective} from "./directives/drag-n-drop.directive";
 import {DialogConfirmComponent} from "./components/dialog-confirm/dialog-confirm.component";
 import {MaterialModule} from "../material/material.module";
+import {NgxsModule} from "@ngxs/store";
+import {FileState} from "./state/file-state";
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import {MaterialModule} from "../material/material.module";
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    NgxsModule.forFeature([FileState]),
   ]
 })
 export class FileModule { }

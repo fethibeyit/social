@@ -3,8 +3,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogConfirmComponent} from "../dialog-confirm/dialog-confirm.component";
 import {FileImageModel} from "../../models/fileImageModel.interface";
-import {UploadService} from "../../services/upload.service";
-import {HttpEventType, HttpResponse} from "@angular/common/http";
+import {Store} from "@ngxs/store";
+import {AppFile} from "../../state/file-actions";
 
 @Component({
   selector: 'app-drag-n-drop',
@@ -17,16 +17,8 @@ export class DragNDropComponent {
   constructor(
     private _snackBar: MatSnackBar,
     public dialog: MatDialog,
-    private uploadService: UploadService
+    private store: Store,
     ){}
-
-  // onFileChange(pFileList: File[]){
-  //   this.files = pFileList;
-  //   // this.files = Object.keys(pFileList).map(key => pFileList[key]);
-  //   this._snackBar.open("Successfully upload!", 'Close', {
-  //     duration: 2000,
-  //   });
-  // }
 
   onFileChange(event : Event){
     const elem = event.target as HTMLInputElement;
@@ -82,17 +74,19 @@ export class DragNDropComponent {
       const file: File | null = this.files[0].file;
 
       if (file) {
-        this.uploadService.upload(file).subscribe(
-          (event: any) => {
-            if (event.type === HttpEventType.UploadProgress) {
-              console.log("progress", Math.round(100 * event.loaded / event.total)) ;
-            } else if (event instanceof HttpResponse) {
-              console.log("upload", event);
-            }
-          },
-          (err: any) => {
-            console.log(err);
-          });
+        this.store.dispatch(new AppFile.Upload(file));
+
+        // this.uploadService.upload(file).subscribe(
+        //   (event: any) => {
+        //     if (event.type === HttpEventType.UploadProgress) {
+        //       console.log("progress", Math.round(100 * event.loaded / event.total)) ;
+        //     } else if (event instanceof HttpResponse) {
+        //       console.log("upload", event);
+        //     }
+        //   },
+        //   (err: any) => {
+        //     console.log(err);
+        //   });
       }
     }
   }
