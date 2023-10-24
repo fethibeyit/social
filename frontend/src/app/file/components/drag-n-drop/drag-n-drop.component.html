@@ -1,47 +1,42 @@
-<div style="padding: 15px;">
-  <div>
+<div class="dropzone" fileDragDrop (filesChangeEmiter)="populateFiles($event)">
 
-    <div class="dropzone" fileDragDrop (filesChangeEmiter)="populateFiles($event)">
-
-
-      <div class="text-wrapper">
-        <div class="centered">
-          <input type="file" name="file" id="file" (change)="onFileChange($event)" multiple>
-          <label for="file"><span class="textLink">Select your file</span> or Drop it here!</label>
-        </div>
-      </div>
-    </div>
-  </div>
-  <hr>
-  <h3 mat-subheader>Files</h3>
-
-
-  <div class="row fileItem" *ngFor="let f of files; let ind = index">
-    <img alt="{{f.file?.name}}" src="{{f.src}}" />
-    <div class="col-sm-12 fileItemIconDiv" (click)="openConfirmDialog(ind);">
-      <i class="fa-6x fileItemIcon"></i>
-    </div>
-    <div class="col-sm-12 fileItemText">
-      <span>{{f.file?.name}}</span>
-    </div>
+  <div class="header-action">
+    <button mat-raised-button color="primary">
+      <input type="file" name="file" id="file" (change)="onFileChange($event)" multiple>
+      <label for="file">Select your file</label>
+    </button>
+    <span> or Drop it here!</span>
   </div>
 
-  <button class="btn btn-success btn-sm" [disabled]="!files" (click)="upload()">
-    Upload
-  </button>
+  <div class="scroll-container">
+    <div class="files-container">
 
+      <mat-card *ngFor="let f of files; let ind = index" style="width: 150px; height: 200px;">
+        <mat-card-header>
+          <mat-card-title>{{displayFileName(f.file?.name)}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div style="display: flex; justify-content: center; align-items: center; height: 120px;">
+            <img *ngIf="fileIsImage(f.file)" alt="{{f.file?.name}}" src="{{f.src}}" height="100"/>
+            <img *ngIf="fileIsPdf(f.file)" src="assets/images/pdf-icon-64.png" alt="pdf icon">
+          </div>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button mat-mini-fab color="warn" (click)="deleteFromArray(ind);">
+            <mat-icon>delete</mat-icon>
+          </button>
 
-  <!--
-  <div>
-    <mat-list>
-      <h3 mat-subheader>Files</h3>
-      <mat-list-item *ngFor="let file of files">
-        <mat-icon mat-list-icon>folder</mat-icon>
-        <h4 mat-line>{{file.name}}</h4>
-        <button mat-raised-button color="warn" (click)="deleteFile(file)">Delete</button>
-        <mat-divider></mat-divider>
-      </mat-list-item>
-    </mat-list>
+        </mat-card-actions>
+      </mat-card>
+
+    </div>
   </div>
-  -->
 </div>
+
+
+<button class="btn btn-success btn-sm" [disabled]="!files" (click)="upload()">
+  Upload
+</button>
+
+
+

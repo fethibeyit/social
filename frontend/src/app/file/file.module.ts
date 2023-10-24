@@ -6,6 +6,7 @@ import {DialogConfirmComponent} from "./components/dialog-confirm/dialog-confirm
 import {MaterialModule} from "../material/material.module";
 import {NgxsModule} from "@ngxs/store";
 import {FileState} from "./state/file-state";
+import {CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import {FileState} from "./state/file-state";
     CommonModule,
     MaterialModule,
     NgxsModule.forFeature([FileState]),
+    CdkVirtualScrollViewport,
   ]
 })
 export class FileModule { }
