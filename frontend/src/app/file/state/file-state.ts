@@ -32,7 +32,7 @@ export class FileState {
 
   @Selector()
   static filesToUpload(state: FileStateModel): readonly FileUploadModel[] {
-    return state.filesToUpload;
+    return state.filesToUpload.filter(f=> !f.uploaded);
   }
 
   @Selector()
@@ -65,14 +65,26 @@ export class FileState {
   @Action(AppFile.Upload)
   protected async uploadFile(ctx: LocalStateContext, action: AppFile.Upload): Promise<void> {
     const { file } = action;
-    ctx.patchState({loading: true})
-    try{
-      const data = await this.uploadService.upload(file).toPromise();
-      if (data) ctx.patchState( {uploadedFiles : [...ctx.getState().uploadedFiles, data]});
-    }finally {
-      ctx.patchState({loading: false})
+    if(file.file && !file.uploaded) {
+      ctx.patchState({loading: true})
+      try {
+        const data = await this.uploadService.upload(file.file).toPromise();
+        if (data) ctx.patchState({
+          uploadedFiles: [...ctx.getState().uploadedFiles, data],
+          filesToUpload: ctx.getState().filesToUpload.map(x => x.id == file.id ? {...x, uploaded: true} : x)
+        });
+      } finally {
+        ctx.patchState({loading: false})
+      }
     }
   }
+
+  @Action(AppFile.UploadAll)
+  protected async uploadAllFiles(ctx: LocalStateContext, action: AppFile.UploadAll): Promise<void> {
+    ctx.getState().filesToUpload.filter(f => !f.uploaded && f.file).forEach(f => {
+      ctx.dispatch(new AppFile.Upload(f));
+    });
+}
 
   @Action(AppFile.Clear)
   protected async clearFiles(ctx: LocalStateContext, action: AppFile.Clear): Promise<void> {

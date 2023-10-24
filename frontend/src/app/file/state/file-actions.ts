@@ -15,7 +15,11 @@ export namespace AppFile {
 
   export class Upload {
     static readonly type = '[File] Upload';
-    constructor(public file: File) {}
+    constructor(public file: FileUploadModel) {}
+  }
+
+  export class UploadAll {
+    static readonly type = '[File] Upload All';
   }
 
   export class Clear {

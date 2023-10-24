@@ -33,7 +33,12 @@ export class DragNDropComponent {
   populateFiles(files : (File | null)[]){
 
       for (let i =0 ; i < files.length; ++i) {
-        let result : FileUploadModel = {id : Guid.create(), file : files[i], src : URL.createObjectURL(files[i]!)}
+        let result : FileUploadModel = {
+          id : Guid.create(),
+          file : files[i],
+          src : URL.createObjectURL(files[i]!),
+          uploaded : false
+        }
         console.log(result);
         this.store.dispatch(new AppFile.AddFile(result));
       };
@@ -56,6 +61,12 @@ export class DragNDropComponent {
   fileIsPdf(file : File | null){
     return file?.type === 'application/pdf';
   }
+
+
+  upload(): void {
+    this.store.dispatch(new AppFile.UploadAll());
+  }
+
 
   // upload(): void {
   //   if (this.files) {
