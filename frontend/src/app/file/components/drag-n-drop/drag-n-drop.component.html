@@ -11,7 +11,7 @@
   <div class="scroll-container">
     <div class="files-container">
 
-      <mat-card *ngFor="let f of files; let ind = index" style="width: 150px; height: 200px;">
+      <mat-card *ngFor="let f of (files$ | async)" style="width: 150px; height: 200px;">
         <mat-card-header>
           <mat-card-title>{{displayFileName(f.file?.name)}}</mat-card-title>
         </mat-card-header>
@@ -22,7 +22,7 @@
           </div>
         </mat-card-content>
         <mat-card-actions align="end">
-          <button mat-mini-fab color="warn" (click)="deleteFromArray(ind);">
+          <button mat-mini-fab color="warn" (click)="deleteFile(f);">
             <mat-icon>delete</mat-icon>
           </button>
 
@@ -34,9 +34,9 @@
 </div>
 
 
-<button class="btn btn-success btn-sm" [disabled]="!files" (click)="upload()">
-  Upload
-</button>
+<!--<button class="btn btn-success btn-sm" [disabled]="!files" (click)="upload()">-->
+<!--  Upload-->
+<!--</button>-->
 
 
 

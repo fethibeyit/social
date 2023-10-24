@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import {FileImageModel} from "../../models/fileImageModel.interface";
-import {Store} from "@ngxs/store";
+import {FileUploadModel} from "../../models/fileUploadModel.interface";
+import {Select, Store} from "@ngxs/store";
 import {AppFile} from "../../state/file-actions";
+import {Guid} from "guid-typescript";
+import {Observable} from "rxjs";
+import {FileState} from "../../state/file-state";
 
 @Component({
   selector: 'app-drag-n-drop',
@@ -9,7 +12,8 @@ import {AppFile} from "../../state/file-actions";
   styleUrls: ['./drag-n-drop.component.scss']
 })
 export class DragNDropComponent {
-  public files: FileImageModel[] = [];
+
+  @Select(FileState.filesToUpload) files$!: Observable<FileUploadModel[]> ;
 
   constructor(
     private store: Store,
@@ -29,14 +33,13 @@ export class DragNDropComponent {
   populateFiles(files : (File | null)[]){
 
       for (let i =0 ; i < files.length; ++i) {
-        let result : FileImageModel = {file : files[i], src : URL.createObjectURL(files[i]!)}
+        let result : FileUploadModel = {id : Guid.create(), file : files[i], src : URL.createObjectURL(files[i]!)}
         console.log(result);
-        this.files.push(result);
+        this.store.dispatch(new AppFile.AddFile(result));
       };
   }
-  deleteFromArray(index : any) {
-    console.log(this.files);
-    this.files.splice(index, 1);
+  deleteFile(file : FileUploadModel) {
+    this.store.dispatch(new AppFile.RemoveFile(file));
   }
 
   displayFileName(fileName : string | undefined){
@@ -54,25 +57,25 @@ export class DragNDropComponent {
     return file?.type === 'application/pdf';
   }
 
-  upload(): void {
-    if (this.files) {
-      const file: File | null = this.files[0].file;
-
-      if (file) {
-        this.store.dispatch(new AppFile.Upload(file));
-
-        // this.uploadService.upload(file).subscribe(
-        //   (event: any) => {
-        //     if (event.type === HttpEventType.UploadProgress) {
-        //       console.log("progress", Math.round(100 * event.loaded / event.total)) ;
-        //     } else if (event instanceof HttpResponse) {
-        //       console.log("upload", event);
-        //     }
-        //   },
-        //   (err: any) => {
-        //     console.log(err);
-        //   });
-      }
-    }
-  }
+  // upload(): void {
+  //   if (this.files) {
+  //     const file: File | null = this.files[0].file;
+  //
+  //     if (file) {
+  //       this.store.dispatch(new AppFile.Upload(file));
+  //
+  //       // this.uploadService.upload(file).subscribe(
+  //       //   (event: any) => {
+  //       //     if (event.type === HttpEventType.UploadProgress) {
+  //       //       console.log("progress", Math.round(100 * event.loaded / event.total)) ;
+  //       //     } else if (event instanceof HttpResponse) {
+  //       //       console.log("upload", event);
+  //       //     }
+  //       //   },
+  //       //   (err: any) => {
+  //       //     console.log(err);
+  //       //   });
+  //     }
+  //   }
+  // }
 }

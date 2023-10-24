@@ -3,12 +3,14 @@ import { Action, Selector, State, StateContext } from '@ngxs/store';
 import {FileModel} from "../models/fileModel.interface";
 import {AppFile} from "./file-actions";
 import {UploadService} from "../services/upload.service";
+import {FileUploadModel} from "../models/fileUploadModel.interface";
 
 
 export interface FileStateModel {
-  files: ReadonlyArray<FileModel>;
+  filesToUpload: ReadonlyArray<FileUploadModel>;
+  uploadedFiles: ReadonlyArray<FileModel>;
   loading : boolean;
-  selected : FileModel | null;
+  selected : FileUploadModel | null;
   error: string | null;
 }
 
@@ -17,7 +19,8 @@ type LocalStateContext = StateContext<FileStateModel>;
 @State<FileStateModel>({
   name: 'Files',
   defaults: {
-    files: [],
+    filesToUpload: [],
+    uploadedFiles : [],
     loading: false,
     selected : null,
     error: null,
@@ -28,12 +31,17 @@ export class FileState {
   constructor(private uploadService: UploadService) {}
 
   @Selector()
-  static Files(state: FileStateModel): readonly FileModel[] {
-    return state.files;
+  static filesToUpload(state: FileStateModel): readonly FileUploadModel[] {
+    return state.filesToUpload;
   }
 
   @Selector()
-  static selectedFile(state: FileStateModel): FileModel | null {
+  static uploadedFiles(state: FileStateModel): readonly FileModel[] {
+    return state.uploadedFiles;
+  }
+
+  @Selector()
+  static selectedFile(state: FileStateModel): FileUploadModel | null {
     return state.selected;
   }
 
@@ -42,13 +50,25 @@ export class FileState {
     return state.loading;
   }
 
+  @Action(AppFile.AddFile)
+  protected async addFile(ctx: LocalStateContext, action: AppFile.AddFile): Promise<void> {
+    const { file } = action;
+    ctx.patchState({filesToUpload :  [...ctx.getState().filesToUpload, file]})
+  }
+
+  @Action(AppFile.RemoveFile)
+  protected async removeFile(ctx: LocalStateContext, action: AppFile.RemoveFile): Promise<void> {
+    const { file } = action;
+    ctx.patchState({filesToUpload : ctx.getState().filesToUpload.filter(x => x.id != file.id)})
+  }
+
   @Action(AppFile.Upload)
   protected async uploadFile(ctx: LocalStateContext, action: AppFile.Upload): Promise<void> {
     const { file } = action;
     ctx.patchState({loading: true})
     try{
       const data = await this.uploadService.upload(file).toPromise();
-      if (data) ctx.patchState( {files : [...ctx.getState().files, data]});
+      if (data) ctx.patchState( {uploadedFiles : [...ctx.getState().uploadedFiles, data]});
     }finally {
       ctx.patchState({loading: false})
     }
@@ -56,7 +76,7 @@ export class FileState {
 
   @Action(AppFile.Clear)
   protected async clearFiles(ctx: LocalStateContext, action: AppFile.Clear): Promise<void> {
-    ctx.patchState({files : []})
+    ctx.patchState({filesToUpload : []})
   }
 
 }
