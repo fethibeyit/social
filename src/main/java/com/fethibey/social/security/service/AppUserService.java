@@ -37,7 +37,7 @@ public class AppUserService {
     public void createAppUser(AppUserCreateModel model){
         var entity = mapper.map(model, AppUser.class);
         entity.setPassword(passwordEncoder.encode(model.getPassword()));
-        entity.setPosts(new ArrayList<>());
+//        entity.setPosts(new ArrayList<>());
         entity.setProvider(SocialProvider.LOCAL);
         var roles = new HashSet<AppRole>();
         roles.add(roleRepository.findByName(AppRole.ROLE_USER));

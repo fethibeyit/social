@@ -30,7 +30,7 @@ public class DbInitializer implements CommandLineRunner {
         Faker faker = new Faker();
         var random = ThreadLocalRandom.current();
 
-//        if(userRepository.count() > 0 ) return;
+        if(userRepository.count() > 0 ) return;
 
         postRepository.deleteAll();
         userRepository.deleteAll();
@@ -45,21 +45,35 @@ public class DbInitializer implements CommandLineRunner {
         roleRepository.save(userRole);
 
         var user = new AppUser();
-        user.setFullName("Jean Tremblay");
-        user.setEmail("admin@test.com");
+        user.setFullName("Alicia Beaudry");
+        user.setEmail("user@test.com");
         user.setPassword(passwordEncoder.encode("123456"));
         var userRoles = new HashSet<AppRole>();
-        userRoles.add(adminRole);
         userRoles.add(userRole);
         user.setRoles(userRoles);
         userRepository.save(user);
 
-        for (int i = 0; i < 10; i++) {
+        var admin = new AppUser();
+        admin.setFullName("Jean Tremblay");
+        admin.setEmail("admin@test.com");
+        admin.setPassword(passwordEncoder.encode("123456"));
+        var adminUserRoles = new HashSet<AppRole>();
+        adminUserRoles.add(adminRole);
+        adminUserRoles.add(userRole);
+        admin.setRoles(adminUserRoles);
+        userRepository.save(admin);
+
+        for (int i = 0; i < 3; i++) {
             var post = new Post();
-            post.setTitle(faker.book().title());
-            post.setContent(faker.lorem().paragraph());
+            post.setContent("user " + faker.lorem().paragraph());
             post.setAuthor(user);
-//            post.setLikes(new HashSet<>());
+            postRepository.save(post);
+        }
+
+        for (int i = 0; i < 3; i++) {
+            var post = new Post();
+            post.setContent("admin " + faker.lorem().paragraph());
+            post.setAuthor(admin);
             postRepository.save(post);
         }
 

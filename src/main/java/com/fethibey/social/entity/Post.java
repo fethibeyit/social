@@ -1,7 +1,10 @@
 package com.fethibey.social.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.Set;
 
@@ -10,30 +13,30 @@ import java.util.Set;
 @Table(name = "posts")
 public class Post extends BaseEntity {
 
-    private String title;
-
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id")
     private Set<Like> likes;
 
     @OneToMany(mappedBy = "post")
     private Set<Share> shares;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id")
-    private Set<AppFile> appFiles;
+    private Set<FileInfo> files;
+
 
     @OneToMany(mappedBy = "post")
     private Set<Comment> comments;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id")
     private Set<Tag> tags;
 
     @ManyToOne
+    @EqualsAndHashCode.Exclude @ToString.Exclude
     private AppUser author;
 
     @ManyToOne

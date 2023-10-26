@@ -33,8 +33,17 @@ public class PostService {
         return result;
     }
 
-    public List<PostModel> getAllPostsPageable(Pageable pageable) {
-        var result = repository.findAll(pageable).getContent().stream().map(x -> mapper.map(x, PostModel.class)).toList();
+    public List<PostModel> getAllPostsPageable(Pageable pageable, Authentication authentication) {
+        var currentUser = userRepository.findByEmail(authentication.getName());
+        var posts = repository.findAllByAuthor(currentUser, pageable).getContent();
+
+        List<PostModel> result = null;
+        try {
+            result = posts.stream()
+                    .map(x -> mapper.map(x, PostModel.class))
+                    .toList();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());        }
         return result;
     }
 
@@ -42,7 +51,6 @@ public class PostService {
         var entity = repository.findById(id).orElseThrow(() -> new NotFoundException(id));
         return mapper.map(entity, PostModel.class);
     }
-
 
     public PostModel createPost(PostCreateModel model, Authentication authentication) {
         var entity = mapper.map(model, Post.class);

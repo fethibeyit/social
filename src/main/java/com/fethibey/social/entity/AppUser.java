@@ -27,10 +27,10 @@ public class AppUser extends BaseEntity implements UserDetails {
     private SocialProvider provider;
 
     @OneToOne
-    private AppFile profilePicture;
+    private FileInfo profilePicture;
 
     @OneToOne
-    private AppFile coverPicture;
+    private FileInfo coverPicture;
 
     @OneToMany(mappedBy = "user")
     private Set<Friends> friends;

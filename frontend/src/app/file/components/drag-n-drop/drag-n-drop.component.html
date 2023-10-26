@@ -3,9 +3,9 @@
   <div class="header-action">
     <button mat-raised-button color="primary">
       <input type="file" name="file" id="file" (change)="onFileChange($event)" multiple>
-      <label for="file">Select your file</label>
+      <label for="file">{{'Select your file' | translate}}</label>
     </button>
-    <span> or Drop it here!</span>
+    <span>{{'or drop it here!' | translate}}</span>
   </div>
 
   <div class="scroll-container">

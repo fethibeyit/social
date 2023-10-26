@@ -11,4 +11,6 @@ public class LikeModel extends BaseModel {
 
     private LikeType type;
     private AppUserModel owner;
+
+
 }

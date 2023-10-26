@@ -9,6 +9,8 @@ import com.fethibey.social.repository.PostRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
+import org.modelmapper.convention.MatchingStrategies;
+import org.modelmapper.convention.NameTokenizers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,7 +23,19 @@ public class MappingConfig {
     public ModelMapper getMapper(){
         var mapper = new ModelMapper();
 
-        mapper.getConfiguration().setAmbiguityIgnored(true);
+//        mapper.getConfiguration().setAmbiguityIgnored(true);
+        mapper.getConfiguration()
+                .setAmbiguityIgnored(true)
+                .setFieldMatchingEnabled(true)
+                .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE);
+//        mapper.getConfiguration()
+//                .setMatchingStrategy(MatchingStrategies.STRICT)
+//                .setUseOSGiClassLoaderBridging(true)
+//                .setPreferNestedProperties(false)
+//                .setSourceNameTokenizer(NameTokenizers.UNDERSCORE)
+//                .setDestinationNameTokenizer(NameTokenizers.UNDERSCORE);
+
+
 
 //        TypeMap<TagCreateModel, Tag> tagPropertyMapper = mapper.createTypeMap(TagCreateModel.class, Tag.class);
 //        tagPropertyMapper.addMappings(m -> m.map(src -> {

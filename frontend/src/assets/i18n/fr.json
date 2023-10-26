@@ -23,5 +23,10 @@
   "Delete" : "Supprimer",
   "Are you sure?" : "Êtes vous sûr?",
   "You are signed up with facebook account. Please use your facebook account to login." : "Vous êtes inscrit avec un compte facebook. Veuillez utiliser votre compte facebook pour vous connecter.",
-  "You are signed up with google account. Please use your google account to login." : "Vous êtes inscrit avec un compte google. Veuillez utiliser votre compte google pour vous connecter."
+  "You are signed up with google account. Please use your google account to login." : "Vous êtes inscrit avec un compte google. Veuillez utiliser votre compte google pour vous connecter.",
+  "Select your file" : "Choisissez votre fichier",
+  "or drop it here!" : "ou glissez le ici!"
+
+
+
 }

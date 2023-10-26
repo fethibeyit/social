@@ -18,7 +18,7 @@ public class Message extends BaseEntity {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "message_id")
-    private Set<AppFile> appFiles;
+    private Set<FileInfo> fileInfos;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "message_id")

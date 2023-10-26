@@ -7,6 +7,7 @@ import {MaterialModule} from "../material/material.module";
 import {NgxsModule} from "@ngxs/store";
 import {FileState} from "./state/file-state";
 import {CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
     MaterialModule,
     NgxsModule.forFeature([FileState]),
     CdkVirtualScrollViewport,
+    TranslateModule,
   ]
 })
 export class FileModule { }

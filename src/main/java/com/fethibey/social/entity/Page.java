@@ -1,9 +1,6 @@
 package com.fethibey.social.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Set;
@@ -14,6 +11,9 @@ import java.util.Set;
 public class Page extends BaseEntity {
 
     private String name;
+
+    @OneToOne
+    private FileInfo coverPicture;
 
     @OneToMany(mappedBy = "page")
     private Set<Post> posts;

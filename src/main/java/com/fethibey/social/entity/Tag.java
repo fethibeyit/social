@@ -1,8 +1,11 @@
 package com.fethibey.social.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fethibey.social.model.BaseModel;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.UUID;
 
@@ -13,7 +16,7 @@ public class Tag extends BaseEntity {
 
     private int position;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private AppUser user;
     private UUID user_id ;
