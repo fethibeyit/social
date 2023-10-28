@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpEvent, HttpRequest} from "@angular/common/http";
-import {delay, Observable, throwError} from "rxjs";
+import {HttpClient} from "@angular/common/http";
+import { Observable, throwError} from "rxjs";
 import {environment} from "../../../environments/environment";
-import {PostModel} from "../../post/models/postModel.interface";
 import {catchError, tap} from "rxjs/operators";
 import {FileModel} from "../models/fileModel.interface";
+import {Guid} from "guid-typescript";
+import {FileUploadModel} from "../models/fileUploadModel.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,10 @@ export class UploadService {
 
   constructor(private http: HttpClient) { }
 
-  upload(file: File): Observable<FileModel> {
+  upload(file: FileUploadModel): Observable<FileModel> {
     const formData: FormData = new FormData();
-    formData.append('file', file);
+    formData.append('file', file.file);
+    formData.append('url', file.url);
     return this.http.post<FileModel>(`${environment.apiURL}/files/upload`, formData, {
       reportProgress: true,
       responseType: 'json'

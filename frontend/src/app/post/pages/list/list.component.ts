@@ -21,7 +21,6 @@ export class ListComponent {
   @Select(PostState.loading) loading$!: Observable<boolean> ;
 
   headers: {headerName: string, fieldName: keyof PostModel}[] = [
-    {headerName: "Title", fieldName: "title"},
     {headerName: "Content", fieldName: "content"}
   ]
   constructor(

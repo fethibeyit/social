@@ -1,6 +1,5 @@
 package com.fethibey.social.model.file;
 
-import com.fethibey.social.model.BaseModel;
 import lombok.Data;
 
 @Data

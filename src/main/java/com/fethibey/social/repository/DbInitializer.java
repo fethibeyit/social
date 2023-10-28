@@ -45,7 +45,8 @@ public class DbInitializer implements CommandLineRunner {
         roleRepository.save(userRole);
 
         var user = new AppUser();
-        user.setFullName("Alicia Beaudry");
+        user.setFirstName("Alicia");
+        user.setLastName("Beaudry");
         user.setEmail("user@test.com");
         user.setPassword(passwordEncoder.encode("123456"));
         var userRoles = new HashSet<AppRole>();
@@ -54,7 +55,8 @@ public class DbInitializer implements CommandLineRunner {
         userRepository.save(user);
 
         var admin = new AppUser();
-        admin.setFullName("Jean Tremblay");
+        user.setFirstName("Jean");
+        user.setLastName("Tremblay");
         admin.setEmail("admin@test.com");
         admin.setPassword(passwordEncoder.encode("123456"));
         var adminUserRoles = new HashSet<AppRole>();

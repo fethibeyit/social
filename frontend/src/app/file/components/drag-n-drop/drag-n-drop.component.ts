@@ -13,11 +13,9 @@ import {FileState} from "../../state/file-state";
 })
 export class DragNDropComponent {
 
-  @Select(FileState.filesToUpload) files$!: Observable<FileUploadModel[]> ;
+  @Select(FileState.filesData) files$!: Observable<FileUploadModel[]> ;
 
-  constructor(
-    private store: Store,
-    ){}
+  constructor(private store: Store){}
 
   onFileChange(event : Event){
     const elem = event.target as HTMLInputElement;
@@ -31,20 +29,15 @@ export class DragNDropComponent {
   }
 
   populateFiles(files : (File | null)[]){
-
       for (let i =0 ; i < files.length; ++i) {
-        let result : FileUploadModel = {
-          id : Guid.create(),
-          file : files[i],
-          src : URL.createObjectURL(files[i]!),
-          uploaded : false
+        if(files[i]){
+          this.store.dispatch(new AppFile.AddFile(files[i]!));
         }
-        console.log(result);
-        this.store.dispatch(new AppFile.AddFile(result));
-      };
+      }
   }
-  deleteFile(file : FileUploadModel) {
-    this.store.dispatch(new AppFile.RemoveFile(file));
+
+  deleteFile(url : string) {
+    this.store.dispatch(new AppFile.RemoveFile(url));
   }
 
   displayFileName(fileName : string | undefined){
@@ -62,31 +55,4 @@ export class DragNDropComponent {
     return file?.type === 'application/pdf';
   }
 
-
-  upload(): void {
-    this.store.dispatch(new AppFile.UploadAll());
-  }
-
-
-  // upload(): void {
-  //   if (this.files) {
-  //     const file: File | null = this.files[0].file;
-  //
-  //     if (file) {
-  //       this.store.dispatch(new AppFile.Upload(file));
-  //
-  //       // this.uploadService.upload(file).subscribe(
-  //       //   (event: any) => {
-  //       //     if (event.type === HttpEventType.UploadProgress) {
-  //       //       console.log("progress", Math.round(100 * event.loaded / event.total)) ;
-  //       //     } else if (event instanceof HttpResponse) {
-  //       //       console.log("upload", event);
-  //       //     }
-  //       //   },
-  //       //   (err: any) => {
-  //       //     console.log(err);
-  //       //   });
-  //     }
-  //   }
-  // }
 }

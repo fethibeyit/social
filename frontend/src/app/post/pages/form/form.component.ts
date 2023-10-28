@@ -6,6 +6,7 @@ import {CanComponentDeactivate} from "../../../core/guards/form.guard";
 import {Store} from "@ngxs/store";
 import {Post} from "../../state/post-actions";
 import {TranslateService} from "@ngx-translate/core";
+import {AppFile} from "../../../file/state/file-actions";
 
 @Component({
   selector: 'app-form',
@@ -27,6 +28,7 @@ export class FormComponent implements OnInit, CanComponentDeactivate{
   formAction(data: {value: any; action: FormActions}) {
     if(data.action === FormActions.Create){
       this.store.dispatch(new Post.Create(data.value));
+      this.store.dispatch(new AppFile.UploadAll());
     } else if (data.action === FormActions.Update){
       this.store.dispatch(new Post.Update(data.value));
     }
@@ -39,5 +41,8 @@ export class FormComponent implements OnInit, CanComponentDeactivate{
       this.translate.get('Are you sure?').subscribe( msg => window.confirm(msg) );
     }
     return true;
+  }
+
+  upload(): void {
   }
 }

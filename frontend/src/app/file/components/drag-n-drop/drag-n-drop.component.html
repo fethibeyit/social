@@ -22,7 +22,7 @@
           </div>
         </mat-card-content>
         <mat-card-actions align="end">
-          <button mat-mini-fab color="warn" (click)="deleteFile(f);">
+          <button mat-mini-fab color="warn" (click)="deleteFile(f.url);">
             <mat-icon>delete</mat-icon>
           </button>
 
@@ -32,11 +32,5 @@
     </div>
   </div>
 </div>
-
-
-<button class="btn btn-success btn-sm" (click)="upload()">
-  Upload
-</button>
-
 
 

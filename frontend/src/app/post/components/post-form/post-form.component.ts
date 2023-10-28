@@ -20,13 +20,7 @@ export class PostFormComponent implements OnInit{
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.form = this.fb.group({
-      id: [''],
-      title: [''],
       content: [''],
-      publicationDate : null,
-      views : [],
-      likes : [],
-      shares : []
     })
   }
 

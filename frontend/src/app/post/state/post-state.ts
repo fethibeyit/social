@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Action, NgxsOnInit, Selector, State, StateContext } from '@ngxs/store';
+import {Action, NgxsOnInit, Selector, State, StateContext, Store} from '@ngxs/store';
 import {PostModel} from "../models/postModel.interface";
 import {PostService} from "../services/post.service";
 import {Post} from "./post-actions";
+import {FileState} from "../../file/state/file-state";
+import {AppFile} from "../../file/state/file-actions";
+
 
 export interface PostStateModel {
   posts: ReadonlyArray<PostModel>;
@@ -26,7 +29,8 @@ type LocalStateContext = StateContext<PostStateModel>;
 })
 @Injectable()
 export class PostState implements NgxsOnInit {
-  constructor(private PostService: PostService) {}
+
+  constructor(private PostService: PostService, private store: Store) {}
 
   @Selector()
   static posts(state: PostStateModel): readonly PostModel[] {
@@ -66,10 +70,15 @@ export class PostState implements NgxsOnInit {
   @Action(Post.Create)
   protected async createPost(ctx: LocalStateContext, action: Post.Create): Promise<void> {
     const { post } = action;
+    const files = this.store.selectSnapshot(FileState.filesMetadat);
+    post.files = [...files];
     ctx.patchState({loading: true})
     try{
       const data = await this.PostService.createPost(post).toPromise();
-      if (data) ctx.patchState( {posts : [...ctx.getState().posts, data]});
+      if (data){
+        ctx.patchState( {posts : [...ctx.getState().posts, data]});
+        ctx.dispatch(new AppFile.ClearMetadata());
+      }
     }finally {
       ctx.patchState({loading: false})
     }

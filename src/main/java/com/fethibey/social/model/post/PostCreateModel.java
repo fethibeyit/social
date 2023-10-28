@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -17,7 +18,7 @@ public class PostCreateModel {
     @Length(min = 2, message = "Content must contain at least 2 characters")
     private String content;
 
-    private Set<FileCreateModel> files;
+    private List<FileCreateModel> files;
 
     private Set<TagCreateModel> tags;
 

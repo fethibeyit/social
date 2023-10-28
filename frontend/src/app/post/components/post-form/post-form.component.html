@@ -1,15 +1,13 @@
 <mat-card class="form-card">
   <h2>{{(selectedId ? "Update/View Post" : "Create Post") | translate }}</h2>
   <form class="post-form" [formGroup]="form">
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>{{"Title" | translate}}</mat-label>
-      <input matInput formControlName="title">
-    </mat-form-field>
 
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>{{"Content" | translate}}</mat-label>
       <textarea matInput formControlName="content"></textarea>
     </mat-form-field>
+
+    <app-drag-n-drop />
 
     <div class="button-group">
       <button mat-raised-button color="primary" (click)="emitAction()">

@@ -1,36 +1,59 @@
-<table mat-table [dataSource]="(posts$ | async) ?? []" class="mat-elevation-z8">
-  <!-- Data for columns -->
-  <ng-container *ngFor="let item of headers" [matColumnDef]="item.fieldName">
-    <th mat-header-cell *matHeaderCellDef> {{item.headerName | translate}} </th>
-    <td mat-cell *matCellDef="let element"> {{element[item.fieldName] | translate}} </td>
-  </ng-container>
-  <!-- Actions for specific item -->
-  <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef>{{"Actions" | translate}}</th>
-    <td mat-cell *matCellDef="let element">
+<!--<table mat-table [dataSource]="(posts$ | async) ?? []" class="mat-elevation-z8">-->
+<!--  &lt;!&ndash; Data for columns &ndash;&gt;-->
+<!--  <ng-container *ngFor="let item of headers" [matColumnDef]="item.fieldName">-->
+<!--    <th mat-header-cell *matHeaderCellDef> {{item.headerName | translate}} </th>-->
+<!--    <td mat-cell *matCellDef="let element"> {{element[item.fieldName] | translate}} </td>-->
+<!--  </ng-container>-->
+<!--  &lt;!&ndash; Actions for specific item &ndash;&gt;-->
+<!--  <ng-container matColumnDef="actions">-->
+<!--    <th mat-header-cell *matHeaderCellDef>{{"Actions" | translate}}</th>-->
+<!--    <td mat-cell *matCellDef="let element">-->
 
-      <div style="display: flex;" >
-        <button (click)="selectPost(element, 0)" mat-raised-button color="primary">
-          <mat-icon>pageview</mat-icon> {{"View" | translate}}
-        </button>
-        &nbsp;
-        <button (click)="selectPost(element, 1)" mat-raised-button color="warn">
-          <div style="display: flex; align-items: center;">
+<!--      <div style="display: flex;" >-->
+<!--        <button (click)="selectPost(element, 0)" mat-raised-button color="primary">-->
+<!--          <mat-icon>pageview</mat-icon> {{"View" | translate}}-->
+<!--        </button>-->
+<!--        &nbsp;-->
+<!--        <button (click)="selectPost(element, 1)" mat-raised-button color="warn">-->
+<!--          <div style="display: flex; align-items: center;">-->
 
-            <div style="margin-right: 10px; display: flex; align-items: center;">
-              <mat-icon fontIcon="delete" style="font-size: 18px; height: 18px;" *ngIf="(selected$ | async)?.id !== element.id  || (deleteLoading$ | async) === false"/>
-              <mat-spinner [diameter]="18"  class="delete-spinner"  *ngIf="(selected$ | async)?.id === element.id  && (deleteLoading$ | async) === true"/>
-            </div>
+<!--            <div style="margin-right: 10px; display: flex; align-items: center;">-->
+<!--              <mat-icon fontIcon="delete" style="font-size: 18px; height: 18px;" *ngIf="(selected$ | async)?.id !== element.id  || (deleteLoading$ | async) === false"/>-->
+<!--              <mat-spinner [diameter]="18"  class="delete-spinner"  *ngIf="(selected$ | async)?.id === element.id  && (deleteLoading$ | async) === true"/>-->
+<!--            </div>-->
 
-            <div>{{"Delete" | translate}}</div>
+<!--            <div>{{"Delete" | translate}}</div>-->
 
-          </div>
-        </button>
-      </div>
+<!--          </div>-->
+<!--        </button>-->
+<!--      </div>-->
 
-    </td>
-  </ng-container>
+<!--    </td>-->
+<!--  </ng-container>-->
 
-  <tr mat-header-row *matHeaderRowDef="headerFields"></tr>
-  <tr mat-row *matRowDef="let row; columns: headerFields"></tr>
-</table>
+<!--  <tr mat-header-row *matHeaderRowDef="headerFields"></tr>-->
+<!--  <tr mat-row *matRowDef="let row; columns: headerFields"></tr>-->
+<!--</table>-->
+
+
+<mat-card *ngFor="let post of  (posts$ | async)" style="margin-top: 10px;">
+  <mat-card-header>
+    <div mat-card-avatar></div>
+    <mat-card-title>{{post.author.firstName}} {{post.author.lastName}}</mat-card-title>
+    <mat-card-subtitle>{{post.createdAt | date}}</mat-card-subtitle>
+  </mat-card-header>
+  <div mat-card-image></div>
+  <mat-card-content>
+    <p>{{post.content}}</p>
+
+    <ul>
+      <li *ngFor="let file of post.files">
+        {{file.name}} - {{file.type}}
+      </li>
+    </ul>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-button>LIKE</button>
+    <button mat-button>SHARE</button>
+  </mat-card-actions>
+</mat-card>

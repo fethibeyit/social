@@ -21,9 +21,9 @@ public class AppFileController {
     private final FileStorageService storageService;
 
     @PostMapping("/upload")
-    public ResponseEntity<FileModel> uploadFile(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<FileModel> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("url") String url) {
         try {
-            return new ResponseEntity(storageService.store(file), HttpStatus.OK);
+            return new ResponseEntity(storageService.store(file , url), HttpStatus.OK);
         } catch (Exception e) {
             throw new NotFoundException();
         }

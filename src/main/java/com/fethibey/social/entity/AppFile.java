@@ -14,8 +14,10 @@ import java.util.UUID;
 @Table(name = "files")
 public class AppFile extends BaseEntity {
 
+
     private String name;
     private String type;
+    private String url;
 
     @Lob
     private byte[] data;

@@ -23,9 +23,9 @@ public class FileStorageService {
     private final ModelMapper mapper;
 
 
-    public FileModel store(MultipartFile file) throws IOException {
+    public FileModel store(MultipartFile file, String url) throws IOException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        AppFile appFile = repository.save( new AppFile(fileName, file.getContentType(), file.getBytes()));
+        AppFile appFile = repository.save( new AppFile(fileName, file.getContentType(), url, file.getBytes()));
         return mapper.map(appFile, FileModel.class);
     }
 
