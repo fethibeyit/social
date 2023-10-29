@@ -17,6 +17,8 @@ public class AppFile extends BaseEntity {
 
     private String name;
     private String type;
+
+    @Column(unique=true)
     private String url;
 
     @Lob

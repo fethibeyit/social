@@ -20,6 +20,7 @@ export class ListComponent {
   @Select(PostState.posts) posts$!: Observable<PostModel[]> ;
   @Select(PostState.loading) loading$!: Observable<boolean> ;
 
+
   headers: {headerName: string, fieldName: keyof PostModel}[] = [
     {headerName: "Content", fieldName: "content"}
   ]

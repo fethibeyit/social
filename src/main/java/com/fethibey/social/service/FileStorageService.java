@@ -1,9 +1,11 @@
 package com.fethibey.social.service;
 
 import com.fethibey.social.entity.AppFile;
+import com.fethibey.social.exception.NotFoundException;
 import com.fethibey.social.model.file.FileModel;
 import com.fethibey.social.model.post.PostModel;
 import com.fethibey.social.repository.AppFileRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -29,8 +31,15 @@ public class FileStorageService {
         return mapper.map(appFile, FileModel.class);
     }
 
-    public AppFile getFile(UUID id) {
-        return repository.findById(id).get();
+    @Transactional
+    public AppFile getFile(String url) {
+        AppFile file = null;
+        try {
+            file = repository.findByUrl(url).orElseThrow(() -> new NotFoundException());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return file;
     }
 
     public Stream<AppFile> getAllFiles() {

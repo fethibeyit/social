@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import {FileModel} from "../models/fileModel.interface";
 import {AppFile} from "./file-actions";
-import {UploadService} from "../services/upload.service";
+import {FileService} from "../services/file.service";
 import {FileUploadModel} from "../models/fileUploadModel.interface";
 import {Guid} from "guid-typescript";
 
@@ -10,6 +10,7 @@ import {Guid} from "guid-typescript";
 export interface FileStateModel {
   filesData: ReadonlyArray<FileUploadModel>;
   filesMetadata: ReadonlyArray<FileModel>;
+  imagesUrl: Map<string, string>;
   loading : boolean;
   error: string | null;
 }
@@ -21,13 +22,14 @@ type LocalStateContext = StateContext<FileStateModel>;
   defaults: {
     filesData: [],
     filesMetadata : [],
+    imagesUrl : new Map<string, string>(),
     loading: false,
     error: null,
   },
 })
 @Injectable()
 export class FileState {
-  constructor(private uploadService: UploadService) {}
+  constructor(private fileService: FileService) {}
 
   @Selector()
   static filesData(state: FileStateModel): readonly FileUploadModel[] {
@@ -35,8 +37,13 @@ export class FileState {
   }
 
   @Selector()
-  static filesMetadat(state: FileStateModel): readonly FileModel[] {
+  static filesMetadata(state: FileStateModel): readonly FileModel[] {
     return state.filesMetadata;
+  }
+
+  @Selector()
+  static imagesUrl(state: FileStateModel): Map<string, string> {
+    return state.imagesUrl;
   }
 
   @Selector()
@@ -74,15 +81,30 @@ export class FileState {
     const { file } = action;
       ctx.patchState({loading: true})
       try {
-        const data = await this.uploadService.upload(file).toPromise();
+        const data = await this.fileService.upload(file).toPromise();
         if (data) ctx.patchState({filesData : ctx.getState().filesData.filter(x => x.url != data.url)});
       } finally {
         ctx.patchState({loading: false})
       }
   }
 
+  @Action(AppFile.CreateImageUrl)
+  protected async createImageUrl(ctx: LocalStateContext, action: AppFile.CreateImageUrl): Promise<void> {
+    const { file } = action;
+    ctx.patchState({loading: true})
+    try {
+      const image = await this.fileService.download(file.url).toPromise();
+      if (image) {
+        const imageUrl = URL.createObjectURL(image);
+        ctx.patchState({imagesUrl : ctx.getState().imagesUrl.set(file.url, imageUrl)});
+      }
+    } finally {
+      ctx.patchState({loading: false})
+    }
+  }
+
   @Action(AppFile.UploadAll)
-  protected async uploadAllFiles(ctx: LocalStateContext, _: AppFile.UploadAll): Promise<void> {
+  protected async uploadAllFiles(ctx: LocalStateContext): Promise<void> {
     ctx.dispatch(ctx.getState().filesData.map(f => new AppFile.Upload(f)));
 }
 

@@ -22,7 +22,7 @@ public class Post extends BaseEntity {
     @OneToMany(mappedBy = "post")
     private Set<Share> shares;
 
-    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id")
     private Set<FileInfo> files;
 
@@ -30,7 +30,7 @@ public class Post extends BaseEntity {
     @OneToMany(mappedBy = "post")
     private Set<Comment> comments;
 
-    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id")
     private Set<Tag> tags;
 

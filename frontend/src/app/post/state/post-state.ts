@@ -60,8 +60,18 @@ export class PostState implements NgxsOnInit {
   protected async getList(ctx: LocalStateContext, action: Post.GetList): Promise<void> {
     ctx.patchState({loading: true})
     try{
-      const data = await this.PostService.getPosts().toPromise();
-      ctx.patchState({ posts: data});
+      const posts = await this.PostService.getPosts().toPromise();
+      if(posts){
+        posts.forEach(p => {
+          p.files.forEach(f => {
+            if(f.type.startsWith('image')){
+              ctx.dispatch(new AppFile.CreateImageUrl(f));
+            }
+          })
+        })
+        ctx.patchState({ posts: posts});
+      }
+
     }finally {
       ctx.patchState({loading: false})
     }
@@ -70,7 +80,7 @@ export class PostState implements NgxsOnInit {
   @Action(Post.Create)
   protected async createPost(ctx: LocalStateContext, action: Post.Create): Promise<void> {
     const { post } = action;
-    const files = this.store.selectSnapshot(FileState.filesMetadat);
+    const files = this.store.selectSnapshot(FileState.filesMetadata);
     post.files = [...files];
     ctx.patchState({loading: true})
     try{

@@ -46,11 +46,20 @@
   <mat-card-content>
     <p>{{post.content}}</p>
 
-    <ul>
-      <li *ngFor="let file of post.files">
-        {{file.name}} - {{file.type}}
-      </li>
-    </ul>
+    <ng-container *ngFor="let file of post.files">
+      <ng-container *ngIf="file.type.startsWith('image'); else noImage">
+        <div>
+          <img src="{{(imagesUrl$ | async)?.get(file.url)}}" alt="{{file.name}}">
+        </div>
+      </ng-container>
+
+      <ng-template #noImage>
+        <div>
+          {{file.name}} <button (click)="download(file)">download</button>
+        </div>
+      </ng-template>
+    </ng-container>
+
   </mat-card-content>
   <mat-card-actions align="end">
     <button mat-button>LIKE</button>

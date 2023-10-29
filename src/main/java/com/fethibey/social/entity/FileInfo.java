@@ -17,14 +17,14 @@ public class FileInfo extends BaseEntity {
     private String type;
     private String url;
 
-    @ManyToOne
-    @JoinColumn(name = "post_id", insertable = false, updatable = false)
-    private Post post;
+//    @ManyToOne
+//    @JoinColumn(name = "post_id", insertable = false, updatable = false)
+//    private Post post;
     private UUID post_id ;
 
-    @ManyToOne
-    @JoinColumn(name = "message_id", insertable = false, updatable = false)
-    private Message message;
+//    @ManyToOne
+//    @JoinColumn(name = "message_id", insertable = false, updatable = false)
+//    private Message message;
     private UUID message_id ;
     
 }

@@ -29,9 +29,9 @@ public class AppFileController {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<byte[]> getFile(@PathVariable UUID id) {
-        AppFile file = storageService.getFile(id);
+    @GetMapping("/{url}")
+    public ResponseEntity<byte[]> getFile(@PathVariable String url) {
+        AppFile file = storageService.getFile(url);
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"")

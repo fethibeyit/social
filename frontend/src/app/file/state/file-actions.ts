@@ -1,5 +1,6 @@
 import {PostModel} from "../../post/models/postModel.interface";
 import {FileUploadModel} from "../models/fileUploadModel.interface";
+import {FileModel} from "../models/fileModel.interface";
 
 export namespace AppFile {
 
@@ -17,6 +18,12 @@ export namespace AppFile {
     static readonly type = '[File] Upload';
     constructor(public file: FileUploadModel) {}
   }
+
+  export class CreateImageUrl {
+    static readonly type = '[File] Create Image Url';
+    constructor(public file: FileModel) {}
+  }
+
 
   export class UploadAll {
     static readonly type = '[File] Upload All';
