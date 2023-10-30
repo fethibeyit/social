@@ -1,68 +1,63 @@
-<!--<table mat-table [dataSource]="(posts$ | async) ?? []" class="mat-elevation-z8">-->
-<!--  &lt;!&ndash; Data for columns &ndash;&gt;-->
-<!--  <ng-container *ngFor="let item of headers" [matColumnDef]="item.fieldName">-->
-<!--    <th mat-header-cell *matHeaderCellDef> {{item.headerName | translate}} </th>-->
-<!--    <td mat-cell *matCellDef="let element"> {{element[item.fieldName] | translate}} </td>-->
-<!--  </ng-container>-->
-<!--  &lt;!&ndash; Actions for specific item &ndash;&gt;-->
-<!--  <ng-container matColumnDef="actions">-->
-<!--    <th mat-header-cell *matHeaderCellDef>{{"Actions" | translate}}</th>-->
-<!--    <td mat-cell *matCellDef="let element">-->
+<div style="width: 600px;">
 
-<!--      <div style="display: flex;" >-->
-<!--        <button (click)="selectPost(element, 0)" mat-raised-button color="primary">-->
-<!--          <mat-icon>pageview</mat-icon> {{"View" | translate}}-->
-<!--        </button>-->
-<!--        &nbsp;-->
-<!--        <button (click)="selectPost(element, 1)" mat-raised-button color="warn">-->
-<!--          <div style="display: flex; align-items: center;">-->
+  <mat-card *ngFor="let post of  (posts$ | async)" style="margin-top: 10px;">
 
-<!--            <div style="margin-right: 10px; display: flex; align-items: center;">-->
-<!--              <mat-icon fontIcon="delete" style="font-size: 18px; height: 18px;" *ngIf="(selected$ | async)?.id !== element.id  || (deleteLoading$ | async) === false"/>-->
-<!--              <mat-spinner [diameter]="18"  class="delete-spinner"  *ngIf="(selected$ | async)?.id === element.id  && (deleteLoading$ | async) === true"/>-->
-<!--            </div>-->
+    <mat-card-header>
+      <div mat-card-avatar><mat-icon >person</mat-icon></div>
+      <mat-card-title>{{post.author.firstName}} {{post.author.lastName}}</mat-card-title>
+      <mat-card-subtitle>{{post.createdAt | date}}</mat-card-subtitle>
+    </mat-card-header>
 
-<!--            <div>{{"Delete" | translate}}</div>-->
+    <mat-card-content style="margin-bottom: 20px;">
 
-<!--          </div>-->
-<!--        </button>-->
-<!--      </div>-->
+      <p>{{post.content}}</p>
 
-<!--    </td>-->
-<!--  </ng-container>-->
-
-<!--  <tr mat-header-row *matHeaderRowDef="headerFields"></tr>-->
-<!--  <tr mat-row *matRowDef="let row; columns: headerFields"></tr>-->
-<!--</table>-->
-
-
-<mat-card *ngFor="let post of  (posts$ | async)" style="margin-top: 10px;">
-  <mat-card-header>
-    <div mat-card-avatar></div>
-    <mat-card-title>{{post.author.firstName}} {{post.author.lastName}}</mat-card-title>
-    <mat-card-subtitle>{{post.createdAt | date}}</mat-card-subtitle>
-  </mat-card-header>
-  <div mat-card-image></div>
-  <mat-card-content>
-    <p>{{post.content}}</p>
-
-    <ng-container *ngFor="let file of post.files">
-      <ng-container *ngIf="file.type.startsWith('image'); else noImage">
+      <ng-container *ngFor="let file of noImageFiles(post)">
         <div>
-          <img src="{{(imagesUrl$ | async)?.get(file.url)}}" alt="{{file.name}}">
+          {{file.name}}
+          <button (click)="download(file)">download</button>
         </div>
       </ng-container>
+    </mat-card-content>
 
-      <ng-template #noImage>
-        <div>
-          {{file.name}} <button (click)="download(file)">download</button>
-        </div>
-      </ng-template>
-    </ng-container>
+    <img *ngIf="imageFiles(post).length === 1 || imageFiles(post).length === 3"  mat-card-image
+         src="{{(imagesUrl$ | async)?.get(imageFiles(post)[0].url)}}" alt="{{imageFiles(post)[0].name}}">
 
-  </mat-card-content>
-  <mat-card-actions align="end">
-    <button mat-button>LIKE</button>
-    <button mat-button>SHARE</button>
-  </mat-card-actions>
-</mat-card>
+    <mat-grid-list *ngIf="imageFiles(post).length === 2 || imageFiles(post).length > 3"  cols="12" rowHeight="300px" gutterSize="0" >
+      <mat-grid-tile *ngFor="let image of imageFiles(post).slice(0,2); index as i" [colspan]="6"   >
+        <img  class="image-crop"
+              src="{{(imagesUrl$ | async)?.get(image.url)}}" alt="{{image.name}}">
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list *ngIf="imageFiles(post).length === 3 "  cols="12" rowHeight="300px" gutterSize="0" >
+      <mat-grid-tile *ngFor="let image of imageFiles(post).slice(1,3); index as i" [colspan]="6"   >
+        <img  class="image-crop"
+              src="{{(imagesUrl$ | async)?.get(image.url)}}" alt="{{image.name}}">
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list *ngIf="imageFiles(post).length === 4"  cols="12" rowHeight="300px" gutterSize="0" >
+      <mat-grid-tile *ngFor="let image of imageFiles(post).slice(2,4); index as i" [colspan]="6"   >
+        <img  class="image-crop"
+              src="{{(imagesUrl$ | async)?.get(image.url)}}" alt="{{image.name}}">
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list *ngIf="imageFiles(post).length > 4"  cols="12" rowHeight="200px" gutterSize="0" >
+      <mat-grid-tile *ngFor="let image of imageFiles(post).slice(2,5); index as i" [colspan]="4" >
+          <img  class="image-crop"
+                src="{{(imagesUrl$ | async)?.get(image.url)}}" alt="{{image.name}}">
+          <div *ngIf="imageFiles(post).length > 5 && i === 2" class="image-text" >
+            <p style="font-size: 32px;" >+{{imageFiles(post).length - 5}}</p>
+          </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-card-actions align="end">
+      <button mat-button>LIKE</button>
+      <button mat-button>SHARE</button>
+    </mat-card-actions>
+  </mat-card>
+
+</div>

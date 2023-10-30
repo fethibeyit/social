@@ -17,7 +17,7 @@
         </mat-card-header>
         <mat-card-content>
           <div style="display: flex; justify-content: center; align-items: center; height: 120px;">
-            <img *ngIf="fileIsImage(f.file)" alt="{{f.file?.name}}" src="{{f.src}}" height="100"/>
+            <img *ngIf="fileIsImage(f.file)" alt="{{f.file?.name}}" src="{{f.src}}" style="width:100px; height: 100px; object-fit: cover; object-position: 50% 50%;"/>
             <img *ngIf="fileIsPdf(f.file)" src="assets/images/pdf-icon-64.png" alt="pdf icon">
           </div>
         </mat-card-content>

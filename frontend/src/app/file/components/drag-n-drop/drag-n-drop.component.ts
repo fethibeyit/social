@@ -48,7 +48,7 @@ export class DragNDropComponent {
   }
 
   fileIsImage(file : File | null){
-    return file?.type === 'image/jpeg' || file?.type === 'image/png';
+    return file?.type.startsWith('image');
   }
 
   fileIsPdf(file : File | null){

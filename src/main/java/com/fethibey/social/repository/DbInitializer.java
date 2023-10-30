@@ -65,19 +65,19 @@ public class DbInitializer implements CommandLineRunner {
         admin.setRoles(adminUserRoles);
         userRepository.save(admin);
 
-        for (int i = 0; i < 3; i++) {
+//        for (int i = 0; i < 3; i++) {
             var post = new Post();
             post.setContent("user " + faker.lorem().paragraph());
             post.setAuthor(user);
             postRepository.save(post);
-        }
+//        }
 
-        for (int i = 0; i < 3; i++) {
-            var post = new Post();
-            post.setContent("admin " + faker.lorem().paragraph());
-            post.setAuthor(admin);
-            postRepository.save(post);
-        }
+//        for (int i = 0; i < 3; i++) {
+            var post2 = new Post();
+            post2.setContent("admin " + faker.lorem().paragraph());
+            post2.setAuthor(admin);
+            postRepository.save(post2);
+//        }
 
     }
 }

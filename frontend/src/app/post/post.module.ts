@@ -13,6 +13,7 @@ import {NgxsModule} from "@ngxs/store";
 import {PostState} from "./state/post-state";
 import {TranslateModule} from "@ngx-translate/core";
 import {FileModule} from "../file/file.module";
+import {MatGridListModule} from "@angular/material/grid-list";
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {FileModule} from "../file/file.module";
     FileModule,
     ReactiveFormsModule,
     NgxsModule.forFeature([PostState]),
-    TranslateModule
+    TranslateModule,
+    MatGridListModule
   ]
 
 })

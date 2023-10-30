@@ -48,4 +48,12 @@ export class PostListComponent implements OnInit{
     });
   }
 
+  imageFiles (post : PostModel) : FileModel[] {
+    return post.files.filter(f => f.type.startsWith('image'));
+  }
+
+  noImageFiles (post : PostModel) : FileModel[] {
+    return post.files.filter(f => !f.type.startsWith('image'));
+  }
+
 }
