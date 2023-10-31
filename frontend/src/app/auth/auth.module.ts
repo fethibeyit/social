@@ -11,6 +11,7 @@ import {AuthRoutingModule} from "./auth-routing.module";
 import {NgxsModule} from "@ngxs/store";
 import {AuthState} from "./state/auth-state";
 import {TranslateModule} from "@ngx-translate/core";
+import {ButtonModule} from "@syncfusion/ej2-angular-buttons";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {TranslateModule} from "@ngx-translate/core";
         RouterLink,
         AuthRoutingModule,
         NgxsModule.forFeature([AuthState]),
-        TranslateModule
+        TranslateModule,
+        ButtonModule
     ]
 })
 export class AuthModule { }

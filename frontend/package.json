@@ -29,6 +29,8 @@
     "@ngx-translate/http-loader": "^8.0.0",
     "@ngxs/storage-plugin": "^3.8.1",
     "@ngxs/store": "^3.8.1",
+    "@syncfusion/ej2-angular-buttons": "^23.1.42",
+    "@syncfusion/ej2-angular-layouts": "^23.1.36",
     "bootstrap": "^5.3.1",
     "bootstrap-icons": "^1.10.5",
     "file-saver": "^2.0.5",
