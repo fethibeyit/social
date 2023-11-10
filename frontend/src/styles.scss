@@ -1,4 +1,7 @@
-
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+@import 'primeflex/primeflex.scss';
 
 /* You can add global styles to this file, and also import other style files */
 $primary: #1877f2;
@@ -9,7 +12,7 @@ $danger: #fa383e;
 //$green: #42b72a;
 //$red: #fa383e;
 
-@import "../node_modules/bootstrap/scss/bootstrap";
+//@import "../node_modules/bootstrap/scss/bootstrap";
 
 
 html, body { height: 100%; }

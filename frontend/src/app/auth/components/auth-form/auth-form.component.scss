@@ -4,3 +4,12 @@
   font-weight: bolder;
   color: #fff;
 }
+
+:host ::ng-deep .p-button{
+  width: 100%;
+}
+
+.input-login {
+  width:100%;
+  margin-bottom: 10px;
+}

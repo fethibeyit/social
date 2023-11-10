@@ -14,6 +14,7 @@ import {PostState} from "./state/post-state";
 import {TranslateModule} from "@ngx-translate/core";
 import {FileModule} from "../file/file.module";
 import {MatGridListModule} from "@angular/material/grid-list";
+import {ButtonModule} from "primeng/button";
 
 @NgModule({
   declarations: [
@@ -23,17 +24,18 @@ import {MatGridListModule} from "@angular/material/grid-list";
     PostFormComponent,
     PostCommandBarComponent
   ],
-  imports: [
-    CommonModule,
-    PostRoutingModule,
-    MaterialModule,
-    NotifierModule,
-    FileModule,
-    ReactiveFormsModule,
-    NgxsModule.forFeature([PostState]),
-    TranslateModule,
-    MatGridListModule
-  ]
+    imports: [
+        CommonModule,
+        PostRoutingModule,
+        MaterialModule,
+        NotifierModule,
+        FileModule,
+        ReactiveFormsModule,
+        NgxsModule.forFeature([PostState]),
+        TranslateModule,
+        MatGridListModule,
+        ButtonModule
+    ]
 
 })
 export class PostModule { }

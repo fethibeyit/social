@@ -2,20 +2,17 @@
 
   <form [formGroup]="form" (ngSubmit)="submit()">
 
-      <mat-form-field appearance="outline" style="width: 100%;">
-        <input type="text" matInput placeholder="{{'Email' | translate}}" formControlName="username">
-      </mat-form-field>
+        <input type="text" pInputText class="input-login" placeholder="{{'Email' | translate}}" formControlName="username">
 
-      <mat-form-field appearance="outline" style="width: 100%;">
-        <input type="password" matInput placeholder="{{'Password' | translate}}" formControlName="password">
-      </mat-form-field>
+        <input type="password" pInputText class="input-login" placeholder="{{'Password' | translate}}" formControlName="password">
 
-      <button type="submit" class="btn btn-primary btn-login" style="width: 100%; display: flex; align-items: center; justify-content: center" >
-        {{'Log In' | translate}}
-        <mat-icon *ngIf="loading$ | async" iconPositionEnd style="margin-left: 20px;" >
-          <mat-spinner   diameter="20" style="--mdc-circular-progress-active-indicator-color:white;" ></mat-spinner>
-        </mat-icon>
-      </button>
+
+      <p-button type="submit"  label="{{'Log In' | translate}}" >
+
+<!--        <mat-icon *ngIf="loading$ | async" iconPositionEnd style="margin-left: 20px;" >-->
+<!--          <mat-spinner   diameter="20" style="&#45;&#45;mdc-circular-progress-active-indicator-color:white;" ></mat-spinner>-->
+<!--        </mat-icon>-->
+      </p-button>
 
       <p style="color: red; text-align: center; font-size: 0.8rem;" *ngIf=" error$ | async">{{error$ | async}}</p>
 
@@ -24,9 +21,8 @@
   <hr>
 
   <div style="display: flex; justify-content: center;">
-    <button [routerLink]="['register']" routerLinkActive="router-link-active"  class="btn btn-success btn-login" style="width: 60%;">
-      {{'Create new account' | translate}}
-    </button>
+    <p-button [routerLink]="['register']" routerLinkActive="router-link-active" label="{{'Create new account' | translate}}"  severity="success" />
+
   </div>
 
 </div>

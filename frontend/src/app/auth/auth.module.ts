@@ -11,6 +11,8 @@ import {AuthRoutingModule} from "./auth-routing.module";
 import {NgxsModule} from "@ngxs/store";
 import {AuthState} from "./state/auth-state";
 import {TranslateModule} from "@ngx-translate/core";
+import {ButtonModule} from "primeng/button";
+import {InputTextModule} from "primeng/inputtext";
 
 @NgModule({
   declarations: [
@@ -18,16 +20,18 @@ import {TranslateModule} from "@ngx-translate/core";
     LoginComponent,
     RegisterComponent
   ],
-    imports: [
-        CommonModule,
-        MaterialModule,
-        FormsModule,
-        ReactiveFormsModule,
-        CoreModule,
-        RouterLink,
-        AuthRoutingModule,
-        NgxsModule.forFeature([AuthState]),
-        TranslateModule
-    ]
+  imports: [
+    CommonModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CoreModule,
+    RouterLink,
+    AuthRoutingModule,
+    NgxsModule.forFeature([AuthState]),
+    TranslateModule,
+    ButtonModule,
+    InputTextModule
+  ]
 })
 export class AuthModule { }

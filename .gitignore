@@ -33,3 +33,5 @@ build/
 .vscode/
 ### Secrets ###
 secrets.properties
+
+syncfusion-license.txt
