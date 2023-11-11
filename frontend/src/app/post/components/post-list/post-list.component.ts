@@ -8,6 +8,8 @@ import {PostState} from "../../state/post-state";
 import {FileService} from "../../../file/services/file.service";
 import {FileModel} from "../../../file/models/fileModel.interface";
 import {FileState} from "../../../file/state/file-state";
+import {ConnectionPositionPair} from "@angular/cdk/overlay";
+
 
 @Component({
   selector: 'app-post-list',
@@ -25,6 +27,15 @@ export class PostListComponent implements OnInit{
   @Select(PostState.deleteLoading) deleteLoading$!: Observable<boolean>;
 
   @Select(FileState.imagesUrl) imagesUrl$!: Observable<Map<string, string>> ;
+
+  isOpen = false;
+  positions = [
+    new ConnectionPositionPair(
+      { originX: 'center', originY: 'top' },
+      { overlayX: 'center', overlayY: 'bottom' }),
+    new ConnectionPositionPair(
+      { originX: 'center', originY: 'bottom' },
+      { overlayX: 'center', overlayY: 'top' })];
 
   constructor(private fileService: FileService) {
   }
@@ -54,6 +65,16 @@ export class PostListComponent implements OnInit{
 
   noImageFiles (post : PostModel) : FileModel[] {
     return post.files.filter(f => !f.type.startsWith('image'));
+  }
+
+  protected readonly console = console;
+
+  openSmileys(){
+    this.isOpen = true;
+  }
+
+  closeSmileys(e : any) {
+    console.log(e);
   }
 
 }

@@ -15,6 +15,12 @@ import {TranslateModule} from "@ngx-translate/core";
 import {FileModule} from "../file/file.module";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {ButtonModule} from "primeng/button";
+import {CardModule} from "primeng/card";
+import {AvatarModule} from "primeng/avatar";
+import {OverlayPanelModule} from "primeng/overlaypanel";
+import {TooltipModule} from "primeng/tooltip";
+import {CdkConnectedOverlay, CdkOverlayOrigin} from "@angular/cdk/overlay";
+import {OverlayModule} from "primeng/overlay";
 
 @NgModule({
   declarations: [
@@ -24,18 +30,29 @@ import {ButtonModule} from "primeng/button";
     PostFormComponent,
     PostCommandBarComponent
   ],
-    imports: [
-        CommonModule,
-        PostRoutingModule,
-        MaterialModule,
-        NotifierModule,
-        FileModule,
-        ReactiveFormsModule,
-        NgxsModule.forFeature([PostState]),
-        TranslateModule,
-        MatGridListModule,
-        ButtonModule
-    ]
+  exports: [
+    PostListComponent,
+    ListComponent
+  ],
+  imports: [
+    CommonModule,
+    PostRoutingModule,
+    MaterialModule,
+    NotifierModule,
+    FileModule,
+    ReactiveFormsModule,
+    NgxsModule.forFeature([PostState]),
+    TranslateModule,
+    MatGridListModule,
+    ButtonModule,
+    CardModule,
+    AvatarModule,
+    OverlayPanelModule,
+    TooltipModule,
+    CdkConnectedOverlay,
+    OverlayModule,
+    CdkOverlayOrigin
+  ]
 
 })
 export class PostModule { }

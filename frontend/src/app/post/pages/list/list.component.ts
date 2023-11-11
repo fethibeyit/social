@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PostModel} from "../../models/postModel.interface";
 import {HttpClient} from "@angular/common/http";
 import {CommandBarActions} from "../../enums/command-bar-actions.enum";
@@ -15,7 +15,7 @@ import {Post} from "../../state/post-actions";
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent {
+export class ListComponent implements OnInit{
 
   @Select(PostState.posts) posts$!: Observable<PostModel[]> ;
   @Select(PostState.loading) loading$!: Observable<boolean> ;
@@ -29,6 +29,10 @@ export class ListComponent {
     private router:Router ,
     private store: Store,
     ) {}
+
+  ngOnInit(): void {
+    this.store.dispatch(new Post.GetList());
+  }
 
   executeCommandBarAction(action: CommandBarActions) {
     switch(action) {
@@ -50,4 +54,6 @@ export class ListComponent {
       this.store.dispatch(new Post.Delete(data.post));
     }
   }
+
+
 }

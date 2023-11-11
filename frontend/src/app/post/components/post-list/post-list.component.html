@@ -1,63 +1,231 @@
-<div style="width: 600px;">
+ <p-card *ngFor="let post of  (posts$ | async)" class="m-3"  >
+    <ng-template pTemplate="header">
+      <div class="flex justify-content-between">
+        <div class="flex align-content-center p-3" >
+          <p-avatar icon="pi pi-user" styleClass="mr-2" [style]="{'background-color':'#2196F3', 'color': '#ffffff'}" shape="circle"></p-avatar>
+          <div>
+            <p class="font-bold" >{{post.author.firstName}} {{post.author.lastName}}</p>
+            <p class="text-xs">{{post.createdAt | date}}</p>
+          </div>
+        </div>
+        <div class="flex">
+          <p-button icon="pi pi-ellipsis-h" [rounded]="true" [text]="true" [plain]="true"></p-button>
+          <p-button icon="pi pi-times" [rounded]="true" [text]="true" [plain]="true"></p-button>
+        </div>
+      </div>
+    </ng-template>
 
-  <mat-card *ngFor="let post of  (posts$ | async)" style="margin-top: 10px;">
-
-    <mat-card-header>
-      <div mat-card-avatar><mat-icon >person</mat-icon></div>
-      <mat-card-title>{{post.author.firstName}} {{post.author.lastName}}</mat-card-title>
-      <mat-card-subtitle>{{post.createdAt | date}}</mat-card-subtitle>
-    </mat-card-header>
-
-    <mat-card-content style="margin-bottom: 20px;">
-
-      <p>{{post.content}}</p>
+    <ng-template pTemplate="content">
+      <div class="p-3 pt-0">
+        <p>{{post.content}}</p>
+      </div>
 
       <ng-container *ngFor="let file of noImageFiles(post)">
-        <div>
+        <div class="p-3 pt-0">
           {{file.name}}
           <button (click)="download(file)">download</button>
         </div>
       </ng-container>
-    </mat-card-content>
 
-    <img *ngIf="imageFiles(post).length === 1 || imageFiles(post).length === 3"  mat-card-image
-         src="{{(imagesUrl$ | async)?.get(imageFiles(post)[0].url)}}" alt="{{imageFiles(post)[0].name}}">
+      <img *ngIf="imageFiles(post).length === 1 || imageFiles(post).length === 3"  class="image-crop"
+           src="{{(imagesUrl$ | async)?.get(imageFiles(post)[0].url)}}" alt="{{imageFiles(post)[0].name}}">
 
-    <mat-grid-list *ngIf="imageFiles(post).length === 2 || imageFiles(post).length > 3"  cols="12" rowHeight="300px" gutterSize="0" >
-      <mat-grid-tile *ngFor="let image of imageFiles(post).slice(0,2); index as i" [colspan]="6"   >
-        <img  class="image-crop"
-              src="{{(imagesUrl$ | async)?.get(image.url)}}" alt="{{image.name}}">
-      </mat-grid-tile>
-    </mat-grid-list>
+      <div class="grid grid-nogutter" *ngIf="imageFiles(post).length === 2 || imageFiles(post).length > 3"  >
+        <div class="col" *ngFor="let image of imageFiles(post).slice(0,2); index as i" >
+          <img  class="image-crop"
+                src="{{(imagesUrl$ | async)?.get(image.url)}}" alt="{{image.name}}">
+        </div>
+      </div>
 
-    <mat-grid-list *ngIf="imageFiles(post).length === 3 "  cols="12" rowHeight="300px" gutterSize="0" >
-      <mat-grid-tile *ngFor="let image of imageFiles(post).slice(1,3); index as i" [colspan]="6"   >
-        <img  class="image-crop"
-              src="{{(imagesUrl$ | async)?.get(image.url)}}" alt="{{image.name}}">
-      </mat-grid-tile>
-    </mat-grid-list>
+      <div class="grid grid-nogutter" *ngIf="imageFiles(post).length === 3" >
+        <div class="col" *ngFor="let image of imageFiles(post).slice(1,3); index as i" >
+          <img  class="image-crop"
+                src="{{(imagesUrl$ | async)?.get(image.url)}}" alt="{{image.name}}">
+        </div>
+      </div>
 
-    <mat-grid-list *ngIf="imageFiles(post).length === 4"  cols="12" rowHeight="300px" gutterSize="0" >
-      <mat-grid-tile *ngFor="let image of imageFiles(post).slice(2,4); index as i" [colspan]="6"   >
-        <img  class="image-crop"
-              src="{{(imagesUrl$ | async)?.get(image.url)}}" alt="{{image.name}}">
-      </mat-grid-tile>
-    </mat-grid-list>
+      <div class="grid grid-nogutter"*ngIf="imageFiles(post).length === 4" >
+        <div class="col" *ngFor="let image of imageFiles(post).slice(2,4); index as i"    >
+          <img  class="image-crop"
+                src="{{(imagesUrl$ | async)?.get(image.url)}}" alt="{{image.name}}">
+        </div>
+      </div>
 
-    <mat-grid-list *ngIf="imageFiles(post).length > 4"  cols="12" rowHeight="200px" gutterSize="0" >
-      <mat-grid-tile *ngFor="let image of imageFiles(post).slice(2,5); index as i" [colspan]="4" >
+      <div class="grid grid-nogutter" *ngIf="imageFiles(post).length > 4" >
+        <div class="col" *ngFor="let image of imageFiles(post).slice(2,5); index as i" style="position: relative;" >
           <img  class="image-crop"
                 src="{{(imagesUrl$ | async)?.get(image.url)}}" alt="{{image.name}}">
           <div *ngIf="imageFiles(post).length > 5 && i === 2" class="image-text" >
             <p style="font-size: 32px;" >+{{imageFiles(post).length - 5}}</p>
           </div>
-      </mat-grid-tile>
-    </mat-grid-list>
+        </div>
+      </div>
 
-    <mat-card-actions align="end">
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
-    </mat-card-actions>
-  </mat-card>
+    </ng-template>
 
-</div>
+    <ng-template pTemplate="footer">
+      <div class="grid p-3">
+
+        <div class="col-4">
+          <p-button  [style]="{'width' : '100%'}" [text]="true" [plain]="true" size="small"
+                     [pTooltip]="likeTooltip" tooltipPosition="top"
+                     [showDelay]="500" [hideDelay]="60000"
+          >
+            <ng-template  pTemplate="content">
+              <div #targetEl class="flex align-content-center justify-content-center gap-2 w-full">
+                <i class="pi pi-thumbs-up"></i>
+                <p class="font-bold">{{"Like" | translate}}</p>
+              </div>
+            </ng-template>
+          </p-button>
+        </div>
+        <div class="col-4">
+          <p-button [style]="{'width' : '100%'}" [text]="true" [plain]="true" size="small" (mouseenter)="isOpen = true"   >
+            <ng-template pTemplate="content">
+              <div class="flex align-content-center justify-content-center gap-2 w-full"   cdkOverlayOrigin #originOverlay="cdkOverlayOrigin" >
+                <i class="pi pi-comment"></i>
+                <p class="font-bold">{{"Comment" | translate}}</p>
+              </div>
+              <ng-template
+                cdkConnectedOverlay
+                [cdkConnectedOverlayOrigin]="originOverlay"
+                [cdkConnectedOverlayOpen]="isOpen"
+                [cdkConnectedOverlayPositions]="positions"
+              >
+                <div class="flex align-items-center gap-2 animated-smiley" (mouseleave)="closeSmileys($event)" id="{{'smiley-id-' + post.id }}">
+                  <div class="smiley" (click)="console.log('tooltipclick')">
+                    <img src="assets/animatedSmileys/thumbs-up.gif" alt="👍" width="32" height="32">
+                  </div>
+                  <div class="smiley" (click)="console.log('tooltipclick')">
+                    <img src="assets/animatedSmileys/red-heart.gif" alt="❤" width="32" height="32">
+                  </div>
+                  <div class="smiley" (click)="console.log('tooltipclick')">
+                    <img src="assets/animatedSmileys/smile.gif" alt="😀" width="32" height="32">
+                  </div>
+                  <div class="smiley" (click)="console.log('tooltipclick')">
+                    <img src="assets/animatedSmileys/laughing.gif" alt="😆" width="32" height="32">
+                  </div>
+                  <div class="smiley" (click)="console.log('tooltipclick')">
+                    <img src="assets/animatedSmileys/surprised.gif" alt="😯" width="32" height="32">
+                  </div>
+                  <div class="smiley" (click)="console.log('tooltipclick')">
+                    <img src="assets/animatedSmileys/cry.gif" alt="😢" width="32" height="32">
+                  </div>
+                  <div class="smiley" (click)="console.log('tooltipclick')">
+                    <img src="assets/animatedSmileys/rage.gif" alt="😡" width="32" height="32">
+                  </div>
+
+                </div>
+<!--                <ul class="example-list">-->
+<!--                  <li>Item 1</li>-->
+<!--                  <li>Item 2</li>-->
+<!--                  <li>Item 3</li>-->
+<!--                </ul>-->
+              </ng-template>
+            </ng-template>
+          </p-button>
+
+        </div>
+        <div class="col-4">
+          <p-button [style]="{'width' : '100%'}" [text]="true" [plain]="true" size="small" (click)="op.show($event)">
+            <ng-template pTemplate="content">
+              <div class="flex align-content-center justify-content-center gap-2 w-full">
+                <i class="pi pi-share-alt"></i>
+                <p class="font-bold">{{"Share" | translate}}</p>
+              </div>
+            </ng-template>
+          </p-button>
+        </div>
+      </div>
+    </ng-template>
+  </p-card>
+
+ <ng-template #likeTooltip >
+   <div class="flex align-items-center gap-2">
+     <div class="smiley" (click)="console.log('tooltipclick')">
+       <img src="assets/animatedSmileys/thumbs-up.gif" alt="👍" width="32" height="32">
+     </div>
+
+     <img src="assets/animatedSmileys/red-heart.gif" alt="❤" width="32" height="32">
+     <img src="assets/animatedSmileys/smile.gif" alt="😀" width="32" height="32">
+     <img src="assets/animatedSmileys/laughing.gif" alt="😆" width="32" height="32">
+     <img src="assets/animatedSmileys/surprised.gif" alt="😯" width="32" height="32">
+     <img src="assets/animatedSmileys/cry.gif" alt="😢" width="32" height="32">
+     <img src="assets/animatedSmileys/rage.gif" alt="😡" width="32" height="32">
+   </div>
+ </ng-template>
+
+ <p-overlayPanel #op styleClass="p-overlaypanel-flipped" >
+   <ng-template pTemplate="content">
+     <h4>Custom Content</h4>
+   </ng-template>
+ </p-overlayPanel>
+
+
+
+<!-- <p-overlayPanel #op  [appendTo]="targetEl" >-->
+<!--   <ng-template pTemplate="content">-->
+<!--     <p>Custom Content</p>-->
+<!--   </ng-template>-->
+<!-- </p-overlayPanel>-->
+
+<!--  <mat-card *ngFor="let post of  (posts$ | async)" style="margin-top: 10px;">-->
+
+<!--    <mat-card-header>-->
+<!--      <div mat-card-avatar><mat-icon >person</mat-icon></div>-->
+<!--      <mat-card-title>{{post.author.firstName}} {{post.author.lastName}}</mat-card-title>-->
+<!--      <mat-card-subtitle>{{post.createdAt | date}}</mat-card-subtitle>-->
+<!--    </mat-card-header>-->
+
+<!--    <mat-card-content style="margin-bottom: 20px;">-->
+
+<!--      <p>{{post.content}}</p>-->
+
+<!--      <ng-container *ngFor="let file of noImageFiles(post)">-->
+<!--        <div>-->
+<!--          {{file.name}}-->
+<!--          <button (click)="download(file)">download</button>-->
+<!--        </div>-->
+<!--      </ng-container>-->
+<!--    </mat-card-content>-->
+
+<!--    <img *ngIf="imageFiles(post).length === 1 || imageFiles(post).length === 3"  mat-card-image-->
+<!--         src="{{(imagesUrl$ | async)?.get(imageFiles(post)[0].url)}}" alt="{{imageFiles(post)[0].name}}">-->
+
+<!--    <mat-grid-list *ngIf="imageFiles(post).length === 2 || imageFiles(post).length > 3"  cols="12" rowHeight="300px" gutterSize="0" >-->
+<!--      <mat-grid-tile *ngFor="let image of imageFiles(post).slice(0,2); index as i" [colspan]="6"   >-->
+<!--        <img  class="image-crop"-->
+<!--              src="{{(imagesUrl$ | async)?.get(image.url)}}" alt="{{image.name}}">-->
+<!--      </mat-grid-tile>-->
+<!--    </mat-grid-list>-->
+
+<!--    <mat-grid-list *ngIf="imageFiles(post).length === 3 "  cols="12" rowHeight="300px" gutterSize="0" >-->
+<!--      <mat-grid-tile *ngFor="let image of imageFiles(post).slice(1,3); index as i" [colspan]="6"   >-->
+<!--        <img  class="image-crop"-->
+<!--              src="{{(imagesUrl$ | async)?.get(image.url)}}" alt="{{image.name}}">-->
+<!--      </mat-grid-tile>-->
+<!--    </mat-grid-list>-->
+
+<!--    <mat-grid-list *ngIf="imageFiles(post).length === 4"  cols="12" rowHeight="300px" gutterSize="0" >-->
+<!--      <mat-grid-tile *ngFor="let image of imageFiles(post).slice(2,4); index as i" [colspan]="6"   >-->
+<!--        <img  class="image-crop"-->
+<!--              src="{{(imagesUrl$ | async)?.get(image.url)}}" alt="{{image.name}}">-->
+<!--      </mat-grid-tile>-->
+<!--    </mat-grid-list>-->
+
+<!--    <mat-grid-list *ngIf="imageFiles(post).length > 4"  cols="12" rowHeight="200px" gutterSize="0" >-->
+<!--      <mat-grid-tile *ngFor="let image of imageFiles(post).slice(2,5); index as i" [colspan]="4" >-->
+<!--          <img  class="image-crop"-->
+<!--                src="{{(imagesUrl$ | async)?.get(image.url)}}" alt="{{image.name}}">-->
+<!--          <div *ngIf="imageFiles(post).length > 5 && i === 2" class="image-text" >-->
+<!--            <p style="font-size: 32px;" >+{{imageFiles(post).length - 5}}</p>-->
+<!--          </div>-->
+<!--      </mat-grid-tile>-->
+<!--    </mat-grid-list>-->
+
+<!--    <mat-card-actions align="end">-->
+<!--      <button mat-button>LIKE</button>-->
+<!--      <button mat-button>SHARE</button>-->
+<!--    </mat-card-actions>-->
+<!--  </mat-card>-->
+

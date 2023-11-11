@@ -5,19 +5,25 @@ import { FooterComponent } from './layout/footer/footer.component';
 import {MaterialModule} from "../material/material.module";
 import {TranslateModule} from "@ngx-translate/core";
 import {FormsModule} from "@angular/forms";
+import { HomeComponent } from './pages/home/home.component';
+import {PostModule} from "../post/post.module";
+import {SharedRoutingModule} from "./shared-routing.module";
 
 
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
     TranslateModule,
-    FormsModule
+    FormsModule,
+    SharedRoutingModule,
+    PostModule,
   ],
   exports:[
     NavbarComponent,
