@@ -7,6 +7,7 @@ import {PostState} from "../../state/post-state";
 import {FileService} from "../../../file/services/file.service";
 import {FileModel} from "../../../file/models/fileModel.interface";
 import {FileState} from "../../../file/state/file-state";
+import {LikeType} from "../../enums/like-type.enum";
 
 
 @Component({
@@ -20,7 +21,6 @@ export class PostCardComponent implements OnInit{
 
   @Select(PostState.selectedPost) selected$!: Observable<PostModel | null>;
   @Select(PostState.deleteLoading) deleteLoading$!: Observable<boolean>;
-
   @Select(FileState.imagesUrl) imagesUrl$!: Observable<Map<string, string>> ;
 
   constructor(private fileService: FileService) {
@@ -41,5 +41,10 @@ export class PostCardComponent implements OnInit{
 
   noImageFiles (post : PostModel | null) : FileModel[] {
     return post?.files.filter(f => !f.type.startsWith('image')) ?? [];
+  }
+
+  like(type: LikeType) {
+    console.log(type);
+    console.log(this.post.content);
   }
 }

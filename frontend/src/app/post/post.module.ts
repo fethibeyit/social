@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import {CommonModule} from '@angular/common';
-import { ListComponent } from './pages/list/list.component';
+import { PostListComponent } from './pages/list/post-list.component';
 import { FormComponent } from './pages/form/form.component';
 import { PostCardComponent } from './components/post-list/post-card.component';
 import { PostFormComponent } from './components/post-form/post-form.component';
@@ -25,7 +25,7 @@ import { LikeButtonComponent } from './components/like-button/like-button.compon
 
 @NgModule({
   declarations: [
-    ListComponent,
+    PostListComponent,
     FormComponent,
     PostCardComponent,
     PostFormComponent,
@@ -34,7 +34,7 @@ import { LikeButtonComponent } from './components/like-button/like-button.compon
   ],
   exports: [
     PostCardComponent,
-    ListComponent
+    PostListComponent
   ],
   imports: [
     CommonModule,

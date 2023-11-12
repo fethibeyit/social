@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {ConnectionPositionPair} from "@angular/cdk/overlay";
 import {LikeType, smileys} from "../../enums/like-type.enum";
 
@@ -14,6 +14,8 @@ export class LikeButtonComponent {
   protected readonly Object = Object;
   protected readonly SMILEYS_CLASS = "smileys-class";
   protected readonly LIKE_BUTTON_CLASS = "like-button-class";
+
+  @Output() likeClick = new EventEmitter<LikeType>();
 
   isOpen = false;
   positions = [
@@ -35,6 +37,6 @@ export class LikeButtonComponent {
   }
 
   onClick(type: LikeType) {
-    console.log(type);
+    this.likeClick.emit(type);
   }
 }
