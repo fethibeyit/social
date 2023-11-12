@@ -1,0 +1,24 @@
+<p-button [style]="{'width' : '100%'}" [text]="true" [plain]="true" size="small"
+          (mouseenter)="openSmileys()" (mouseleave)="closeSmileys($event)" styleClass="{{LIKE_BUTTON_CLASS}}">
+  <ng-template pTemplate="content">
+    <div class="flex align-content-center justify-content-center gap-2 w-full {{LIKE_BUTTON_CLASS}}"
+         cdkOverlayOrigin #originOverlay="cdkOverlayOrigin" >
+      <i class="pi pi-thumbs-up {{LIKE_BUTTON_CLASS}}"></i>
+      <p class="font-bold {{LIKE_BUTTON_CLASS}}">{{"Like" | translate}}</p>
+    </div>
+    <ng-template
+      cdkConnectedOverlay
+      [cdkConnectedOverlayOrigin]="originOverlay"
+      [cdkConnectedOverlayOpen]="isOpen"
+      [cdkConnectedOverlayPositions]="positions"
+    >
+      <div class="flex align-items-center gap-2 animated-smiley {{SMILEYS_CLASS}}"
+           (mouseleave)="closeSmileys($event)">
+        <div class="smiley" *ngFor="let smiley of Object.values(smileys)" (click)="onClick(smiley.type)"
+             pTooltip="{{smiley.name | translate}}" tooltipPosition="top" >
+          <img src="{{'assets/animatedSmileys/'+smiley.file}}" alt="{{smiley.alt}}" width="32" height="32">
+        </div>
+      </div>
+    </ng-template>
+  </ng-template>
+</p-button>

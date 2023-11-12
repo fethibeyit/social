@@ -10,5 +10,5 @@
 
 <ng-container *ngIf="(loading$ | async) === false">
   <div *ngIf="(posts$ | async)?.length === 0"  >No post to display </div>
-  <app-post-list *ngIf="(posts$ | async)?.length !== 0" [posts$]="posts$" (post)="selectPost($event)"  [headers]="headers"/>
+  <app-post-card *ngFor="let post of (posts$ | async)" [post]="post" />
 </ng-container>

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import { ListComponent } from './pages/list/list.component';
 import { FormComponent } from './pages/form/form.component';
-import { PostListComponent } from './components/post-list/post-list.component';
+import { PostCardComponent } from './components/post-list/post-card.component';
 import { PostFormComponent } from './components/post-form/post-form.component';
 import {MaterialModule} from "../material/material.module";
 import {PostRoutingModule} from "./post-routing.module";
@@ -21,17 +21,19 @@ import {OverlayPanelModule} from "primeng/overlaypanel";
 import {TooltipModule} from "primeng/tooltip";
 import {CdkConnectedOverlay, CdkOverlayOrigin} from "@angular/cdk/overlay";
 import {OverlayModule} from "primeng/overlay";
+import { LikeButtonComponent } from './components/like-button/like-button.component';
 
 @NgModule({
   declarations: [
     ListComponent,
     FormComponent,
-    PostListComponent,
+    PostCardComponent,
     PostFormComponent,
-    PostCommandBarComponent
+    PostCommandBarComponent,
+    LikeButtonComponent
   ],
   exports: [
-    PostListComponent,
+    PostCardComponent,
     ListComponent
   ],
   imports: [

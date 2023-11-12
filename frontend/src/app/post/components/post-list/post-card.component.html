@@ -1,4 +1,4 @@
- <p-card *ngFor="let post of  (posts$ | async)" class="m-3"  >
+ <p-card class="m-3"  >
     <ng-template pTemplate="header">
       <div class="flex justify-content-between">
         <div class="flex align-content-center p-3" >
@@ -67,67 +67,22 @@
       <div class="grid p-3">
 
         <div class="col-4">
-          <p-button  [style]="{'width' : '100%'}" [text]="true" [plain]="true" size="small"
-                     [pTooltip]="likeTooltip" tooltipPosition="top"
-                     [showDelay]="500" [hideDelay]="60000"
-          >
-            <ng-template  pTemplate="content">
-              <div #targetEl class="flex align-content-center justify-content-center gap-2 w-full">
-                <i class="pi pi-thumbs-up"></i>
-                <p class="font-bold">{{"Like" | translate}}</p>
-              </div>
-            </ng-template>
-          </p-button>
+          <app-like-button/>
         </div>
+
         <div class="col-4">
-          <p-button [style]="{'width' : '100%'}" [text]="true" [plain]="true" size="small" (mouseenter)="isOpen = true"   >
+          <p-button [style]="{'width' : '100%'}" [text]="true" [plain]="true" size="small" >
             <ng-template pTemplate="content">
-              <div class="flex align-content-center justify-content-center gap-2 w-full"   cdkOverlayOrigin #originOverlay="cdkOverlayOrigin" >
+              <div class="flex align-content-center justify-content-center gap-2 w-full" >
                 <i class="pi pi-comment"></i>
                 <p class="font-bold">{{"Comment" | translate}}</p>
               </div>
-              <ng-template
-                cdkConnectedOverlay
-                [cdkConnectedOverlayOrigin]="originOverlay"
-                [cdkConnectedOverlayOpen]="isOpen"
-                [cdkConnectedOverlayPositions]="positions"
-              >
-                <div class="flex align-items-center gap-2 animated-smiley" (mouseleave)="closeSmileys($event)" id="{{'smiley-id-' + post.id }}">
-                  <div class="smiley" (click)="console.log('tooltipclick')">
-                    <img src="assets/animatedSmileys/thumbs-up.gif" alt="👍" width="32" height="32">
-                  </div>
-                  <div class="smiley" (click)="console.log('tooltipclick')">
-                    <img src="assets/animatedSmileys/red-heart.gif" alt="❤" width="32" height="32">
-                  </div>
-                  <div class="smiley" (click)="console.log('tooltipclick')">
-                    <img src="assets/animatedSmileys/smile.gif" alt="😀" width="32" height="32">
-                  </div>
-                  <div class="smiley" (click)="console.log('tooltipclick')">
-                    <img src="assets/animatedSmileys/laughing.gif" alt="😆" width="32" height="32">
-                  </div>
-                  <div class="smiley" (click)="console.log('tooltipclick')">
-                    <img src="assets/animatedSmileys/surprised.gif" alt="😯" width="32" height="32">
-                  </div>
-                  <div class="smiley" (click)="console.log('tooltipclick')">
-                    <img src="assets/animatedSmileys/cry.gif" alt="😢" width="32" height="32">
-                  </div>
-                  <div class="smiley" (click)="console.log('tooltipclick')">
-                    <img src="assets/animatedSmileys/rage.gif" alt="😡" width="32" height="32">
-                  </div>
-
-                </div>
-<!--                <ul class="example-list">-->
-<!--                  <li>Item 1</li>-->
-<!--                  <li>Item 2</li>-->
-<!--                  <li>Item 3</li>-->
-<!--                </ul>-->
-              </ng-template>
             </ng-template>
           </p-button>
-
         </div>
+
         <div class="col-4">
-          <p-button [style]="{'width' : '100%'}" [text]="true" [plain]="true" size="small" (click)="op.show($event)">
+          <p-button [style]="{'width' : '100%'}" [text]="true" [plain]="true" size="small" >
             <ng-template pTemplate="content">
               <div class="flex align-content-center justify-content-center gap-2 w-full">
                 <i class="pi pi-share-alt"></i>
@@ -136,30 +91,45 @@
             </ng-template>
           </p-button>
         </div>
+
       </div>
     </ng-template>
   </p-card>
 
- <ng-template #likeTooltip >
-   <div class="flex align-items-center gap-2">
-     <div class="smiley" (click)="console.log('tooltipclick')">
-       <img src="assets/animatedSmileys/thumbs-up.gif" alt="👍" width="32" height="32">
-     </div>
 
-     <img src="assets/animatedSmileys/red-heart.gif" alt="❤" width="32" height="32">
-     <img src="assets/animatedSmileys/smile.gif" alt="😀" width="32" height="32">
-     <img src="assets/animatedSmileys/laughing.gif" alt="😆" width="32" height="32">
-     <img src="assets/animatedSmileys/surprised.gif" alt="😯" width="32" height="32">
-     <img src="assets/animatedSmileys/cry.gif" alt="😢" width="32" height="32">
-     <img src="assets/animatedSmileys/rage.gif" alt="😡" width="32" height="32">
-   </div>
- </ng-template>
+ <!--          <p-button  [style]="{'width' : '100%'}" [text]="true" [plain]="true" size="small"-->
+ <!--                     [pTooltip]="likeTooltip" tooltipPosition="top"-->
+ <!--                     [showDelay]="500" [hideDelay]="60000"-->
+ <!--          >-->
+ <!--            <ng-template  pTemplate="content">-->
+ <!--              <div #targetEl class="flex align-content-center justify-content-center gap-2 w-full">-->
+ <!--                <i class="pi pi-thumbs-up"></i>-->
+ <!--                <p class="font-bold">{{"Like" | translate}}</p>-->
+ <!--              </div>-->
+ <!--            </ng-template>-->
+ <!--          </p-button>-->
 
- <p-overlayPanel #op styleClass="p-overlaypanel-flipped" >
-   <ng-template pTemplate="content">
-     <h4>Custom Content</h4>
-   </ng-template>
- </p-overlayPanel>
+
+<!-- <ng-template #likeTooltip >-->
+<!--   <div class="flex align-items-center gap-2">-->
+<!--     <div class="smiley" (click)="console.log('tooltipclick')">-->
+<!--       <img src="assets/animatedSmileys/thumbs-up.gif" alt="👍" width="32" height="32">-->
+<!--     </div>-->
+
+<!--     <img src="assets/animatedSmileys/red-heart.gif" alt="❤" width="32" height="32">-->
+<!--     <img src="assets/animatedSmileys/smile.gif" alt="😀" width="32" height="32">-->
+<!--     <img src="assets/animatedSmileys/laughing.gif" alt="😆" width="32" height="32">-->
+<!--     <img src="assets/animatedSmileys/surprised.gif" alt="😯" width="32" height="32">-->
+<!--     <img src="assets/animatedSmileys/cry.gif" alt="😢" width="32" height="32">-->
+<!--     <img src="assets/animatedSmileys/rage.gif" alt="😡" width="32" height="32">-->
+<!--   </div>-->
+<!-- </ng-template>-->
+
+<!-- <p-overlayPanel #op styleClass="p-overlaypanel-flipped" >-->
+<!--   <ng-template pTemplate="content">-->
+<!--     <h4>Custom Content</h4>-->
+<!--   </ng-template>-->
+<!-- </p-overlayPanel>-->
 
 
 

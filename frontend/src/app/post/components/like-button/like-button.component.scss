@@ -1,0 +1,12 @@
+.animated-smiley{
+  border-radius: 2rem;
+  background: #fff;
+  text-align: center;
+  padding: 2px;
+  box-shadow: 2px 2px 2px 2px  #eee;
+  animation: 3s ease-in 1s 2 reverse both paused slidein;
+}
+
+.smiley :hover {
+  transform: scale(1.3);
+}

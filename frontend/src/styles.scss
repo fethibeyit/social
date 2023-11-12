@@ -50,10 +50,14 @@ p {
   margin: 0;
 }
 
-.p-tooltip .p-tooltip-text {
-  background-color: white;
-  color: #000;
-  width: fit-content;
-}
+//.p-tooltip .p-tooltip-text {
+//  background-color: white;
+//  color: #000;
+//  width: fit-content;
+//}
 
+.p-tooltip .p-tooltip-text {
+  padding : 3px;
+  font-size: 0.7rem;
+}
 
