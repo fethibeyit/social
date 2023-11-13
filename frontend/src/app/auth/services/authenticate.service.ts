@@ -6,6 +6,7 @@ import {catchError, tap} from "rxjs/operators";
 import { JwtHelperService } from '@auth0/angular-jwt';
 import {UserCredentials} from "../models/userCredentials.interface";
 import {AppUserCreateModel} from "../models/appUserCreateModel.interface";
+import {ProfileModel} from "../models/profileModel.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +27,8 @@ export class AuthenticateService {
   }
 
   getProfile(): Observable<any> {
-    return this.http.get<any>(`${environment.apiURL}/profile`).pipe(
-      tap((data: any) => data),
+    return this.http.get<any>(`${environment.authURL}/profile`).pipe(
+      tap((data: ProfileModel) => data),
       catchError(err => throwError(() => err))
     )
   }

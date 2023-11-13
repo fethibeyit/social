@@ -1,7 +1,7 @@
 package com.fethibey.social.security.controller;
 
-
 import com.fethibey.social.model.user.AppUserCreateModel;
+import com.fethibey.social.model.user.ProfileModel;
 import com.fethibey.social.security.jwt.TokenProvider;
 import com.fethibey.social.security.model.JwtRequest;
 import com.fethibey.social.security.model.LocalUser;
@@ -26,12 +26,16 @@ public class JwtAuthenticationController {
     private AppUserService userService;
     private TokenProvider tokenProvider;
 
-    @GetMapping("/api/v1/profile")
-    public Map<String,String> infos(Authentication authentication){
-        LocalUser userPrincipal = (LocalUser) authentication.getPrincipal();
-        var authorities = userPrincipal.getAuthorities();
-        String name = userPrincipal.getName();
-        return Map.of("profile",name);
+    @GetMapping("/profile")
+    public ResponseEntity<ProfileModel> infos(Authentication authentication){
+        var profile = new ProfileModel();
+        if(authentication != null) {
+            LocalUser userPrincipal = (LocalUser) authentication.getPrincipal();
+            profile.setFullname(userPrincipal.getName());
+            profile.setAuthorities(userPrincipal.getAuthorities().stream().toList());
+            profile.setUser_id(userPrincipal.getUser().getId());
+        }
+        return new ResponseEntity(profile, HttpStatus.OK);
     }
 
     @PostMapping("/auth")

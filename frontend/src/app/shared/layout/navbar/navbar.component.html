@@ -7,7 +7,7 @@
       </div>
 
       <div class="navbar-end" >
-        <span style="color: white;">{{profile$ | async | titlecase}}</span>
+        <span style="color: white;">{{(profile$ | async)?.fullname | titlecase}}</span>
         <button *ngIf="authService.isAuthenticated()" (click)="logout()" style="color: white"
                 mat-icon-button>
           <mat-icon>logout</mat-icon>

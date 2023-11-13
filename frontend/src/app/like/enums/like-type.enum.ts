@@ -1,19 +1,19 @@
 export enum LikeType {
-  ThumbsUp = "THUMBS_UP",
-  Love = "LOVE",
-  Smile = "SMILE",
-  Laughing = "LAUGHING",
-  Surprised = "SURPRISED",
-  Sad = "SAD",
-  Angry = "ANGRY"
+  THUMBS_UP = "THUMBS_UP",
+  LOVE = "LOVE",
+  SMILE = "SMILE",
+  LAUGHING = "LAUGHING",
+  SURPRISED = "SURPRISED",
+  SAD = "SAD",
+  ANGRY = "ANGRY"
 }
 
 export const smileys = {
-  ThumbsUp : {file: "thumbs-up.gif", alt : "👍", name: "Like", type:LikeType.ThumbsUp},
-  Love : {file: "red-heart.gif", alt : "❤", name: "Love", type:LikeType.Love},
-  Smile : {file: "smile.gif", alt : "😀", name: "Smile", type:LikeType.Smile},
-  Laughing : {file: "laughing.gif", alt : "😆", name: "Haha", type:LikeType.Laughing},
-  Surprised : {file: "surprised.gif", alt : "😯", name: "Wow", type:LikeType.Surprised},
-  Sad : {file: "cry.gif", alt : "😢", name: "Sad", type:LikeType.Sad},
-  Angry : {file: "rage.gif", alt : "😡", name: "Angry", type:LikeType.Angry}
+  THUMBS_UP : {file: "thumbs-up.gif", alt : "👍", name: "Like", type:LikeType.THUMBS_UP},
+  LOVE : {file: "red-heart.gif", alt : "❤", name: "Love", type:LikeType.LOVE},
+  SMILE : {file: "smile.gif", alt : "😀", name: "Smile", type:LikeType.SMILE},
+  LAUGHING : {file: "laughing.gif", alt : "😆", name: "Haha", type:LikeType.LAUGHING},
+  SURPRISED : {file: "surprised.gif", alt : "😯", name: "Wow", type:LikeType.SURPRISED},
+  SAD : {file: "cry.gif", alt : "😢", name: "Sad", type:LikeType.SAD},
+  ANGRY : {file: "rage.gif", alt : "😡", name: "Angry", type:LikeType.ANGRY}
 }

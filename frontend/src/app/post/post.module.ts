@@ -23,6 +23,7 @@ import {CdkConnectedOverlay, CdkOverlayOrigin} from "@angular/cdk/overlay";
 import {OverlayModule} from "primeng/overlay";
 import { LikeButtonComponent } from '../like/components/like-button/like-button.component';
 import {LikeModule} from "../like/like.module";
+import {DividerModule} from "primeng/divider";
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import {LikeModule} from "../like/like.module";
     ButtonModule,
     CardModule,
     AvatarModule,
-    LikeModule
+    LikeModule,
+    DividerModule
   ]
 
 })

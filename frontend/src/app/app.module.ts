@@ -18,7 +18,8 @@ import {AppErrorHandler} from "./core/handlers/app-error-handler";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {FileModule} from "./file/file.module";
-import {LikeModule} from "./like/like.module";
+import {AuthModule} from "./auth/auth.module";
+import {CoreModule} from "./core/core.module";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -35,19 +36,23 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     SharedModule,
     NotifierModule,
+    AuthModule,
     FileModule,
     NgxsModule.forRoot([], {
       developmentMode: !environment.production,
-      selectorOptions: { injectContainerState: false, suppressErrors: false },
+      selectorOptions: {injectContainerState: false, suppressErrors: false},
       executionStrategy: NoopNgxsExecutionStrategy,
     }),
-    NgxsReduxDevtoolsPluginModule.forRoot({disabled:environment.production, maxAge:25}),
-    NgxsStoragePluginModule.forRoot({ key: "auth.token" }),
+    NgxsReduxDevtoolsPluginModule.forRoot({disabled: environment.production, maxAge: 25}),
+    NgxsStoragePluginModule.forRoot({key: "auth.token"}),
     JwtModule.forRoot({
       config: {
         tokenGetter: () => JSON.parse(localStorage.getItem("auth.token") ?? "{}"),
         allowedDomains: [environment.domainURL],
-        disallowedRoutes: [ environment.authURL + '/auth' , environment.authURL +'/register']
+        disallowedRoutes: [
+          environment.authURL + '/auth',
+          environment.authURL + '/register',
+        ]
       }
     }),
     TranslateModule.forRoot({
@@ -57,7 +62,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
   ],
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler},

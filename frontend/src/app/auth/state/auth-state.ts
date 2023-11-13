@@ -2,10 +2,11 @@ import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {Injectable} from "@angular/core";
 import {AuthenticateService} from "../services/authenticate.service";
 import {Auth} from "./auth-actions";
+import {ProfileModel} from "../models/profileModel.interface";
 
 export interface AuthStateModel {
   token: string;
-  profile: string;
+  profile: ProfileModel | null;
   error: string | null;
   loading : boolean;
 }
@@ -16,7 +17,7 @@ type LocalStateContext = StateContext<AuthStateModel>;
   name: 'auth',
   defaults: {
     token: "",
-    profile: "",
+    profile: null,
     error: null,
     loading : false
   },
@@ -31,8 +32,8 @@ export class AuthState {
   }
 
   @Selector()
-  static profile(state: AuthStateModel): string {
-    return state?.profile ?? "";
+  static profile(state: AuthStateModel): ProfileModel | null {
+    return state?.profile;
   }
   @Selector()
   static error(state: AuthStateModel): string | null {
@@ -73,7 +74,7 @@ export class AuthState {
     ctx.patchState({loading: true , error: null})
     try{
       const data = await this.authService.getProfile().toPromise();
-      ctx.patchState({profile: data["profile"]})
+      ctx.patchState({profile: data})
     }finally {
       ctx.patchState({loading: false})
     }
@@ -92,7 +93,7 @@ export class AuthState {
 
   @Action(Auth.Logout)
   protected async logout(ctx: LocalStateContext, action: Auth.Logout): Promise<void> {
-    ctx.patchState({token: '', profile: '' , error: null})
+    ctx.patchState({token: '', profile: null , error: null})
   }
 
 }

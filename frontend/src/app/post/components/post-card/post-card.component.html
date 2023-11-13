@@ -64,8 +64,13 @@
     </ng-template>
 
     <ng-template pTemplate="footer">
-      <div class="grid p-3">
+      <div class="p-3">
+        <p>likes : {{post.likes.length}}</p>
+      </div>
 
+      <p-divider [style]="{'width' : '90%', 'margin' : '0 auto 0 auto'}"/>
+
+      <div class="grid p-3">
         <div class="col-4">
           <app-like-button (likeClick)="like($event)" />
         </div>
@@ -93,6 +98,6 @@
         </div>
 
       </div>
-      <p>{{post | json}}</p>
+<!--      <p style="font-size: 0.8rem">{{post | json}}</p>-->
     </ng-template>
   </p-card>

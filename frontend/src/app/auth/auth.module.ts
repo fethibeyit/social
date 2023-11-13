@@ -20,6 +20,9 @@ import {InputTextModule} from "primeng/inputtext";
     LoginComponent,
     RegisterComponent
   ],
+  exports: [
+    AuthFormComponent
+  ],
   imports: [
     CommonModule,
     MaterialModule,
