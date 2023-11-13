@@ -1,6 +1,9 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {ConnectionPositionPair} from "@angular/cdk/overlay";
 import {LikeType, smileys} from "../../enums/like-type.enum";
+import {Select} from "@ngxs/store";
+import {Observable} from "rxjs";
+import {LikeState} from "../../state/like-state";
 
 
 @Component({
@@ -16,6 +19,8 @@ export class LikeButtonComponent {
   protected readonly LIKE_BUTTON_CLASS = "like-button-class";
 
   @Output() likeClick = new EventEmitter<LikeType>();
+
+  @Select(LikeState.loading) loading$!: Observable<boolean>;
 
   isOpen = false;
   positions = [

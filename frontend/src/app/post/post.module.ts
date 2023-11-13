@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import { PostListComponent } from './pages/list/post-list.component';
 import { FormComponent } from './pages/form/form.component';
-import { PostCardComponent } from './components/post-list/post-card.component';
+import { PostCardComponent } from './components/post-card/post-card.component';
 import { PostFormComponent } from './components/post-form/post-form.component';
 import {MaterialModule} from "../material/material.module";
 import {PostRoutingModule} from "./post-routing.module";
@@ -21,7 +21,8 @@ import {OverlayPanelModule} from "primeng/overlaypanel";
 import {TooltipModule} from "primeng/tooltip";
 import {CdkConnectedOverlay, CdkOverlayOrigin} from "@angular/cdk/overlay";
 import {OverlayModule} from "primeng/overlay";
-import { LikeButtonComponent } from './components/like-button/like-button.component';
+import { LikeButtonComponent } from '../like/components/like-button/like-button.component';
+import {LikeModule} from "../like/like.module";
 
 @NgModule({
   declarations: [
@@ -29,8 +30,7 @@ import { LikeButtonComponent } from './components/like-button/like-button.compon
     FormComponent,
     PostCardComponent,
     PostFormComponent,
-    PostCommandBarComponent,
-    LikeButtonComponent
+    PostCommandBarComponent
   ],
   exports: [
     PostCardComponent,
@@ -49,11 +49,7 @@ import { LikeButtonComponent } from './components/like-button/like-button.compon
     ButtonModule,
     CardModule,
     AvatarModule,
-    OverlayPanelModule,
-    TooltipModule,
-    CdkConnectedOverlay,
-    OverlayModule,
-    CdkOverlayOrigin
+    LikeModule
   ]
 
 })

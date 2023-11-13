@@ -1,5 +1,5 @@
 import {AppUserModel} from "./appUserModel.interface";
-import {LikeModel} from "./likeModel.interface";
+import {LikeModel} from "../../like/models/likeModel.interface";
 import {TagModel} from "./tagModel.interface";
 
 export interface CommentModel {

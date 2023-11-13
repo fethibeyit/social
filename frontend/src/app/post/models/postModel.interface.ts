@@ -1,4 +1,4 @@
-import {LikeModel} from "./likeModel.interface";
+import {LikeModel} from "../../like/models/likeModel.interface";
 import {TagModel} from "./tagModel.interface";
 import {ShareModel} from "./shareModel.interface";
 import {CommentModel} from "./commentModel.interface";

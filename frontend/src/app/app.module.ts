@@ -18,6 +18,7 @@ import {AppErrorHandler} from "./core/handlers/app-error-handler";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {FileModule} from "./file/file.module";
+import {LikeModule} from "./like/like.module";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);

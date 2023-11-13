@@ -1,11 +1,11 @@
 export enum LikeType {
-  ThumbsUp = "ThumbsUp",
-  Love = "Love",
-  Smile = "Smile",
-  Laughing = "Laughing",
-  Surprised = "Surprised",
-  Sad = "Sad",
-  Angry = "Angry"
+  ThumbsUp = "THUMBS_UP",
+  Love = "LOVE",
+  Smile = "SMILE",
+  Laughing = "LAUGHING",
+  Surprised = "SURPRISED",
+  Sad = "SAD",
+  Angry = "ANGRY"
 }
 
 export const smileys = {
