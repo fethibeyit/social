@@ -11,6 +11,8 @@ import {LikeType} from "../../../like/enums/like-type.enum";
 import {Like} from "../../../like/state/like-actions";
 import {LikeModel} from "../../../like/models/likeModel.interface";
 import {LikeCreateModel} from "../../../like/models/likeCreateModel.interface";
+import {AuthState} from "../../../auth/state/auth-state";
+import {ProfileModel} from "../../../auth/models/profileModel.interface";
 
 
 @Component({
@@ -25,11 +27,16 @@ export class PostCardComponent implements OnInit{
   @Select(PostState.selectedPost) selected$!: Observable<PostModel | null>;
   @Select(PostState.deleteLoading) deleteLoading$!: Observable<boolean>;
   @Select(FileState.imagesUrl) imagesUrl$!: Observable<Map<string, string>> ;
+  @Select(AuthState.profile) profile$!: Observable<ProfileModel|null> ;
 
+  userId : string | null = null;
   constructor(private fileService: FileService, private store: Store) {
   }
 
   ngOnInit(): void {
+    this.profile$.subscribe(profile => {
+      if(profile) this.userId = profile.user_id;
+    })
   }
 
   download(file: FileModel) {
@@ -53,5 +60,13 @@ export class PostCardComponent implements OnInit{
 
     console.log(type);
     console.log(this.post.content);
+  }
+
+ currentLike () : LikeModel | null {
+    if(this.userId){
+      const currentLikes = this.post.likes.filter(x => x.owner.id === this.userId);
+      if(currentLikes.length > 0) return currentLikes[0];
+    }
+    return null;
   }
 }

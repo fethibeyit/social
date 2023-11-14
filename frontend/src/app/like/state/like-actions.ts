@@ -3,12 +3,17 @@ import {LikeCreateModel} from "../models/likeCreateModel.interface";
 
 export namespace Like {
   export class Create {
-    static readonly type = '[Like] Create';
-    constructor(public Like: LikeCreateModel) {}
+    static readonly type = '[LIKE] Create';
+    constructor(public like: LikeCreateModel) {}
+  }
+
+  export class Update {
+    static readonly type = '[LIKE] Update';
+    constructor(public like: LikeModel) {}
   }
 
   export class Delete {
-    static readonly type = '[Like] Delete';
-    constructor(public Like: LikeModel) {}
+    static readonly type = '[LIKE] Delete';
+    constructor(public like: LikeModel) {}
   }
 }

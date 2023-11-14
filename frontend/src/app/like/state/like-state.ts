@@ -3,8 +3,9 @@ import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {LikeModel} from "../models/likeModel.interface";
 import {LikeService} from "../services/like.service";
 import {Like} from "./like-actions";
+
 export interface LikeStateModel {
-  Likes: ReadonlyArray<LikeModel>;
+  likes: ReadonlyArray<LikeModel>;
   loading : boolean;
   deleteLoading : boolean;
   selected : LikeModel | null;
@@ -16,7 +17,7 @@ type LocalStateContext = StateContext<LikeStateModel>;
 @State<LikeStateModel>({
   name: 'likes',
   defaults: {
-    Likes: [],
+    likes: [],
     loading: false,
     deleteLoading: false,
     selected : null,
@@ -29,8 +30,8 @@ export class LikeState {
   constructor(private LikeService: LikeService) {}
 
   @Selector()
-  static Likes(state: LikeStateModel): readonly LikeModel[] {
-    return state.Likes;
+  static likes(state: LikeStateModel): readonly LikeModel[] {
+    return state.likes;
   }
 
   @Selector()
@@ -50,14 +51,26 @@ export class LikeState {
 
   @Action(Like.Create)
   protected async createLike(ctx: LocalStateContext, action: Like.Create): Promise<void> {
-    const { Like } = action;
+    const { like } = action;
     console.log("like create")
     ctx.patchState({loading: true})
     try{
-      const data = await this.LikeService.createLike(Like).toPromise();
+      const data = await this.LikeService.createLike(like).toPromise();
       if (data){
-        ctx.patchState( {Likes : [...ctx.getState().Likes, data]});
+        ctx.patchState( {likes : [...ctx.getState().likes, data]});
       }
+    }finally {
+      ctx.patchState({loading: false})
+    }
+  }
+
+  @Action(Like.Update)
+  protected async updateLike(ctx: LocalStateContext, action: Like.Update): Promise<void> {
+    const { like } = action;
+    ctx.patchState({loading: true})
+    try{
+      const data = await this.LikeService.updateLike(like).toPromise();
+      ctx.patchState( {likes : ctx.getState().likes.map(x => x.id === like.id ? like : x)});
     }finally {
       ctx.patchState({loading: false})
     }
@@ -65,11 +78,11 @@ export class LikeState {
 
   @Action(Like.Delete)
   protected async deleteLike(ctx: LocalStateContext, action: Like.Delete): Promise<void> {
-    const { Like } = action;
-    ctx.patchState({deleteLoading: true, selected : Like})
+    const { like } = action;
+    ctx.patchState({deleteLoading: true, selected : like})
     try{
-      const data = await this.LikeService.deleteLike(Like.id).toPromise();
-      ctx.patchState( {Likes : ctx.getState().Likes.filter(x=> x.id!= Like.id)});
+      const data = await this.LikeService.deleteLike(like.id).toPromise();
+      ctx.patchState( {likes : ctx.getState().likes.filter(x=> x.id!= like.id)});
     }finally {
       ctx.patchState({deleteLoading: false, selected: null})
     }

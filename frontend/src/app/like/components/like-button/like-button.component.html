@@ -1,9 +1,11 @@
-<p-button [style]="{'width' : '100%'}" [text]="true" [plain]="true" size="small"
-          (mouseenter)="openSmileys()" (mouseleave)="closeSmileys($event)" styleClass="{{LIKE_BUTTON_CLASS}}">
+<p-button [style]="{'width' : '100%'}" [text]="true" [plain]="true" size="small" styleClass="{{LIKE_BUTTON_CLASS}}"
+          (mouseenter)="openSmileys()" (mouseleave)="closeSmileys($event)" (onClick)="onLikeClick()">
   <ng-template pTemplate="content">
     <div class="flex align-content-center justify-content-center gap-2 w-full {{LIKE_BUTTON_CLASS}}"
          cdkOverlayOrigin #originOverlay="cdkOverlayOrigin" >
-      <i class="pi pi-thumbs-up {{LIKE_BUTTON_CLASS}}"></i>
+      <img *ngIf="like !== null" width="16" height="16" class="{{LIKE_BUTTON_CLASS}}"
+           src="{{'assets/animatedSmileys/'+ smileys[like.type].file}}" alt="{{smileys[like.type].alt}}" >
+      <i *ngIf="like === null" class="pi pi-thumbs-up {{LIKE_BUTTON_CLASS}}"></i>
       <p class="font-bold {{LIKE_BUTTON_CLASS}}">{{"Like" | translate}}</p>
     </div>
     <ng-template
@@ -14,7 +16,7 @@
     >
       <div class="flex align-items-center gap-2 animated-smiley {{SMILEYS_CLASS}}"
            (mouseleave)="closeSmileys($event)">
-        <div class="smiley" *ngFor="let smiley of Object.values(smileys)" (click)="onClick(smiley.type)"
+        <div class="smiley" *ngFor="let smiley of Object.values(smileys)" (click)="onSmileyClick(smiley.type)"
              pTooltip="{{smiley.name | translate}}" tooltipPosition="top" >
           <img src="{{'assets/animatedSmileys/'+smiley.file}}" alt="{{smiley.alt}}" width="32" height="32">
         </div>

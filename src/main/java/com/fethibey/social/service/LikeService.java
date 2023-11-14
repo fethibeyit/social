@@ -39,9 +39,17 @@ public class LikeService {
         return mapper.map(createdEntity, LikeModel.class);
     }
 
+    public LikeModel updateLike(UUID id, LikeModel model) {
+        var entity = repository.findById(id).orElseThrow(() -> new NotFoundException(id));
+        mapper.map(model, entity);
+        var updatedEntity = repository.save(entity);
+        return mapper.map(updatedEntity, LikeModel.class);
+    }
+
     public void deleteLike(UUID id) {
         var entity = repository.findById(id).orElseThrow(() -> new NotFoundException(id));
         repository.delete(entity);
     }
+
 
 }

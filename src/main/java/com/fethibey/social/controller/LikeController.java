@@ -3,6 +3,8 @@ package com.fethibey.social.controller;
 import com.fethibey.social.model.like.LikeModel;
 import com.fethibey.social.model.like.LikeCreateModel;
 import com.fethibey.social.model.like.LikeModel;
+import com.fethibey.social.model.post.PostModel;
+import com.fethibey.social.model.post.PostUpdateModel;
 import com.fethibey.social.service.LikeService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -23,6 +25,11 @@ public class LikeController {
     @PostMapping
     public ResponseEntity<LikeModel> createLike(@Valid @RequestBody LikeCreateModel model, Authentication authentication){
         return new ResponseEntity(service.createLike(model, authentication),HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<LikeModel> updateLike(@PathVariable UUID id, @Valid @RequestBody LikeModel model) {
+        return new ResponseEntity(service.updateLike(id, model),HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
