@@ -3,6 +3,7 @@ import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {LikeModel} from "../models/likeModel.interface";
 import {LikeService} from "../services/like.service";
 import {Like} from "./like-actions";
+import {Post} from "../../post/state/post-actions";
 
 export interface LikeStateModel {
   likes: ReadonlyArray<LikeModel>;
@@ -58,6 +59,7 @@ export class LikeState {
       const data = await this.LikeService.createLike(like).toPromise();
       if (data){
         ctx.patchState( {likes : [...ctx.getState().likes, data]});
+        ctx.dispatch(new Post.AddLike(data));
       }
     }finally {
       ctx.patchState({loading: false})
@@ -71,6 +73,7 @@ export class LikeState {
     try{
       const data = await this.LikeService.updateLike(like).toPromise();
       ctx.patchState( {likes : ctx.getState().likes.map(x => x.id === like.id ? like : x)});
+      ctx.dispatch(new Post.UpdateLike(like));
     }finally {
       ctx.patchState({loading: false})
     }
@@ -83,6 +86,7 @@ export class LikeState {
     try{
       const data = await this.LikeService.deleteLike(like.id).toPromise();
       ctx.patchState( {likes : ctx.getState().likes.filter(x=> x.id!= like.id)});
+      ctx.dispatch(new Post.RemoveLike(like));
     }finally {
       ctx.patchState({deleteLoading: false, selected: null})
     }

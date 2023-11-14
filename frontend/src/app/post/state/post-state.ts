@@ -112,10 +112,31 @@ export class PostState implements NgxsOnInit {
     ctx.patchState({deleteLoading: true, selected : post})
     try{
       const data = await this.PostService.deletePost(post.id).toPromise();
-      ctx.patchState( {posts : ctx.getState().posts.filter(x=> x.id!= post.id)});
+      ctx.patchState( {posts : ctx.getState().posts.filter(x=> x.id !== post.id)});
     }finally {
       ctx.patchState({deleteLoading: false, selected: null})
     }
+  }
+
+  @Action(Post.AddLike)
+  protected async addLike (ctx: LocalStateContext, action: Post.AddLike): Promise<void> {
+    const { like } = action;
+    ctx.patchState({posts : ctx.getState().posts.map(post =>
+        post.id === like.post_id ? {...post, likes: [... post.likes, like] } : post)})
+  }
+
+  @Action(Post.UpdateLike)
+  protected async updateLike (ctx: LocalStateContext, action: Post.UpdateLike): Promise<void> {
+    const { like } = action;
+    ctx.patchState({posts : ctx.getState().posts.map(post =>
+        post.id === like.post_id ? {...post, likes:  post.likes.map(l => l.id === like.id ? like : l )} : post)})
+  }
+
+  @Action(Post.RemoveLike)
+  protected async removeLike (ctx: LocalStateContext, action: Post.RemoveLike): Promise<void> {
+    const { like } = action;
+    ctx.patchState({posts : ctx.getState().posts.map(post =>
+        post.id === like.post_id ? {...post, likes: post.likes.filter(l => l.id !== like.id) } : post)})
   }
 
 }

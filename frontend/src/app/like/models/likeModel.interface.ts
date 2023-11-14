@@ -9,4 +9,8 @@ export interface LikeModel {
   type : LikeType;
   owner : AppUserModel;
 
+  post_id? : string ;
+  comment_id? : string;
+  message_id? : string;
+
 }

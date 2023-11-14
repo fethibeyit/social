@@ -12,5 +12,8 @@ public class LikeModel extends BaseModel {
     private LikeType type;
     private AppUserModel owner;
 
+    private UUID post_id ;
+    private UUID comment_id ;
+    private UUID message_id ;
 
 }
