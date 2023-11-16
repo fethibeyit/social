@@ -24,6 +24,7 @@ import {OverlayModule} from "primeng/overlay";
 import { LikeButtonComponent } from '../like/components/like-button/like-button.component';
 import {LikeModule} from "../like/like.module";
 import {DividerModule} from "primeng/divider";
+import {AvatarGroupModule} from "primeng/avatargroup";
 
 @NgModule({
   declarations: [
@@ -37,22 +38,23 @@ import {DividerModule} from "primeng/divider";
     PostCardComponent,
     PostListComponent
   ],
-  imports: [
-    CommonModule,
-    PostRoutingModule,
-    MaterialModule,
-    NotifierModule,
-    FileModule,
-    ReactiveFormsModule,
-    NgxsModule.forFeature([PostState]),
-    TranslateModule,
-    MatGridListModule,
-    ButtonModule,
-    CardModule,
-    AvatarModule,
-    LikeModule,
-    DividerModule
-  ]
+    imports: [
+        CommonModule,
+        PostRoutingModule,
+        MaterialModule,
+        NotifierModule,
+        FileModule,
+        ReactiveFormsModule,
+        NgxsModule.forFeature([PostState]),
+        TranslateModule,
+        MatGridListModule,
+        ButtonModule,
+        CardModule,
+        AvatarModule,
+        LikeModule,
+        DividerModule,
+        AvatarGroupModule
+    ]
 
 })
 export class PostModule { }
