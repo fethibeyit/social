@@ -53,7 +53,8 @@ import {AvatarGroupModule} from "primeng/avatargroup";
         AvatarModule,
         LikeModule,
         DividerModule,
-        AvatarGroupModule
+        AvatarGroupModule,
+        TooltipModule
     ]
 
 })

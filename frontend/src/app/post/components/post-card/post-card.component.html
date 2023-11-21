@@ -68,8 +68,19 @@
         <p-avatarGroup >
           <p-avatar *ngFor="let aggLike of aggregatedlikes()"
             image= "{{'assets/images/'+ smileys[aggLike[0]].file}}"
-            size="normal"  shape="circle" [style]="{'margin-left' : '0.4rem', 'background-color': 'white'}"
-          ></p-avatar>
+            size="normal"  shape="circle" [style]="{ 'background-color': 'white'}"
+                    [pTooltip]="tooltipContent" tooltipPosition="bottom"
+          >
+            <ng-template #tooltipContent>
+              <div style="padding: 5px;">
+                <p style="margin-bottom: 5px; font-size: 0.8rem;">{{smileys[aggLike[0]].name | translate}}</p>
+                <p *ngFor="let like of aggLike[1]" >{{like.owner.firstName}} {{like.owner.lastName}}</p>
+              </div>
+            </ng-template>
+
+
+
+          </p-avatar>
         </p-avatarGroup>
 
         <p style="margin-left: 5px;">{{post.likes.length}}</p>

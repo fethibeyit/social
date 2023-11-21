@@ -13,7 +13,6 @@ import {LikeModel} from "../../../like/models/likeModel.interface";
 import {LikeCreateModel} from "../../../like/models/likeCreateModel.interface";
 import {AuthState} from "../../../auth/state/auth-state";
 import {ProfileModel} from "../../../auth/models/profileModel.interface";
-import {AppUserModel} from "../../models/appUserModel.interface";
 
 
 @Component({
@@ -70,7 +69,6 @@ export class PostCardComponent implements OnInit{
     }
     return null;
   }
-
 
   aggregatedlikes () : [LikeType, LikeModel[]][]{
 

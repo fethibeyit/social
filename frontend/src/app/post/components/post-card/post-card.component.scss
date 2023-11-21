@@ -25,6 +25,10 @@ table, th, td {
   stroke: white;
 }
 
+:host ::ng-deep .p-avatar-group p-avatar+p-avatar {
+  margin-left: -0.6rem;
+}
+
 .image-crop {
   width:100%;
   height: 100%;
