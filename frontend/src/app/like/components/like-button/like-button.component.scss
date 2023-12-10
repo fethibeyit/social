@@ -1,12 +1,21 @@
+@keyframes smiley-transition {
+  from {transform: translateY(40px); }
+  to {transform: translateY(0px);}
+}
+
 .animated-smiley{
   border-radius: 2rem;
   background: #fff;
   text-align: center;
   padding: 2px;
   box-shadow: 2px 2px 2px 2px  #eee;
-  animation: 3s ease-in 1s 2 reverse both paused slidein;
+  animation-name: smiley-transition;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
 }
 
 .smiley :hover {
   transform: scale(1.3);
 }
+
+

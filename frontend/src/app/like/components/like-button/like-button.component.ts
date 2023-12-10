@@ -40,12 +40,14 @@ export class LikeButtonComponent {
   }
 
   openSmileys() {
-    setTimeout(() => this.isOpen = true,500);
+      this.isOpen = true
   }
 
   closeSmileys(event: any ) {
-    if(!event.toElement.className.toString().includes(this.SMILEYS_CLASS) && !event.toElement.className.toString().includes(this.LIKE_BUTTON_CLASS)){
-      setTimeout(() => this.isOpen = false,500);
+    console.log("close", event)
+    if(!event.toElement.className.toString().includes(this.SMILEYS_CLASS)
+      && !event.toElement.className.toString().includes(this.LIKE_BUTTON_CLASS)){
+      this.isOpen = false;
     }
   }
 
