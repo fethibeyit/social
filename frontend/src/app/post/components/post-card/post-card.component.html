@@ -60,7 +60,6 @@
           </div>
         </div>
       </div>
-
     </ng-template>
 
     <ng-template pTemplate="footer">
@@ -68,22 +67,18 @@
         <p-avatarGroup >
           <p-avatar *ngFor="let aggLike of aggregatedlikes()"
             image= "{{'assets/images/'+ smileys[aggLike[0]].file}}"
-            size="normal"  shape="circle" [style]="{ 'background-color': 'white'}"
-                    [pTooltip]="tooltipContent" tooltipPosition="bottom"
-          >
+            size="normal"  shape="circle" [style]="{ 'background-color': 'white', 'width': '20px', 'height' : '20px'}"
+                    [pTooltip]="tooltipContent" tooltipPosition="bottom">
             <ng-template #tooltipContent>
               <div style="padding: 5px;">
                 <p style="margin-bottom: 5px; font-size: 0.8rem;">{{smileys[aggLike[0]].name | translate}}</p>
                 <p *ngFor="let like of aggLike[1]" >{{like.owner.firstName}} {{like.owner.lastName}}</p>
               </div>
             </ng-template>
-
-
-
           </p-avatar>
         </p-avatarGroup>
 
-        <p style="margin-left: 5px;">{{post.likes.length}}</p>
+        <p *ngIf="post.likes.length" style="margin-left: 5px; font-size: 0.8rem;">{{post.likes.length}}</p>
       </div>
 
       <p-divider [style]="{'width' : '90%', 'margin' : '0 auto 0 auto'}"/>

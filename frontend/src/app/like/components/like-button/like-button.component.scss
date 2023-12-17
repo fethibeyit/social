@@ -1,6 +1,10 @@
 @keyframes smiley-transition {
-  from {transform: translateY(40px); }
-  to {transform: translateY(0px);}
+  from {
+    transform: translateY(40px);
+  }
+  to {
+    transform: translateY(0px);
+  }
 }
 
 .animated-smiley{
@@ -11,6 +15,7 @@
   box-shadow: 2px 2px 2px 2px  #eee;
   animation-name: smiley-transition;
   animation-duration: 0.5s;
+  animation-delay: 1s;
   animation-fill-mode: forwards;
 }
 
