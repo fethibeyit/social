@@ -25,6 +25,7 @@ import { LikeButtonComponent } from '../like/components/like-button/like-button.
 import {LikeModule} from "../like/like.module";
 import {DividerModule} from "primeng/divider";
 import {AvatarGroupModule} from "primeng/avatargroup";
+import {CommentModule} from "../comment/comment.module";
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import {AvatarGroupModule} from "primeng/avatargroup";
         LikeModule,
         DividerModule,
         AvatarGroupModule,
-        TooltipModule
+        TooltipModule,
+        CommentModule
     ]
 
 })

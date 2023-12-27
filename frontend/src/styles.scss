@@ -60,3 +60,48 @@ p {
   padding : 3px;
   font-size: 0.7rem;
 }
+
+.prosemirror-mention-node {
+  color: blue !important;
+  text-decoration: underline !important;
+}
+.prosemirror-tag-node {
+  color: gray !important;
+  font-style: italic;
+}
+
+.suggestion-item-list {
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.suggestion-item {
+  color: black;
+  padding: 8px 10px;
+  text-decoration: none;
+  display: block;
+}
+
+.suggestion-item:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.ProseMirror-menubar {min-height: 40px !important;}
+
+.suggestion-item-active {
+  background-color: #bbdfff;
+}
+
+.ProseMirror-menubar-wrapper {
+  max-height: 500px;
+}
+
+.ProseMirror.ProseMirror-example-setup-style  {
+  //max-height: 100%;SSS
+  height:150px;
+  overflow: auto;
+}
+

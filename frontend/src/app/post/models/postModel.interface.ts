@@ -1,7 +1,7 @@
 import {LikeModel} from "../../like/models/likeModel.interface";
 import {TagModel} from "./tagModel.interface";
 import {ShareModel} from "./shareModel.interface";
-import {CommentModel} from "./commentModel.interface";
+import {CommentModel} from "../../comment/models/commentModel.interface";
 import {AppUserModel} from "./appUserModel.interface";
 import {FileModel} from "../../file/models/fileModel.interface";
 
