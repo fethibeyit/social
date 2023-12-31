@@ -22,7 +22,7 @@ import {ProfileModel} from "../../../auth/models/profileModel.interface";
 })
 export class PostCardComponent implements OnInit{
 
-  @Input() post!: PostModel;
+  @Input() post! : PostModel;
 
   @Select(PostState.selectedPost) selected$!: Observable<PostModel | null>;
   @Select(PostState.deleteLoading) deleteLoading$!: Observable<boolean>;

@@ -3,6 +3,7 @@ package com.fethibey.social.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,10 +17,10 @@ public class Page extends BaseEntity {
     private FileInfo coverPicture;
 
     @OneToMany(mappedBy = "page")
-    private Set<Post> posts;
+    private List<Post> posts;
 
     @OneToMany(mappedBy = "page")
-    private Set<UserPage> followers;
+    private List<UserPage> followers;
 
     @ManyToOne
     private AppUser owner;

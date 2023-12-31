@@ -3,7 +3,7 @@ import {AppUserModel} from "./appUserModel.interface";
 export interface TagModel {
 
   id : string;
-  createdAt : Date;
+  createdAt : string;
 
   position : number;
   user : AppUserModel;

@@ -5,12 +5,14 @@ import {TagModel} from "../../post/models/tagModel.interface";
 export interface CommentModel {
 
   id : string;
-  createdAt : Date
+  createdAt : string;
 
   content : string;
   author : AppUserModel;
   likes : LikeModel[];
   tags : TagModel[];
   replies : CommentModel[];
+  post_id? : string ;
+  reply_id? : string;
 
 }

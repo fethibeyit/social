@@ -139,4 +139,10 @@ export class PostState implements NgxsOnInit {
         post.id === like.post_id ? {...post, likes: post.likes.filter(l => l.id !== like.id) } : post)})
   }
 
+  @Action(Post.AddComment)
+  protected async addComment (ctx: LocalStateContext, action: Post.AddComment): Promise<void> {
+    const { comment } = action;
+    ctx.patchState({posts : ctx.getState().posts.map(post =>
+        post.id === comment.post_id ? {...post, comments: [... post.comments, comment] } : post)})
+  }
 }

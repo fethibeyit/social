@@ -22,7 +22,8 @@ export const mentionNode = {
         "data-mention-id": node.attrs.id,
         "data-mention-name": node.attrs.name,
         "data-mention-email": node.attrs.email,
-        class: "prosemirror-mention-node"
+        class: "prosemirror-mention-node",
+
       },
       node.attrs.name || node.attrs.email
     ];

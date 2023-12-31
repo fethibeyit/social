@@ -3,7 +3,7 @@ import {AppUserModel} from "./appUserModel.interface";
 export interface ShareModel {
 
   id : string;
-  createdAt : Date;
+  createdAt : string;
 
   owner : AppUserModel;
 

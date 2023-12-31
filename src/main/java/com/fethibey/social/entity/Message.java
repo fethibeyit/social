@@ -3,6 +3,7 @@ package com.fethibey.social.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,15 +15,15 @@ public class Message extends BaseEntity {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "message_id")
-    private Set<Like> likes;
+    private List<Like> likes;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "message_id")
-    private Set<FileInfo> fileInfos;
+    private List<FileInfo> fileInfos;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "message_id")
-    private Set<Tag> tags;
+    private List<Tag> tags;
 
     @ManyToOne
     private AppUser sender;

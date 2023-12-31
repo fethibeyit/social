@@ -18,5 +18,7 @@ public class CommentModel extends BaseModel {
     private Set<LikeModel> likes;
     private Set<TagModel> tags;
     private Set<CommentModel> replies;
+    private UUID post_id ;
+    private UUID reply_id ;
 
 }

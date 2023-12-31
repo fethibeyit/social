@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,22 +18,23 @@ public class Post extends BaseEntity {
 
     @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id")
-    private Set<Like> likes;
+    private List<Like> likes;
 
     @OneToMany(mappedBy = "post")
-    private Set<Share> shares;
+    private List<Share> shares;
 
     @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id")
-    private Set<FileInfo> files;
+    private List<FileInfo> files;
 
-
-    @OneToMany(mappedBy = "post")
-    private Set<Comment> comments;
 
     @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id")
-    private Set<Tag> tags;
+    private List<Comment> comments;
+
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "post_id")
+    private List<Tag> tags;
 
     @ManyToOne
     @EqualsAndHashCode.Exclude @ToString.Exclude

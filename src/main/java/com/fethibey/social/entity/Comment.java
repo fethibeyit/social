@@ -3,7 +3,9 @@ package com.fethibey.social.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -16,19 +18,22 @@ public class Comment extends BaseEntity {
     @ManyToOne
     private AppUser author;
 
-    @ManyToOne
-    private Post post;
+//    @ManyToOne
+//    private Post post;
+    private UUID post_id ;
+
+    private UUID reply_id ;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "comment_id")
-    private Set<Tag> tags;
+    private List<Tag> tags;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "comment_id")
-    private Set<Like> likes;
+    private List<Like> likes;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "reply_id")
-    private Set<Comment> replies;
+    private List<Comment> replies;
 
 }

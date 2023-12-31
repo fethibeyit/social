@@ -33,35 +33,35 @@ public class AppUser extends BaseEntity implements UserDetails {
     private FileInfo coverPicture;
 
     @OneToMany(mappedBy = "user")
-    private Set<Friends> friends;
+    private List<Friends> friends;
 
     @OneToMany(mappedBy = "user")
-    private Set<UserGroup> groups;
+    private List<UserGroup> groups;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    private Set<Tag> tags;
+    private List<Tag> tags;
 
     @OneToMany(mappedBy = "user")
-    private Set<UserConversation> conversations;
+    private List<UserConversation> conversations;
 
     @OneToMany(mappedBy = "recipient")
-    private Set<UserNotification> notifications;
+    private List<UserNotification> notifications;
 
     @OneToMany(mappedBy = "sender")
-    private Set<Invitation> sentInvitations;
+    private List<Invitation> sentInvitations;
 
     @OneToMany(mappedBy = "recipient")
-    private Set<Invitation> receivedInvitations;
+    private List<Invitation> receivedInvitations;
 
     @OneToMany(mappedBy = "recipient")
-    private Set<Suggestion> suggestedFriends;
+    private List<Suggestion> suggestedFriends;
 
     @OneToMany(mappedBy = "owner")
-    private Set<Page> pages;
+    private List<Page> pages;
 
     @OneToMany(mappedBy = "user")
-    private Set<UserPage> followedPages;
+    private List<UserPage> followedPages;
 
     @ManyToMany
     @JoinTable(name = "users_roles",

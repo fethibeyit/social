@@ -3,6 +3,7 @@ package com.fethibey.social.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,6 +15,6 @@ public class Notification extends BaseEntity {
     private String content;
 
     @OneToMany(mappedBy = "notification")
-    private Set<UserNotification> recipients;
+    private List<UserNotification> recipients;
     
 }

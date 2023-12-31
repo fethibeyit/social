@@ -6,6 +6,8 @@ import {FormsModule} from "@angular/forms";
 import {EditorModule} from "primeng/editor";
 import {NgxEditorModule} from "ngx-editor";
 import { ProseMirrorComponent } from './components/prose-mirror/prose-mirror.component';
+import {NgxsModule} from "@ngxs/store";
+import {CommentState} from "./state/comment-state";
 
 
 
@@ -19,6 +21,7 @@ import { ProseMirrorComponent } from './components/prose-mirror/prose-mirror.com
   ],
   imports: [
     CommonModule,
+    NgxsModule.forFeature([CommentState]),
     MentionModule,
     FormsModule,
     EditorModule,

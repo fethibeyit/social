@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {Action, Selector, State, StateContext} from '@ngxs/store';
 
-import {Post} from "../../post/state/post-actions";
 import {CommentModel} from "../models/commentModel.interface";
 import {CommentService} from "../services/comment.service";
 import {Comment} from "./comment-actions";
+import {Post} from "../../post/state/post-actions";
 
 export interface CommentStateModel {
   comments: ReadonlyArray<CommentModel>;
@@ -60,7 +60,7 @@ export class CommentState {
       const data = await this.commentService.createComment(comment).toPromise();
       if (data){
         ctx.patchState( {comments : [...ctx.getState().comments, data]});
-        // ctx.dispatch(new Post.AddComment(data));
+        ctx.dispatch(new Post.AddComment(data));
       }
     }finally {
       ctx.patchState({loading: false})

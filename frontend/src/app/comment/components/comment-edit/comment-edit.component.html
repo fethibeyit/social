@@ -1,25 +1,6 @@
-<!--<p>comment-edit works!</p>-->
-<!--<input type="text" [mention]="items">-->
-<!--<div class="card">-->
-<!--<p-editor [(ngModel)]="text" [style]="{ height: '320px' }"-->
 
-<!--          [mention]="complexItems"-->
-<!--          [mentionConfig]="{triggerChar:'#',maxItems:3,labelKey:'name',mentionSelect:format}">-->
-<!--&lt;!&ndash;  <ng-template pTemplate="header">&ndash;&gt;-->
-<!--&lt;!&ndash;        <span class="ql-formats">&ndash;&gt;-->
-<!--&lt;!&ndash;            <button type="button" class="ql-bold" aria-label="Bold"></button>&ndash;&gt;-->
-<!--&lt;!&ndash;            <button type="button" class="ql-italic" aria-label="Italic"></button>&ndash;&gt;-->
-<!--&lt;!&ndash;            <button type="button" class="ql-underline" aria-label="Underline"></button>&ndash;&gt;-->
-<!--&lt;!&ndash;        </span>&ndash;&gt;-->
-<!--&lt;!&ndash;  </ng-template>&ndash;&gt;-->
-<!--</p-editor>-->
-<!--</div>-->
+<p *ngFor="let comment of comments">{{comment.content}}</p>
 
-<!--<div class="content">-->
-<!--  <div class="editor">-->
-<!--    <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"/>-->
-<!--    <ngx-editor [editor]="editor" [ngModel]="html"/>-->
-<!--  </div>-->
-<!--</div>-->
+<prose-mirror />
 
-<prose-mirror/>
+<button (click)="addComment()"  >Ajouter</button>

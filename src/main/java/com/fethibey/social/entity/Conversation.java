@@ -5,7 +5,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Data
@@ -15,6 +15,6 @@ public class Conversation extends BaseEntity {
     private String Name;
 
     @OneToMany(mappedBy = "conversation")
-    private Set<UserConversation> members;
+    private List<UserConversation> members;
     
 }

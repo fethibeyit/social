@@ -6,7 +6,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Data
@@ -19,9 +19,9 @@ public class Group extends BaseEntity {
     private FileInfo coverPicture;
 
     @OneToMany(mappedBy = "group")
-    private Set<Post> posts;
+    private List<Post> posts;
 
     @OneToMany(mappedBy = "group")
-    private Set<UserGroup> users;
+    private List<UserGroup> users;
     
 }

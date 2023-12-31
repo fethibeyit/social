@@ -8,7 +8,7 @@ import {FileModel} from "../../file/models/fileModel.interface";
 export interface PostModel {
 
   id : string;
-  createdAt : Date
+  createdAt : string
 
   content : string;
   files : FileModel[];

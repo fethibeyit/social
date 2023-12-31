@@ -1,7 +1,7 @@
 export interface AppUserModel {
 
   id : string;
-  createdAt : Date
+  createdAt : string
 
   firstName : string;
   lastName : string;

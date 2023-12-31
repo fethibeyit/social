@@ -4,7 +4,7 @@ import {LikeType} from "../enums/like-type.enum";
 export interface LikeModel {
 
   id : string;
-  createdAt : Date;
+  createdAt : string;
 
   type : LikeType;
   owner : AppUserModel;
