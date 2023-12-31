@@ -8,13 +8,22 @@ import {NgxEditorModule} from "ngx-editor";
 import { ProseMirrorComponent } from './components/prose-mirror/prose-mirror.component';
 import {NgxsModule} from "@ngxs/store";
 import {CommentState} from "./state/comment-state";
+import { ProseMirrorDisplayComponent } from './components/prose-mirror-display/prose-mirror-display.component';
+import {AvatarGroupModule} from "primeng/avatargroup";
+import {AvatarModule} from "primeng/avatar";
+import {ButtonModule} from "primeng/button";
+import {CardModule} from "primeng/card";
+import {DividerModule} from "primeng/divider";
+import {LikeModule} from "../like/like.module";
+import {TranslateModule} from "@ngx-translate/core";
 
 
 
 @NgModule({
   declarations: [
     CommentEditComponent,
-    ProseMirrorComponent
+    ProseMirrorComponent,
+    ProseMirrorDisplayComponent
   ],
   exports: [
     CommentEditComponent
@@ -25,7 +34,14 @@ import {CommentState} from "./state/comment-state";
     MentionModule,
     FormsModule,
     EditorModule,
-    NgxEditorModule
+    NgxEditorModule,
+    AvatarGroupModule,
+    AvatarModule,
+    ButtonModule,
+    CardModule,
+    DividerModule,
+    LikeModule,
+    TranslateModule
   ]
 })
 export class CommentModule { }

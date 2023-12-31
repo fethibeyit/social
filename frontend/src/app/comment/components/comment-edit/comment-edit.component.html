@@ -1,5 +1,6 @@
 
-<p *ngFor="let comment of comments">{{comment.content}}</p>
+
+<app-prose-mirror-display   *ngFor="let comment of comments" [comment]="comment"/>
 
 <prose-mirror />
 
