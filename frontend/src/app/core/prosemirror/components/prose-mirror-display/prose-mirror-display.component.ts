@@ -2,10 +2,10 @@ import {Component, Input, ElementRef, OnInit} from '@angular/core';
 import {Schema, DOMSerializer} from 'prosemirror-model'
 import {addListNodes} from 'prosemirror-schema-list'
 import {exampleSetup} from 'prosemirror-example-setup'
-import {mentionPlugin} from "../prose-mirror/plugins";
-import schema1 from "../prose-mirror/schema";
-import {CommentModel} from "../../models/commentModel.interface";
-import {smileys} from "../../../like/enums/like-type.enum";
+import {mentionPlugin} from "../plugins";
+import schema1 from "../schema";
+import {CommentModel} from "../../../../comment/models/commentModel.interface";
+import {smileys} from "../../../../like/enums/like-type.enum";
 
 @Component({
   selector: 'app-prose-mirror-display',

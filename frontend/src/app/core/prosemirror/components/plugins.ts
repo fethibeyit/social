@@ -1,5 +1,5 @@
 import { Plugin } from 'prosemirror-state';
-import { getMentionsPlugin } from '../../../utils/prosemirror-mentions';
+import { getMentionsPlugin } from '../prosemirror-mentions';
 
 /**
  * IMPORTANT: outer div's "suggestion-item-list" class is mandatory. The plugin uses this class for querying.

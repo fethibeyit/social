@@ -1,12 +1,12 @@
-import { Component, Input, ElementRef } from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import {EditorState} from 'prosemirror-state'
 import {EditorView} from 'prosemirror-view'
 import {Schema, DOMParser, DOMSerializer} from 'prosemirror-model'
-// import {schema} from 'prosemirror-schema-basic'
+
 import {addListNodes} from 'prosemirror-schema-list'
 import {exampleSetup} from 'prosemirror-example-setup'
-import {mentionPlugin} from "./plugins";
-import schema1 from "./schema";
+import {mentionPlugin} from "../plugins";
+import schema1 from "../schema";
 
 declare global {
   interface Window {
@@ -16,23 +16,17 @@ declare global {
 
 @Component({
   selector: 'prose-mirror',
-  templateUrl: './prose-mirror.component.html',
+  templateUrl: './prose-mirror-editor.component.html',
   styles: [`@import url('https://prosemirror.net/css/editor.css');
   :host {display: block;}
   #editor {height: 200px;}
   #content {display: none;}
   `]
 })
-export class ProseMirrorComponent  {
+export class ProseMirrorEditorComponent implements OnInit{
 
   private view! : EditorView;
   private mySchema! : Schema;
-
-  // content : string | null = "";
-
-
-  getContent(): string { return this.view.state.doc.toJSON(); }
-
 
   constructor(private elRef: ElementRef){}
 
@@ -48,25 +42,27 @@ export class ProseMirrorComponent  {
     this.view = new EditorView(this.elRef.nativeElement.querySelector('#editor'), {
       state: EditorState.create({
         doc: DOMParser.fromSchema(this.mySchema).parse(this.elRef.nativeElement.querySelector('#content')),
-        plugins: plugins,
-        // schema : schema1
-        // plugins: exampleSetup({schema: mySchema})
+        plugins: plugins
       })
     })
-
   }
 
+  getContent(): string { return this.view.state.doc.toJSON(); }
 
-  // getContent() {
-  //   return DOMSerializer.fromSchema(this.mySchema).serializeFragment(this.view.state.doc.content);
-  // }
-  log() {
-    const x = this.getContent();
-    console.log(this.getContent());
-    console.log(this.view.state.doc.toJSON())
-    // this.content = x.textContent;
-    this.elRef.nativeElement.querySelector('#display').appendChild(x);
+  public isEmpty(){
+    const fragment = DOMSerializer
+      .fromSchema(this.mySchema)
+      .serializeFragment(this.view.state.doc.content)
+
+    let divPM = document.createElement('div')
+    divPM.appendChild(fragment)
+
+    divPM.innerHTML = divPM.innerHTML.replaceAll(" ", "");
+    divPM.innerHTML = divPM.innerHTML.replaceAll("<p></p>", "");
+
+    return !divPM.innerHTML;
   }
+
 }
 
 
