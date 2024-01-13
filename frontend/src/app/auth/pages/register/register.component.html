@@ -9,21 +9,11 @@
 
     <form [formGroup]="form" (ngSubmit)="submit()">
 
-      <mat-form-field appearance="outline" style="width: 100%;">
-        <input type="text" matInput placeholder="{{'Full name' | translate}}" formControlName="fullname">
-      </mat-form-field>
+        <input type="text" pInputText placeholder="{{'Full name' | translate}}" formControlName="fullname">
+        <input type="email" pInputText placeholder="{{'Email' | translate}}" formControlName="email">
+        <input type="password" pInputText placeholder="{{'Password' | translate}}" formControlName="password">
+        <input type="password" pInputText placeholder="{{'Password confirmation' | translate}}" formControlName="confirmPassword">
 
-      <mat-form-field appearance="outline" style="width: 100%;">
-        <input type="email" matInput placeholder="{{'Email' | translate}}" formControlName="email">
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" style="width: 100%;">
-        <input type="password" matInput placeholder="{{'Password' | translate}}" formControlName="password">
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" style="width: 100%;">
-        <input type="password" matInput placeholder="{{'Password confirmation' | translate}}" formControlName="confirmPassword">
-      </mat-form-field>
 
 <!--      <mat-form-field appearance="outline" style="width: 100%;">-->
 <!--        <input type="text" matInput placeholder="Date de naissance" formControlName="dateOfBirth">-->
@@ -33,14 +23,11 @@
 <!--        <input type="text" matInput placeholder="Sexe" formControlName="sex">-->
 <!--      </mat-form-field>-->
 
-      <p>{{'By clicking Sign Up, you agree to our Terms, Privacy Policy and Cookies Policy. You may receive SMS Notifications from us and can opt out any time.' | translate}}</p>
+      <p class="mt-4">{{'By clicking Sign Up, you agree to our Terms, Privacy Policy and Cookies Policy. You may receive SMS Notifications from us and can opt out any time.' | translate}}</p>
 
-      <button type="submit" class="btn btn-success btn-login" style="width: 60%; display: flex; align-items: center; justify-content: center" >
-        {{"Sign Up" | translate}}
-        <mat-icon *ngIf="loading$ | async" iconPositionEnd style="margin-left: 20px;" >
-          <mat-spinner   diameter="20" style="--mdc-circular-progress-active-indicator-color:white;" ></mat-spinner>
-        </mat-icon>
-      </button>
+      <p-button type="submit"  label="{{'Sign Up' | translate}}"  [loading]="(loading$ | async)!" />
+
+
 
     </form>
 

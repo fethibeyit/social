@@ -12,9 +12,6 @@ import {AuthState} from "./state/auth-state";
 import {TranslateModule} from "@ngx-translate/core";
 import {ButtonModule} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
-import {MatInputModule} from "@angular/material/input";
-import {MatIconModule} from "@angular/material/icon";
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -36,9 +33,6 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     TranslateModule,
     ButtonModule,
     InputTextModule,
-    MatInputModule,
-    MatIconModule,
-    MatProgressSpinnerModule
   ]
 })
 export class AuthModule { }

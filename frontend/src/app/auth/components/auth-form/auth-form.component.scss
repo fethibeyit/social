@@ -1,15 +1,8 @@
-.btn-login{
-  height: 56px;
-  font-size: 1.2rem;
-  font-weight: bolder;
-  color: #fff;
-}
-
 :host ::ng-deep .p-button{
   width: 100%;
 }
 
-.input-login {
+input {
   width:100%;
-  margin-bottom: 10px;
+  margin-bottom: 1rem;
 }

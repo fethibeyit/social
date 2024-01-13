@@ -6,8 +6,7 @@
 
         <h1 style="font-size: 2rem; font-weight: bolder" class="text-primary">{{"Social App" | translate}}</h1>
 
-        <button class="btn  btn-outline-default btn-social mt-4"  mat-raised-button>
-
+        <p-button [text]="true">
           <svg style="width: 20px; margin-right: 20px;" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
                class="LgbsSe-Bz112c">
             <g>
@@ -22,22 +21,17 @@
               <path fill="none" d="M0 0h48v48H0z"></path>
             </g>
           </svg>
-
           <a style="text-decoration: none; color: inherit;"
              href="/oauth2/authorization/google">{{"Continue with" | translate}} Google</a>
-        </button>
+        </p-button>
+        <div class="mt-1">
+          <p-button [text]="true">
+            <img src="assets/images/facebook.png" style="width: 20px; margin-right: 20px;"  alt="facebook">
 
-        <button class="btn  btn-outline-default btn-social mt-4" mat-raised-button>
-
-          <img src="assets/images/facebook.png" style="width: 20px; margin-right: 20px;"  alt="facebook">
-
-          <a  style="text-decoration: none; color: inherit;"
-              href="/oauth2/authorization/facebook">{{"Continue with" | translate}} Facebook</a>
-
-        </button>
-
-
-
+            <a  style="text-decoration: none; color: inherit;"
+                href="/oauth2/authorization/facebook">{{"Continue with" | translate}} Facebook</a>
+          </p-button>
+        </div>
 
 
       </div>
