@@ -1,6 +1,6 @@
 <div style="display: flex; height: 90vh; justify-content: center; align-items: center;" >
 
-  <div class="mat-elevation-z3 p-3" style="border-radius: 10px; min-width: 432px; max-width: 432px;">
+  <div class="p-3" style="border-radius: 10px; min-width: 432px; max-width: 432px;">
 
     <h1>{{"Sign Up" | translate}}</h1>
     <p>{{"It’s quick and easy." | translate}}</p>
@@ -9,28 +9,16 @@
 
     <form [formGroup]="form" (ngSubmit)="submit()">
 
-        <input type="text" pInputText placeholder="{{'Full name' | translate}}" formControlName="fullname">
-        <input type="email" pInputText placeholder="{{'Email' | translate}}" formControlName="email">
-        <input type="password" pInputText placeholder="{{'Password' | translate}}" formControlName="password">
-        <input type="password" pInputText placeholder="{{'Password confirmation' | translate}}" formControlName="confirmPassword">
-
-
-<!--      <mat-form-field appearance="outline" style="width: 100%;">-->
-<!--        <input type="text" matInput placeholder="Date de naissance" formControlName="dateOfBirth">-->
-<!--      </mat-form-field>-->
-
-<!--      <mat-form-field appearance="outline" style="width: 100%;">-->
-<!--        <input type="text" matInput placeholder="Sexe" formControlName="sex">-->
-<!--      </mat-form-field>-->
+      <input type="text" pInputText placeholder="{{'Full name' | translate}}" formControlName="fullname">
+      <input type="email" pInputText placeholder="{{'Email' | translate}}" formControlName="email">
+      <input type="password" pInputText placeholder="{{'Password' | translate}}" formControlName="password">
+      <input type="password" pInputText placeholder="{{'Password confirmation' | translate}}" formControlName="confirmPassword">
 
       <p class="mt-4">{{'By clicking Sign Up, you agree to our Terms, Privacy Policy and Cookies Policy. You may receive SMS Notifications from us and can opt out any time.' | translate}}</p>
 
       <p-button type="submit"  label="{{'Sign Up' | translate}}"  [loading]="(loading$ | async)!" />
 
-
-
     </form>
 
   </div>
 </div>
-s
