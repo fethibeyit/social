@@ -14,6 +14,8 @@ import {NgxsStoragePluginModule} from "@ngxs/storage-plugin";
 import {AppErrorHandler} from "./core/handlers/app-error-handler";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {MessageService} from "primeng/api";
+import {ToastModule} from "primeng/toast";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);

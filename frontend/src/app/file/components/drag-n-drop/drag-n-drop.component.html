@@ -13,11 +13,11 @@
 
       <p-card *ngFor="let f of (files$ | async)" [style]="{width: '130px', height: '150px'}">
         <div class="flex justify-content-between align-items-center">
-          <p style="font-size: 0.75rem;">{{displayFileName(f.file?.name)}}</p>
+          <p style="font-size: 0.75rem;">{{displayFileName(f.file.name)}}</p>
           <p-button icon="pi pi-times" [text]="true" (click)="deleteFile(f.url);" [rounded]="true" severity="danger"/>
         </div>
         <div style="display: flex; justify-content: center; align-items: center; height: 120px;">
-          <img *ngIf="fileIsImage(f.file)" alt="{{f.file?.name}}" src="{{f.src}}" style="width:100px; height: 100px; object-fit: cover; object-position: 50% 50%;"/>
+          <img *ngIf="fileIsImage(f.file)" alt="{{f.file.name}}" src="{{f.src}}" style="width:100px; height: 100px; object-fit: cover; object-position: 50% 50%;"/>
           <img *ngIf="fileIsPdf(f.file)" src="assets/images/pdf-icon-64.png" alt="pdf icon">
         </div>
       </p-card>
