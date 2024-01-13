@@ -14,8 +14,7 @@ import {NgxsStoragePluginModule} from "@ngxs/storage-plugin";
 import {AppErrorHandler} from "./core/handlers/app-error-handler";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
-import {MessageService} from "primeng/api";
-import {ToastModule} from "primeng/toast";
+import {MatSelectModule} from "@angular/material/select";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -32,6 +31,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     SharedModule,
     NotifierModule,
+    MatSelectModule, // to remove after (like button depend)
     NgxsModule.forRoot([], {
       developmentMode: !environment.production,
       selectorOptions: {injectContainerState: false, suppressErrors: false},

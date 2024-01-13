@@ -10,10 +10,9 @@ import {ProseMirrorEditorComponent} from "./prosemirror/components/prose-mirror-
 import {
   ProseMirrorDisplayComponent
 } from "./prosemirror/components/prose-mirror-display/prose-mirror-display.component";
-import {MatToolbarModule} from "@angular/material/toolbar";
-import {MatIconModule} from "@angular/material/icon";
-import {MatOptionModule} from "@angular/material/core";
-import {MatSelectModule} from "@angular/material/select";
+import {ButtonModule} from "primeng/button";
+import {ToolbarModule} from "primeng/toolbar";
+import {DropdownModule} from "primeng/dropdown";
 
 @NgModule({
   declarations: [
@@ -28,10 +27,9 @@ import {MatSelectModule} from "@angular/material/select";
     FormsModule,
     MentionModule,
     EditorModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatOptionModule,
-    MatSelectModule,
+    ButtonModule,
+    ToolbarModule,
+    DropdownModule,
   ],
   exports:[
     NavbarComponent,

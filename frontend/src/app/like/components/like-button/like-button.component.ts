@@ -4,10 +4,9 @@ import {LikeType, smileys} from "../../enums/like-type.enum";
 import {Select, Store} from "@ngxs/store";
 import {Observable} from "rxjs";
 import {LikeState} from "../../state/like-state";
-import {PostModel} from "../../../post/models/postModel.interface";
-import {LikeModule} from "../../like.module";
 import {LikeModel} from "../../models/likeModel.interface";
 import {Like} from "../../state/like-actions";
+
 
 
 @Component({
