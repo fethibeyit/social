@@ -3,8 +3,10 @@ import {Component, Input, ViewChild} from '@angular/core';
 import {Store} from "@ngxs/store";
 import {Comment} from "../../state/comment-actions";
 import {CommentCreateModel} from "../../models/commentCreateModel.interface";
-import {ProseMirrorEditorComponent} from "../../../core/prosemirror/components/prose-mirror-editor/prose-mirror-editor.component";
 import {CommentModel} from "../../models/commentModel.interface";
+import {
+  ProseMirrorEditorComponent
+} from "../../../shared/prosemirror/components/prose-mirror-editor/prose-mirror-editor.component";
 @Component({
   selector: 'app-comment-edit',
   templateUrl: './comment.component.html',

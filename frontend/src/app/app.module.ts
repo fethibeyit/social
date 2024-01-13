@@ -3,23 +3,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
-import {MatCardModule} from "@angular/material/card";
 import {SharedModule} from "./shared/shared.module";
 import {environment} from "../environments/environment";
 import {NotifierModule} from "./notifier/notifier.module";
 import { JwtModule } from '@auth0/angular-jwt';
-import {HeaderInterceptor} from "./core/interceptors/header.interceptor";
 import {NgxsModule, NoopNgxsExecutionStrategy} from "@ngxs/store";
 import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
 import {NgxsStoragePluginModule} from "@ngxs/storage-plugin";
 import {AppErrorHandler} from "./core/handlers/app-error-handler";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
-import {FileModule} from "./file/file.module";
-import {AuthModule} from "./auth/auth.module";
-import {CoreModule} from "./core/core.module";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -36,8 +30,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     SharedModule,
     NotifierModule,
-    AuthModule,
-    FileModule,
     NgxsModule.forRoot([], {
       developmentMode: !environment.production,
       selectorOptions: {injectContainerState: false, suppressErrors: false},

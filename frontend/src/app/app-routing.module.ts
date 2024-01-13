@@ -15,12 +15,12 @@ const routes: Routes = [
   },
   {
     path: "home",
-    loadChildren: () => import("./shared/shared.module").then((m) => m.SharedModule),
+    loadChildren: () => import("./home/home.module").then(m => m.HomeModule),
     canLoad : [AuthGuard]
   },
   {
     path: "posts",
-    loadChildren: () => import("./post/post.module").then((m) => m.PostModule),
+    loadChildren: () => import("./post/post.module").then(m => m.PostModule),
     canLoad : [AuthGuard]
   }
 ];

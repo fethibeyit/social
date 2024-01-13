@@ -11,7 +11,7 @@ import {Subscription} from "rxjs";
 import {NotifierService} from "../service/notifier.service";
 
 @Component({
-  selector: 'app-error',
+  selector: 'app-notifier',
   template: '<ng-container #container></ng-container>'
 })
 export class NotifierComponent implements OnDestroy {
