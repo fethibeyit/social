@@ -1,23 +1,14 @@
-<mat-card class="form-card">
+<p-card >
   <h2>{{(selectedId ? "Update/View Post" : "Create Post") | translate }}</h2>
   <form class="post-form" [formGroup]="form">
 
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>{{"Content" | translate}}</mat-label>
-      <textarea matInput formControlName="content"></textarea>
-    </mat-form-field>
-
+    <textarea rows="3" pInputTextarea [autoResize]="true" formControlName="content" [style]="{width: '100%'}" class="mb-2"></textarea>
     <app-drag-n-drop />
 
-    <div class="button-group">
-      <button mat-raised-button color="primary" (click)="emitAction()">
-        {{FormActions[actionButton] | translate}}
-      </button>
-      &nbsp;
-      <button  mat-raised-button color="warn" (click)="clear()">
-        {{"Clear" | translate}}
-      </button>
+    <div class="flex justify-content-end mt-2 gap-2">
+      <p-button label="{{FormActions[actionButton] | translate}}" (click)="emitAction()"/>
+      <p-button  label="{{'Clear' | translate}}" (click)="clear()" severity="secondary"/>
     </div>
 
   </form>
-</mat-card>
+</p-card>

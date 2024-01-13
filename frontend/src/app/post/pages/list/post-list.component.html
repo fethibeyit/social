@@ -4,7 +4,7 @@
 
 <ng-container *ngIf="(loading$ | async) === true" >
   <div style="display: flex; justify-content: center; margin-top: 5em;">
-    <mat-spinner [diameter]="40"/>
+    <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
   </div>
 </ng-container>
 

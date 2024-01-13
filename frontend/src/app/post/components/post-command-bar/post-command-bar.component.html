@@ -1,16 +1,5 @@
 
-  <mat-toolbar>
-    <button mat-raised-button color="primary" (click)="emitAction(CommandBarActions.Create)">
-      <mat-icon>fiber_new</mat-icon>
-      {{"Create" | translate}}
-    </button>
-    &nbsp;
-    <button  mat-raised-button color="warn" (click)="emitAction(CommandBarActions.DeleteAll)">
-      <mat-icon>delete</mat-icon>
-      {{"Delete all" | translate}}
-    </button>
-  </mat-toolbar>
-
-
-<p-button label="Submit" icon="pi pi-plus-circle" severity="success"></p-button>
+  <p-toolbar>
+    <p-button label="{{'Create' | translate}}" icon="pi pi-plus" (click)="emitAction(CommandBarActions.Create)"/>
+  </p-toolbar>
 

@@ -27,6 +27,9 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {ToolbarModule} from "primeng/toolbar";
+import {InputTextareaModule} from "primeng/inputtextarea";
+import {ProgressSpinnerModule} from "primeng/progressspinner";
 
 @NgModule({
   declarations: [
@@ -57,12 +60,9 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     AvatarGroupModule,
     TooltipModule,
     CommentModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatCardModule,
-    MatInputModule,
-    MatProgressSpinnerModule
+    ToolbarModule,
+    InputTextareaModule,
+    ProgressSpinnerModule
   ]
 
 })
