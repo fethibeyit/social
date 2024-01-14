@@ -1,12 +1,9 @@
-import {Component, Input, ViewChild} from '@angular/core';
-
+import {Component, Input} from '@angular/core';
 import {Store} from "@ngxs/store";
 import {Comment} from "../../state/comment-actions";
 import {CommentCreateModel} from "../../models/commentCreateModel.interface";
 import {CommentModel} from "../../models/commentModel.interface";
-import {
-  ProseMirrorEditorComponent
-} from "../../../shared/prosemirror/components/prose-mirror-editor/prose-mirror-editor.component";
+
 @Component({
   selector: 'app-comment-edit',
   templateUrl: './comment.component.html',
@@ -18,17 +15,12 @@ export class CommentComponent {
 
   @Input() comments : CommentModel[] = [];
 
-  @ViewChild(ProseMirrorEditorComponent)
-  public proseMirrorComponent!: ProseMirrorEditorComponent;
-
   constructor(private store: Store) {
   }
-  addComment() {
-    if(!this.proseMirrorComponent.isEmpty()){
-      const commentContent = JSON.stringify(this.proseMirrorComponent.getContent());
+  addComment(content : string) {
+      const commentContent = JSON.stringify(content);
       const comment : CommentCreateModel = {content: commentContent,post_id: this.postId, tags: []};
       this.store.dispatch(new Comment.Create(comment));
-    }
   }
 
 }

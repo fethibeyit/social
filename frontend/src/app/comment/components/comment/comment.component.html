@@ -2,6 +2,5 @@
 
 <app-prose-mirror-display   *ngFor="let comment of comments" [comment]="comment"/>
 
-<prose-mirror />
+<prose-mirror-editor (action)="addComment($event)" />
 
-<p-button (click)="addComment()"  >Ajouter</p-button>

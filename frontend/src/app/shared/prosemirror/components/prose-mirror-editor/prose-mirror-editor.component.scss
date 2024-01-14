@@ -1,0 +1,13 @@
+.prosemirror-editor-container{
+  background-color: #F0F2F5;
+  border-radius: 15px;
+  padding: 1rem;
+}
+
+#editor, .editor {
+  background-clip: padding-box;
+  height: 100%;
+}
+
+:host {display: block;}
+#content {display: none;}
