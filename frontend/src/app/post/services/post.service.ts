@@ -14,7 +14,6 @@ export class PostService {
 
   getPosts(): Observable<PostModel[]> {
     return this.http.get<PostModel[]>(`${environment.apiURL}/posts`).pipe(
-      delay(1000),
       tap((data: PostModel[]) => data),
       catchError(err => throwError(() => err))
     )
@@ -22,7 +21,6 @@ export class PostService {
 
   deletePost(postId: string) {
     return this.http.delete<any>(`${environment.apiURL}/posts/${postId}`).pipe(
-      delay(1000),
       tap((data: any) => data),
       catchError(err => throwError(() => err))
     )
@@ -30,7 +28,6 @@ export class PostService {
 
   createPost(post : PostModel): Observable<PostModel>{
     return this.http.post<PostModel>(`${environment.apiURL}/posts`, post).pipe(
-      delay(1000),
       tap((data: PostModel) => data),
       catchError(err => throwError(() => err))
     )
@@ -38,7 +35,6 @@ export class PostService {
 
   updatePost(post : PostModel): Observable<PostModel>{
     return this.http.put<PostModel>(`${environment.apiURL}/posts/${post.id}` , post).pipe(
-      delay(1000),
       tap((data: PostModel) => data),
       catchError(err => throwError(() => err))
     )

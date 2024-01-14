@@ -55,8 +55,8 @@ public class DbInitializer implements CommandLineRunner {
         userRepository.save(user);
 
         var admin = new AppUser();
-        user.setFirstName("Jean");
-        user.setLastName("Tremblay");
+        admin.setFirstName("Jean");
+        admin.setLastName("Tremblay");
         admin.setEmail("admin@test.com");
         admin.setPassword(passwordEncoder.encode("123456"));
         var adminUserRoles = new HashSet<AppRole>();

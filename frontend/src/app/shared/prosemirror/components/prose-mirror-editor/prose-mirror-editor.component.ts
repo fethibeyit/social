@@ -8,7 +8,24 @@ import {buildMenuItems, exampleSetup} from 'prosemirror-example-setup'
 import {mentionPlugin} from "../plugins";
 import schema1 from "../schema";
 import {icons, wrapItem} from "prosemirror-menu";
+import {Select} from "@ngxs/store";
+import {AppUserState} from "../../../../user/state/appUser-state";
+import {Observable} from "rxjs";
+import {AppUserModel} from "../../../../user/models/appUserModel.interface";
 
+
+// const users = [
+//   {
+//     name: 'John Doe1',
+//     id: '101',
+//     email: 'joe@gmail.com',
+//   },
+//   {
+//     name: 'Joe Lewis',
+//     id: '102',
+//     email: 'lewis@gmail.com',
+//   },
+// ];
 
 @Component({
   selector: 'prose-mirror-editor',
@@ -19,10 +36,18 @@ export class ProseMirrorEditorComponent implements OnInit{
 
   @Output() action = new EventEmitter();
 
+  @Select(AppUserState.appUsers) users$!: Observable<AppUserModel[]> ;
+  users : AppUserModel[] = [];
+
   private view! : EditorView;
   private mySchema! : Schema;
 
-  constructor(private elRef: ElementRef){}
+  constructor(private elRef: ElementRef){
+    this.users$.subscribe(x => this.users = x);
+  }
+
+
+
 
   ngOnInit(){
 
@@ -40,7 +65,7 @@ export class ProseMirrorEditorComponent implements OnInit{
       //   // buildMenuItems(schema1).insertHorizontalRule!,
       // ]]
     });
-    plugins.unshift(mentionPlugin);
+    plugins.unshift(mentionPlugin(this.users));
     // plugins.unshift(menu);
 
     this.mySchema = new Schema({

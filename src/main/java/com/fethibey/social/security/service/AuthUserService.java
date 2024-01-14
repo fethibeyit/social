@@ -27,7 +27,7 @@ import java.util.*;
 
 @Service
 @AllArgsConstructor
-public class AppUserService {
+public class AuthUserService {
 
     private AppUserRepository repository;
     private AppRoleRepository roleRepository;

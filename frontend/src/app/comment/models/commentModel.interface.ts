@@ -1,4 +1,4 @@
-import {AppUserModel} from "../../post/models/appUserModel.interface";
+import {AppUserModel} from "../../user/models/appUserModel.interface";
 import {LikeModel} from "../../like/models/likeModel.interface";
 import {TagModel} from "../../post/models/tagModel.interface";
 

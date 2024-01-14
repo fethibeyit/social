@@ -2,11 +2,9 @@ package com.fethibey.social.security.service;
 
 import com.fethibey.social.entity.AppUser;
 import com.fethibey.social.exception.ResourceNotFoundException;
-import com.fethibey.social.repository.AppUserRepository;
 import com.fethibey.social.security.model.LocalUser;
 import com.fethibey.social.util.GeneralUtils;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -19,7 +17,7 @@ import java.util.UUID;
 public class LocalUserDetailsService implements UserDetailsService {
 
 //    private AppUserRepository repository;
-    private AppUserService userService;
+    private AuthUserService userService;
 
 //    @Override
 //    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

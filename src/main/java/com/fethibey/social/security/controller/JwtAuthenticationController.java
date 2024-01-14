@@ -5,7 +5,7 @@ import com.fethibey.social.model.user.ProfileModel;
 import com.fethibey.social.security.jwt.TokenProvider;
 import com.fethibey.social.security.model.JwtRequest;
 import com.fethibey.social.security.model.LocalUser;
-import com.fethibey.social.security.service.AppUserService;
+import com.fethibey.social.security.service.AuthUserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ import java.util.Map;
 public class JwtAuthenticationController {
 
     private AuthenticationManager authenticationManager;
-    private AppUserService userService;
+    private AuthUserService userService;
     private TokenProvider tokenProvider;
 
     @GetMapping("/profile")

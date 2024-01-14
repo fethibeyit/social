@@ -4,6 +4,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {PostModule} from "../post/post.module";
 import {HomeComponent} from "./pages/home/home.component";
 import {HomeRoutingModule} from "./home-routing.module";
+import {AppUserModule} from "../user/user.module";
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import {HomeRoutingModule} from "./home-routing.module";
     TranslateModule,
     HomeRoutingModule,
     PostModule,
+    AppUserModule,
   ],
 
 })

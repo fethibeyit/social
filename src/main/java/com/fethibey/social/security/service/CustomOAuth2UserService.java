@@ -26,7 +26,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
-	private AppUserService userService;
+	private AuthUserService userService;
 	private Environment env;
 
 	@Override

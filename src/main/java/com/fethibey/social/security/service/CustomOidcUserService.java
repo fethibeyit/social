@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class CustomOidcUserService extends OidcUserService {
 
-	private AppUserService userService;
+	private AuthUserService userService;
 
 	@Override
 	public OidcUser loadUser(OidcUserRequest userRequest) throws OAuth2AuthenticationException {

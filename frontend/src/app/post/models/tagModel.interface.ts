@@ -1,4 +1,4 @@
-import {AppUserModel} from "./appUserModel.interface";
+import {AppUserModel} from "../../user/models/appUserModel.interface";
 
 export interface TagModel {
 

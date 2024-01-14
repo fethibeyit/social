@@ -1,4 +1,4 @@
-import {AppUserModel} from "../../post/models/appUserModel.interface";
+import {AppUserModel} from "../../user/models/appUserModel.interface";
 import {LikeType} from "../enums/like-type.enum";
 
 export interface LikeModel {
