@@ -1,6 +1,8 @@
 
-
-<app-prose-mirror-display   *ngFor="let comment of comments" [comment]="comment"/>
+<div class="message-container" *ngFor="let comment of comments">
+  <p style="font-weight: bold; font-size: 0.8rem; margin-bottom: 0.3rem;">{{comment.author.firstName}} {{comment.author.lastName}}</p>
+  <app-prose-mirror-display [content]="comment.content"/>
+</div>
 
 <prose-mirror-editor (action)="addComment($event)" />
 

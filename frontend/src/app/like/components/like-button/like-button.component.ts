@@ -7,8 +7,6 @@ import {LikeState} from "../../state/like-state";
 import {LikeModel} from "../../models/likeModel.interface";
 import {Like} from "../../state/like-actions";
 
-
-
 @Component({
   selector: 'app-like-button',
   templateUrl: './like-button.component.html',

@@ -416,4 +416,8 @@ p {
 
 .ProseMirror p {margin:0 !important;}
 
-
+.tag-display {
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+}

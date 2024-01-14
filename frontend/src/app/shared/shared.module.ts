@@ -13,6 +13,10 @@ import {
 import {ButtonModule} from "primeng/button";
 import {ToolbarModule} from "primeng/toolbar";
 import {DropdownModule} from "primeng/dropdown";
+import {CdkConnectedOverlay} from "@angular/cdk/overlay";
+import {TooltipModule} from "primeng/tooltip";
+import { UserTooltipComponent } from './user-tooltip/user-tooltip.component';
+import {CardModule} from "primeng/card";
 
 @NgModule({
   declarations: [
@@ -20,6 +24,7 @@ import {DropdownModule} from "primeng/dropdown";
     FooterComponent,
     ProseMirrorEditorComponent,
     ProseMirrorDisplayComponent,
+    UserTooltipComponent,
   ],
   imports: [
     CommonModule,
@@ -30,6 +35,9 @@ import {DropdownModule} from "primeng/dropdown";
     ButtonModule,
     ToolbarModule,
     DropdownModule,
+    CdkConnectedOverlay,
+    TooltipModule,
+    CardModule,
   ],
   exports:[
     NavbarComponent,
