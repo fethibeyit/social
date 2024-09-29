@@ -1,5 +1,7 @@
 package com.fethibey.social.security.oauth2;
 
+import com.fethibey.social.enums.SocialProvider;
+
 import java.util.Map;
 
 public abstract class OAuth2UserInfo {
@@ -21,4 +23,5 @@ public abstract class OAuth2UserInfo {
     public abstract String getLastName();
     public abstract String getEmail();
     public abstract String getImageUrl();
+     public abstract SocialProvider getSocialProvider();
 }

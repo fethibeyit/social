@@ -38,7 +38,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 			if (provider.equals(SocialProvider.LINKEDIN.getProviderType())) {
 				populateEmailAddressFromLinkedIn(oAuth2UserRequest, attributes);
 			}
-			return userService.processUserRegistration(provider, attributes, null, null);
+			return userService.processUserRegistration(provider, attributes);
 		} catch (AuthenticationException ex) {
 			throw ex;
 		} catch (Exception ex) {

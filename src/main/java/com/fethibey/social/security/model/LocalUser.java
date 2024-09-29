@@ -7,8 +7,6 @@ import com.fethibey.social.entity.AppUser;
 import com.fethibey.social.util.GeneralUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.oauth2.core.oidc.OidcIdToken;
-import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 public class LocalUser extends User implements OAuth2User {
@@ -22,7 +20,7 @@ public class LocalUser extends User implements OAuth2User {
         this.user = user;
     }
 
-    public static LocalUser create(AppUser user, Map<String, Object> attributes, OidcIdToken idToken, OidcUserInfo userInfo) {
+    public static LocalUser create(AppUser user, Map<String, Object> attributes) {
         LocalUser localUser = new LocalUser(user.getEmail(), user.getPassword(), user.isEnabled(), true, true, true, GeneralUtils.buildSimpleGrantedAuthorities(user.getRoles()),
                 user);
         localUser.setAttributes(attributes);

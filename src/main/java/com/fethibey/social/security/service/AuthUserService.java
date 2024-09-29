@@ -9,15 +9,11 @@ import com.fethibey.social.model.user.AppUserCreateModel;
 import com.fethibey.social.repository.AppRoleRepository;
 import com.fethibey.social.repository.AppUserRepository;
 import com.fethibey.social.security.model.LocalUser;
-import com.fethibey.social.security.model.SignUpRequest;
 import com.fethibey.social.security.oauth2.OAuth2UserInfo;
 import com.fethibey.social.security.oauth2.OAuth2UserInfoFactory;
-import com.fethibey.social.util.GeneralUtils;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.core.oidc.OidcIdToken;
-import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -46,30 +42,30 @@ public class AuthUserService {
     }
 
     @Transactional(value = "transactionManager")
-    public AppUser registerNewUser(final SignUpRequest signUpRequest) throws UserAlreadyExistAuthenticationException {
-        if (signUpRequest.getUserID() != null && repository.existsById(signUpRequest.getUserID())) {
-            throw new UserAlreadyExistAuthenticationException("User with User id " + signUpRequest.getUserID() + " already exist");
-        } else if (repository.existsByEmail(signUpRequest.getEmail())) {
-            throw new UserAlreadyExistAuthenticationException("User with email id " + signUpRequest.getEmail() + " already exist");
+    public AppUser registerNewUser(final OAuth2UserInfo userInfo) throws UserAlreadyExistAuthenticationException {
+        if (userInfo.getId() != null && repository.existsByProviderId(userInfo.getId())) {
+            throw new UserAlreadyExistAuthenticationException("User with Provider Id " + userInfo.getId() + " already exist");
+        } else if (repository.existsByEmail(userInfo.getEmail())) {
+            throw new UserAlreadyExistAuthenticationException("User with email id " + userInfo.getEmail() + " already exist");
         }
-        AppUser user = buildUser(signUpRequest);
+        AppUser user = buildUser(userInfo);
         user = repository.save(user);
         repository.flush();
         return user;
     }
 
-    private AppUser buildUser(final SignUpRequest formDTO) {
+    private AppUser buildUser(final OAuth2UserInfo userInfo) {
         AppUser user = new AppUser();
-        user.setFirstName(formDTO.getFirstName());
-        user.setLastName(formDTO.getLastName());
-        user.setEmail(formDTO.getEmail());
-        user.setPassword(passwordEncoder.encode(formDTO.getPassword()));
+        user.setFirstName(userInfo.getFirstName());
+        user.setLastName(userInfo.getLastName());
+        user.setImageUrl(userInfo.getImageUrl());
+        user.setProviderId(userInfo.getId());
+        user.setEmail(userInfo.getEmail());
+        user.setPassword("");
         final HashSet<AppRole> roles = new HashSet<AppRole>();
         roles.add(roleRepository.findByName(AppRole.ROLE_USER));
         user.setRoles(roles);
-        user.setProvider(formDTO.getSocialProvider());
-//        user.setEnabled(true);
-//        user.setProviderUserId(formDTO.getProviderUserId());
+        user.setProvider(userInfo.getSocialProvider());
         return user;
     }
 
@@ -80,45 +76,33 @@ public class AuthUserService {
 
 
     @Transactional
-    public LocalUser processUserRegistration(String registrationId, Map<String, Object> attributes, OidcIdToken idToken, OidcUserInfo userInfo) {
-        OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(registrationId, attributes);
-        if (StringUtils.isEmpty(oAuth2UserInfo.getFullName())) {
+    public LocalUser processUserRegistration(String registrationId, Map<String, Object> attributes) {
+        OAuth2UserInfo userInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(registrationId, attributes);
+        if (StringUtils.isEmpty(userInfo.getFirstName())) {
             throw new OAuth2AuthenticationProcessingException("Name not found from OAuth2 provider");
-        } else if (StringUtils.isEmpty(oAuth2UserInfo.getEmail())) {
+        } else if (StringUtils.isEmpty(userInfo.getEmail())) {
             throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
         }
-        SignUpRequest userDetails = toUserRegistrationObject(registrationId, oAuth2UserInfo);
-        AppUser user = findUserByEmail(oAuth2UserInfo.getEmail());
+        AppUser user = findUserByEmail(userInfo.getEmail());
         if (user != null) {
             var provider = user.getProvider().getProviderType();
             if (!provider.equals(registrationId) && !user.getProvider().equals(SocialProvider.LOCAL.getProviderType())) {
                 throw new OAuth2AuthenticationProcessingException(
                         "You are signed up with " + user.getProvider().getProviderType() + " account. Please use your " + user.getProvider().getProviderType() + " account to login.");
             }
-            user = updateExistingUser(user, oAuth2UserInfo);
+            user = updateExistingUser(user, userInfo);
         } else {
-            user = registerNewUser(userDetails);
+            user = registerNewUser(userInfo);
         }
 
-        return LocalUser.create(user, attributes, idToken, userInfo);
+        return LocalUser.create(user, attributes);
     }
 
-    private AppUser updateExistingUser(AppUser existingUser, OAuth2UserInfo oAuth2UserInfo) {
-        existingUser.setFirstName(oAuth2UserInfo.getFirstName());
-        existingUser.setLastName(oAuth2UserInfo.getLastName());
-        existingUser.setImageUrl(oAuth2UserInfo.getImageUrl());
+    private AppUser updateExistingUser(AppUser existingUser, OAuth2UserInfo userInfo) {
+        existingUser.setFirstName(userInfo.getFirstName());
+        existingUser.setLastName(userInfo.getLastName());
+        existingUser.setImageUrl(userInfo.getImageUrl());
         return repository.save(existingUser);
-    }
-
-    private SignUpRequest toUserRegistrationObject(String registrationId, OAuth2UserInfo oAuth2UserInfo) {
-        return SignUpRequest.getBuilder()
-                .addProviderUserID(oAuth2UserInfo.getId())
-                .addFirstName(oAuth2UserInfo.getFirstName())
-                .addLastName(oAuth2UserInfo.getLastName())
-                .addEmail(oAuth2UserInfo.getEmail())
-                .addSocialProvider(GeneralUtils.toSocialProvider(registrationId))
-                .addPassword("")
-                .build();
     }
 
     public Optional<AppUser> findUserById(UUID id) {

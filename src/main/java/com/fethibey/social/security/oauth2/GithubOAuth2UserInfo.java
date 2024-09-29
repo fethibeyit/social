@@ -1,5 +1,7 @@
 package com.fethibey.social.security.oauth2;
 
+import com.fethibey.social.enums.SocialProvider;
+
 import java.util.Map;
 
 public class GithubOAuth2UserInfo extends OAuth2UserInfo {
@@ -36,5 +38,10 @@ public class GithubOAuth2UserInfo extends OAuth2UserInfo {
 	@Override
 	public String getImageUrl() {
 		return (String) attributes.get("avatar_url");
+	}
+
+	@Override
+	public SocialProvider getSocialProvider() {
+		return SocialProvider.GITHUB;
 	}
 }
