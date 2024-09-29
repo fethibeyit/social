@@ -5,8 +5,7 @@
       <span  >{{"Social App" | translate}}</span>
     </div>
     <div class="navbar-end" >
-      <span >{{(profile$ | async)?.firstname | titlecase}}</span>
-      <span > {{(profile$ | async)?.lastname | titlecase}}</span>
+      <span >{{(profile$ | async)?.fullname | titlecase}}</span>
       <p-button icon="pi pi-sign-out" *ngIf="authService.isAuthenticated()" (click)="logout()" [rounded]="true" [text]="true"/>
 
       <p-dropdown [(ngModel)]="selectedLanguage" [options]="languages" (onChange)="selectLanguage()" >
