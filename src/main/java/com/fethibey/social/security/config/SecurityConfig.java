@@ -6,7 +6,6 @@ import com.fethibey.social.security.oauth2.OAuth2AccessTokenResponseConverterWit
 import com.fethibey.social.security.oauth2.OAuth2AuthenticationFailureHandler;
 import com.fethibey.social.security.oauth2.OAuth2AuthenticationSuccessHandler;
 import com.fethibey.social.security.service.CustomOAuth2UserService;
-import com.fethibey.social.security.service.CustomOidcUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +31,6 @@ import java.util.Arrays;
 public class SecurityConfig {
 
     private CustomOAuth2UserService customOAuth2UserService;
-    private CustomOidcUserService customOidcUserService;
     private OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
     private OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
 
@@ -51,7 +49,6 @@ public class SecurityConfig {
                             ae.authorizationRequestRepository(cookieAuthorizationRequestRepository()));
                     oauth2.redirectionEndpoint(Customizer.withDefaults());
                     oauth2.userInfoEndpoint(ui -> {
-                        ui.oidcUserService(customOidcUserService);
                         ui.userService(customOAuth2UserService);
                     });
                     oauth2.tokenEndpoint(te ->
