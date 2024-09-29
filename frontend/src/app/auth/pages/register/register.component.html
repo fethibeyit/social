@@ -9,7 +9,8 @@
 
     <form [formGroup]="form" (ngSubmit)="submit()">
 
-      <input type="text" pInputText placeholder="{{'Full name' | translate}}" formControlName="fullname">
+      <input type="text" pInputText placeholder="{{'First name' | translate}}" formControlName="firstname">
+      <input type="text" pInputText placeholder="{{'Last name' | translate}}" formControlName="lastname">
       <input type="email" pInputText placeholder="{{'Email' | translate}}" formControlName="email">
       <input type="password" pInputText placeholder="{{'Password' | translate}}" formControlName="password">
       <input type="password" pInputText placeholder="{{'Password confirmation' | translate}}" formControlName="confirmPassword">

@@ -13,26 +13,23 @@ import java.util.UUID;
 public class SignUpRequest {
 
     private UUID userID;
-
     private String providerUserId;
-
     @NotEmpty
-    private String displayName;
-
+    private String firstName;
+    @NotEmpty
+    private String lastName;
     @NotEmpty
     private String email;
-
     private SocialProvider socialProvider;
-
     @Size(min = 6, message = "{Size.userDto.password}")
     private String password;
-
     @NotEmpty
     private String matchingPassword;
 
-    public SignUpRequest(String providerUserId, String displayName, String email, String password, SocialProvider socialProvider) {
+    public SignUpRequest(String providerUserId, String firstName, String lastName, String email, String password, SocialProvider socialProvider) {
         this.providerUserId = providerUserId;
-        this.displayName = displayName;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.socialProvider = socialProvider;
@@ -44,7 +41,8 @@ public class SignUpRequest {
 
     public static class Builder {
         private String providerUserID;
-        private String displayName;
+        private String firstName;
+        private String lastName;
         private String email;
         private String password;
         private SocialProvider socialProvider;
@@ -54,8 +52,13 @@ public class SignUpRequest {
             return this;
         }
 
-        public Builder addDisplayName(final String displayName) {
-            this.displayName = displayName;
+        public Builder addFirstName(final String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public Builder addLastName(final String lastName) {
+            this.lastName = lastName;
             return this;
         }
 
@@ -75,7 +78,7 @@ public class SignUpRequest {
         }
 
         public SignUpRequest build() {
-            return new SignUpRequest(providerUserID, displayName, email, password, socialProvider);
+            return new SignUpRequest(providerUserID, firstName, lastName, email, password, socialProvider);
         }
     }
 }

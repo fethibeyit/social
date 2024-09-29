@@ -52,4 +52,4 @@ public class JwtAuthenticationController {
         userService.createAppUser(model);
         return new ResponseEntity(HttpStatus.OK);
     }
-}
+    }

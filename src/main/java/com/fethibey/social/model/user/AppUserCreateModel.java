@@ -7,9 +7,13 @@ import org.hibernate.validator.constraints.Length;
 @Data
 public class AppUserCreateModel {
 
-    @NotNull(message = "Fullname is required")
-    @Length(min = 2, max = 50, message = "Fullname must contain at least 2 characters and a maximum of 50 characters")
-    private String fullname;
+    @NotNull(message = "Firstname is required")
+    @Length(min = 2, max = 50, message = "Firstname must contain at least 2 characters and a maximum of 50 characters")
+    private String firstname;
+
+    @NotNull(message = "Lastname is required")
+    @Length(min = 2, max = 50, message = "Lastname must contain at least 2 characters and a maximum of 50 characters")
+    private String lastname;
 
     @NotNull(message = "Email is required")
     @Email(message = "Email must contain a valid email")

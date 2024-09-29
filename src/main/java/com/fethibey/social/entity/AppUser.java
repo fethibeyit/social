@@ -17,11 +17,11 @@ public class AppUser extends BaseEntity implements UserDetails {
 
     private String email;
     private String password;
-    private String fullName;
     private String firstName;
     private String lastName;
 
-    private String providerUserId;
+    private String providerId;
+    private String ImageUrl;
 
     @Enumerated(EnumType.STRING)
     private SocialProvider provider;

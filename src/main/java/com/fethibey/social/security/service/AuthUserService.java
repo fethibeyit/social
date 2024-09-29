@@ -60,7 +60,8 @@ public class AuthUserService {
 
     private AppUser buildUser(final SignUpRequest formDTO) {
         AppUser user = new AppUser();
-        user.setFullName(formDTO.getDisplayName());
+        user.setFirstName(formDTO.getFirstName());
+        user.setLastName(formDTO.getLastName());
         user.setEmail(formDTO.getEmail());
         user.setPassword(passwordEncoder.encode(formDTO.getPassword()));
         final HashSet<AppRole> roles = new HashSet<AppRole>();
@@ -81,7 +82,7 @@ public class AuthUserService {
     @Transactional
     public LocalUser processUserRegistration(String registrationId, Map<String, Object> attributes, OidcIdToken idToken, OidcUserInfo userInfo) {
         OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(registrationId, attributes);
-        if (StringUtils.isEmpty(oAuth2UserInfo.getName())) {
+        if (StringUtils.isEmpty(oAuth2UserInfo.getFullName())) {
             throw new OAuth2AuthenticationProcessingException("Name not found from OAuth2 provider");
         } else if (StringUtils.isEmpty(oAuth2UserInfo.getEmail())) {
             throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
@@ -103,14 +104,17 @@ public class AuthUserService {
     }
 
     private AppUser updateExistingUser(AppUser existingUser, OAuth2UserInfo oAuth2UserInfo) {
-        existingUser.setFullName(oAuth2UserInfo.getName());
+        existingUser.setFirstName(oAuth2UserInfo.getFirstName());
+        existingUser.setLastName(oAuth2UserInfo.getLastName());
+        existingUser.setImageUrl(oAuth2UserInfo.getImageUrl());
         return repository.save(existingUser);
     }
 
     private SignUpRequest toUserRegistrationObject(String registrationId, OAuth2UserInfo oAuth2UserInfo) {
         return SignUpRequest.getBuilder()
                 .addProviderUserID(oAuth2UserInfo.getId())
-                .addDisplayName(oAuth2UserInfo.getName())
+                .addFirstName(oAuth2UserInfo.getFirstName())
+                .addLastName(oAuth2UserInfo.getLastName())
                 .addEmail(oAuth2UserInfo.getEmail())
                 .addSocialProvider(GeneralUtils.toSocialProvider(registrationId))
                 .addPassword("")

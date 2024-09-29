@@ -1,6 +1,7 @@
 export interface ProfileModel {
 
-  fullname : string;
+  firstname : string;
+  lastname : string;
   authorities : any[];
   user_id : string;
 

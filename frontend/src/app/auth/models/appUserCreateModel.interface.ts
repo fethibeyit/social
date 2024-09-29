@@ -1,5 +1,6 @@
 export interface AppUserCreateModel {
-  fullname : string;
+  firstname : string;
+  lastname : string;
   email : string;
   password : string;
 }
