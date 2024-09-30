@@ -16,15 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class LocalUserDetailsService implements UserDetailsService {
 
-//    private AppUserRepository repository;
     private AuthUserService userService;
-
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        var user = repository.findByUsername(username);
-//        if(user == null) throw new UsernameNotFoundException("User not found with username: " + username);
-//        return user;
-//    }
 
     @Override
     @Transactional
@@ -42,12 +34,8 @@ public class LocalUserDetailsService implements UserDetailsService {
         return createLocalUser(user);
     }
 
-    /**
-     * @param user
-     * @return
-     */
     private LocalUser createLocalUser(AppUser user) {
-        return new LocalUser(user.getEmail(), user.getPassword(), user.isEnabled(),
+        return new LocalUser(user.getId().toString(), user.getPassword(), user.isEnabled(),
                 true, true, true,
                 GeneralUtils.buildSimpleGrantedAuthorities(user.getRoles()), user);
     }

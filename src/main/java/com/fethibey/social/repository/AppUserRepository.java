@@ -10,6 +10,7 @@ import java.util.UUID;
 public interface AppUserRepository extends JpaRepository<AppUser, UUID> {
 
     AppUser findByEmail(String email);
+    AppUser findByProviderId(String providerId);
 
     boolean existsByEmail(String email);
     boolean existsByProviderId(String providerId);

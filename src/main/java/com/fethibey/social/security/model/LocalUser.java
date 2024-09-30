@@ -21,7 +21,7 @@ public class LocalUser extends User implements OAuth2User {
     }
 
     public static LocalUser create(AppUser user, Map<String, Object> attributes) {
-        LocalUser localUser = new LocalUser(user.getEmail(), user.getPassword(), user.isEnabled(), true, true, true, GeneralUtils.buildSimpleGrantedAuthorities(user.getRoles()),
+        LocalUser localUser = new LocalUser(user.getId().toString(), user.getPassword(), user.isEnabled(), true, true, true, GeneralUtils.buildSimpleGrantedAuthorities(user.getRoles()),
                 user);
         localUser.setAttributes(attributes);
         return localUser;

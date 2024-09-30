@@ -33,7 +33,6 @@ public class AuthUserService {
     public void createAppUser(AppUserCreateModel model){
         var entity = mapper.map(model, AppUser.class);
         entity.setPassword(passwordEncoder.encode(model.getPassword()));
-//        entity.setPosts(new ArrayList<>());
         entity.setProvider(SocialProvider.LOCAL);
         var roles = new HashSet<AppRole>();
         roles.add(roleRepository.findByName(AppRole.ROLE_USER));
@@ -45,8 +44,6 @@ public class AuthUserService {
     public AppUser registerNewUser(final OAuth2UserInfo userInfo) throws UserAlreadyExistAuthenticationException {
         if (userInfo.getId() != null && repository.existsByProviderId(userInfo.getId())) {
             throw new UserAlreadyExistAuthenticationException("User with Provider Id " + userInfo.getId() + " already exist");
-        } else if (repository.existsByEmail(userInfo.getEmail())) {
-            throw new UserAlreadyExistAuthenticationException("User with email id " + userInfo.getEmail() + " already exist");
         }
         AppUser user = buildUser(userInfo);
         user = repository.save(user);
@@ -80,10 +77,8 @@ public class AuthUserService {
         OAuth2UserInfo userInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(registrationId, attributes);
         if (StringUtils.isEmpty(userInfo.getFirstName())) {
             throw new OAuth2AuthenticationProcessingException("Name not found from OAuth2 provider");
-        } else if (StringUtils.isEmpty(userInfo.getEmail())) {
-            throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
         }
-        AppUser user = findUserByEmail(userInfo.getEmail());
+        AppUser user = repository.findByProviderId(userInfo.getId());
         if (user != null) {
             var provider = user.getProvider().getProviderType();
             if (!provider.equals(registrationId) && !user.getProvider().equals(SocialProvider.LOCAL.getProviderType())) {
