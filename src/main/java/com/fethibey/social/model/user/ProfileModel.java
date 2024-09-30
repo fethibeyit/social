@@ -10,6 +10,7 @@ import java.util.UUID;
 public class ProfileModel {
 
     private String fullname = "";
+    private String imageurl = "";
     private List<GrantedAuthority> authorities = new ArrayList<>();
     private UUID user_id = null;
 

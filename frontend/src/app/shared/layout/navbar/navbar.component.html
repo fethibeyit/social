@@ -6,6 +6,7 @@
     </div>
     <div class="navbar-end" >
       <span >{{(profile$ | async)?.fullname | titlecase}}</span>
+      <span *ngIf="(profile$ | async)?.imageurl"><img src="{{(profile$ | async)?.imageurl}}" style="border-radius: 50%; width: 2rem; height: 2rem; margin-left: 1rem;"></span>
       <p-button icon="pi pi-sign-out" *ngIf="authService.isAuthenticated()" (click)="logout()" [rounded]="true" [text]="true"/>
 
       <p-dropdown [(ngModel)]="selectedLanguage" [options]="languages" (onChange)="selectLanguage()" >

@@ -32,6 +32,7 @@ public class JwtAuthenticationController {
         if(authentication != null) {
             LocalUser userPrincipal = (LocalUser) authentication.getPrincipal();
             profile.setFullname(userPrincipal.getName());
+            profile.setImageurl(userPrincipal.getUser().getImageUrl());
             profile.setAuthorities(userPrincipal.getAuthorities().stream().toList());
             profile.setUser_id(userPrincipal.getUser().getId());
         }
