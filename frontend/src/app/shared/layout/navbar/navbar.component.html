@@ -1,6 +1,8 @@
 
-<p-toolbar [style]="{ 'background-color' : '#bdd9fc' , 'border-radius': '0' , 'padding': '0.5rem' }">
-  <div class="navbar-container" >
+<p-toolbar [style]="{ 'border-radius': '0' , 'padding': '0' }">
+
+
+  <span class="navbar-container" >
 
     <p-avatar
               image="assets/images/SA_Logo.png"
@@ -8,15 +10,19 @@
               size="xlarge"
               shape="circle" />
 
-    <span class="p-input-icon-left">
-        <i class="pi pi-search"></i>
-        <input type="text" pInputText [style]="{'borderRadius' : '1.5rem'}" placeholder="Rechercher" />
+    <p-iconField iconPosition="left">
+      <p-inputIcon styleClass="pi pi-search" />
+      <input type="text" pInputText
+             style="background-color: #f0f2f5; border-radius: 1.5rem;"
+             placeholder="Rechercher" />
+    </p-iconField>
+
     </span>
+<span style="margin-top: auto;">
+    <p-tabMenu [model]="items"  />
+</span>
 
-
-    <div class="navbar-end" style="padding: 1rem" >
-
-
+    <span class="navbar-end" style="padding: 1rem" >
       <p-avatar *ngIf=" (profile$ | async)?.fullname && !(profile$ | async)?.imageurl"
         label="{{avatarLabel}}"
         styleClass="mr-2"
@@ -39,8 +45,8 @@
           {{language.display}}
         </ng-template>
       </p-dropdown>
-    </div>
-  </div>
+    </span>
+
 
 
 </p-toolbar>

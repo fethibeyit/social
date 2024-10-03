@@ -20,6 +20,9 @@ import {CardModule} from "primeng/card";
 import {AvatarModule} from "primeng/avatar";
 import {InputSwitchModule} from "primeng/inputswitch";
 import {InputTextModule} from "primeng/inputtext";
+import {IconFieldModule} from "primeng/iconfield";
+import {InputIconModule} from "primeng/inputicon";
+import {TabMenuModule} from "primeng/tabmenu";
 
 
 @NgModule({
@@ -46,6 +49,9 @@ import {InputTextModule} from "primeng/inputtext";
     InputSwitchModule,
     InputTextModule,
     ReactiveFormsModule,
+    IconFieldModule,
+    InputIconModule,
+    TabMenuModule,
   ],
   exports:[
     NavbarComponent,

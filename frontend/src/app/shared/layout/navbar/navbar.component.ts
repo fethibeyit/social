@@ -7,6 +7,7 @@ import {Observable} from "rxjs";
 import {AuthState} from "../../../auth/state/auth-state";
 import {TranslateService} from "@ngx-translate/core";
 import {ProfileModel} from "../../../auth/models/profileModel.interface";
+import {MenuItem} from "primeng/api";
 
 @Component({
   selector: 'app-navbar',
@@ -25,6 +26,7 @@ export class NavbarComponent implements OnInit{
   selectedLanguage = "en";
   avatarLabel : string | null = null;
 
+  items: MenuItem[] | undefined;
 
   constructor( public authService: AuthenticateService,
                private store: Store,
@@ -42,6 +44,11 @@ export class NavbarComponent implements OnInit{
     this.profile$.subscribe(profile => {
       if(profile) this.avatarLabel = profile.fullname.substring(0,1);
     })
+    this.items = [
+      {  icon: 'pi pi-home' , tooltip: 'Accueil'},
+      { title: 'Amies', icon: 'pi pi-users' },
+      { title: 'Messages', icon: 'pi pi-inbox'}
+    ]
   }
 
   logout() {
