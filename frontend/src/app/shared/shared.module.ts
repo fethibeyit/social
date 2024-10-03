@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {NavbarComponent} from './layout/navbar/navbar.component';
 import {FooterComponent} from './layout/footer/footer.component';
 import {TranslateModule} from "@ngx-translate/core";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MentionModule} from "angular-mentions";
 import {EditorModule} from "primeng/editor";
 import {ProseMirrorEditorComponent} from "./prosemirror/components/prose-mirror-editor/prose-mirror-editor.component";
@@ -18,6 +18,8 @@ import {TooltipModule} from "primeng/tooltip";
 import { UserTooltipComponent } from './user-tooltip/user-tooltip.component';
 import {CardModule} from "primeng/card";
 import {AvatarModule} from "primeng/avatar";
+import {InputSwitchModule} from "primeng/inputswitch";
+import {InputTextModule} from "primeng/inputtext";
 
 
 @NgModule({
@@ -41,6 +43,9 @@ import {AvatarModule} from "primeng/avatar";
     TooltipModule,
     CardModule,
     AvatarModule,
+    InputSwitchModule,
+    InputTextModule,
+    ReactiveFormsModule,
   ],
   exports:[
     NavbarComponent,
