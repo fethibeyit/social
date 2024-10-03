@@ -1,12 +1,33 @@
 
-<p-toolbar >
+<p-toolbar [style]="{ 'background-color' : '#bdd9fc' , 'border-radius': '0' , 'padding': '0.5rem' }">
   <div class="navbar-container" >
-    <div>
-      <span  >{{"Social App" | translate}}</span>
-    </div>
-    <div class="navbar-end" >
-      <span >{{(profile$ | async)?.fullname | titlecase}}</span>
-      <span *ngIf="(profile$ | async)?.imageurl"><img src="{{(profile$ | async)?.imageurl}}" style="border-radius: 50%; width: 2rem; height: 2rem; margin-left: 1rem;"></span>
+
+    <p-avatar
+              image="assets/images/SA_Logo.png"
+              styleClass="mr-2"
+              size="xlarge"
+              shape="circle" />
+
+
+
+    <div class="navbar-end" style="padding: 1rem" >
+
+
+      <p-avatar *ngIf=" (profile$ | async)?.fullname && !(profile$ | async)?.imageurl"
+        label="{{avatarLabel}}"
+        styleClass="mr-2"
+        [style]="{ 'background-color': '#3B82F6', color: '#fff' }"
+        size="large"
+        shape="circle" />
+
+      <p-avatar *ngIf=" (profile$ | async)?.imageurl"
+                image="{{(profile$ | async)?.imageurl}}"
+                styleClass="mr-2"
+                size="large"
+                shape="circle" />
+
+<!--      <span >{{(profile$ | async)?.fullname | titlecase}}</span>-->
+<!--      <span *ngIf="(profile$ | async)?.imageurl"><img src="{{(profile$ | async)?.imageurl}}" style="border-radius: 50%; width: 2rem; height: 2rem; margin-left: 1rem;"></span>-->
       <p-button icon="pi pi-sign-out" *ngIf="authService.isAuthenticated()" (click)="logout()" [rounded]="true" [text]="true"/>
 
       <p-dropdown [(ngModel)]="selectedLanguage" [options]="languages" (onChange)="selectLanguage()" >
@@ -16,5 +37,7 @@
       </p-dropdown>
     </div>
   </div>
+
+
 </p-toolbar>
 

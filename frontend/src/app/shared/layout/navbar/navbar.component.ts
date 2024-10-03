@@ -23,6 +23,8 @@ export class NavbarComponent implements OnInit{
   ];
 
   selectedLanguage = "en";
+  avatarLabel : string | null = null;
+
 
   constructor( public authService: AuthenticateService,
                private store: Store,
@@ -37,6 +39,9 @@ export class NavbarComponent implements OnInit{
 
   ngOnInit(): void {
     this.store.dispatch(new Auth.GetProfile());
+    this.profile$.subscribe(profile => {
+      if(profile) this.avatarLabel = profile.fullname.substring(0,1);
+    })
   }
 
   logout() {
@@ -46,6 +51,5 @@ export class NavbarComponent implements OnInit{
   selectLanguage() {
     this.translate.use(this.selectedLanguage);
   }
-
 
 }

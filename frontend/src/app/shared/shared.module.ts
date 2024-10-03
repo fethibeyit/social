@@ -17,6 +17,8 @@ import {CdkConnectedOverlay} from "@angular/cdk/overlay";
 import {TooltipModule} from "primeng/tooltip";
 import { UserTooltipComponent } from './user-tooltip/user-tooltip.component';
 import {CardModule} from "primeng/card";
+import {AvatarModule} from "primeng/avatar";
+
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import {CardModule} from "primeng/card";
     CdkConnectedOverlay,
     TooltipModule,
     CardModule,
+    AvatarModule,
   ],
   exports:[
     NavbarComponent,
