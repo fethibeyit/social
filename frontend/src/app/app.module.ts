@@ -15,7 +15,7 @@ import {AppErrorHandler} from "./core/handlers/app-error-handler";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {MatSelectModule} from "@angular/material/select";
-import {AppUserModule} from "./user/user.module";
+import {AuthState} from "./auth/state/auth-state";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -25,40 +25,40 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    SharedModule,
-    NotifierModule,
-    MatSelectModule, // to remove after (like button depend)
-    NgxsModule.forRoot([], {
-      developmentMode: !environment.production,
-      selectorOptions: {injectContainerState: false, suppressErrors: false},
-      executionStrategy: NoopNgxsExecutionStrategy,
-    }),
-    NgxsReduxDevtoolsPluginModule.forRoot({disabled: environment.production, maxAge: 25}),
-    NgxsStoragePluginModule.forRoot({key: "auth.token"}),
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: () => JSON.parse(localStorage.getItem("auth.token") ?? "{}"),
-        allowedDomains: [environment.domainURL],
-        disallowedRoutes: [
-          environment.authURL + '/auth',
-          environment.authURL + '/register',
-        ]
-      }
-    }),
-    TranslateModule.forRoot({
-      defaultLanguage: 'en',
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        SharedModule,
+        NotifierModule,
+        MatSelectModule, // to remove after (like button depend)
+        NgxsModule.forRoot([AuthState], {
+            developmentMode: !environment.production,
+            selectorOptions: {injectContainerState: false, suppressErrors: false},
+            executionStrategy: NoopNgxsExecutionStrategy,
+        }),
+        NgxsReduxDevtoolsPluginModule.forRoot({disabled: environment.production, maxAge: 25}),
+        NgxsStoragePluginModule.forRoot({key: "auth.token"}),
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: () => JSON.parse(localStorage.getItem("auth.token") ?? "{}"),
+                allowedDomains: [environment.domainURL],
+                disallowedRoutes: [
+                    environment.authURL + '/auth',
+                    environment.authURL + '/register',
+                ]
+            }
+        }),
+        TranslateModule.forRoot({
+            defaultLanguage: 'en',
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+    ],
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler},
     // { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true }

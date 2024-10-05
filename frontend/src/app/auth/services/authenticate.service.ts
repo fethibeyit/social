@@ -20,7 +20,6 @@ export class AuthenticateService {
   }
 
   login(data: UserCredentials): Observable<any> {
-    debugger;
     return this.http.post<any>(`${environment.authURL}/auth`, data).pipe(
       tap((data: any) => data),
       catchError(err => throwError(() => err))

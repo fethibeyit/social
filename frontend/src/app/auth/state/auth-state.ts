@@ -23,7 +23,7 @@ type LocalStateContext = StateContext<AuthStateModel>;
   },
 })
 @Injectable()
-export class AuthState {
+export class AuthState  implements  NgxsOnInit{
   constructor(private authService : AuthenticateService) {}
 
   @Selector()
@@ -45,6 +45,10 @@ export class AuthState {
     return state.loading;
   }
 
+  ngxsOnInit(ctx: StateContext<any>): void {
+    ctx.dispatch(new Auth.GetProfile());
+  }
+
   @Action(Auth.Login)
   protected async login(ctx: LocalStateContext, action: Auth.Login): Promise<void> {
     const { credentials } = action;
@@ -62,12 +66,6 @@ export class AuthState {
     }
   }
 
-  @Action(Auth.SetStorageToken)
-  protected async setStorageToken(ctx: LocalStateContext, action: Auth.SetStorageToken): Promise<void> {
-    let token = this.authService.getToken();
-    ctx.patchState({ token: token});
-  }
-
   @Action(Auth.SetToken)
   protected async setToken(ctx: LocalStateContext, action: Auth.SetToken): Promise<void> {
     const { token } = action;
@@ -76,7 +74,6 @@ export class AuthState {
 
   @Action(Auth.GetProfile)
   protected async getProfile(ctx: LocalStateContext, action: Auth.GetProfile): Promise<void> {
-    debugger
     ctx.patchState({loading: true , error: null})
     try{
       const data = await this.authService.getProfile().toPromise();
