@@ -23,6 +23,8 @@ import {InputTextModule} from "primeng/inputtext";
 import {IconFieldModule} from "primeng/iconfield";
 import {InputIconModule} from "primeng/inputicon";
 import {TabMenuModule} from "primeng/tabmenu";
+import {MenuModule} from "primeng/menu";
+import {TieredMenuModule} from "primeng/tieredmenu";
 
 
 @NgModule({
@@ -52,6 +54,8 @@ import {TabMenuModule} from "primeng/tabmenu";
     IconFieldModule,
     InputIconModule,
     TabMenuModule,
+    MenuModule,
+    TieredMenuModule,
   ],
   exports:[
     NavbarComponent,

@@ -26,7 +26,9 @@ export class NavbarComponent implements OnInit{
   selectedLanguage = "en";
   avatarLabel : string | null = null;
 
-  items: MenuItem[] | undefined;
+  menuItems: MenuItem[] | undefined;
+  profileItems: MenuItem[] | undefined;
+
 
   constructor( public authService: AuthenticateService,
                private store: Store,
@@ -36,19 +38,50 @@ export class NavbarComponent implements OnInit{
     this.languages.forEach(l => {
       if (navigator.language.startsWith(l.value)) this.selectedLanguage = l.value;
     })
-    this.translate.use(this.selectedLanguage);
+    this.selectLanguage();
   }
 
   ngOnInit(): void {
-    this.store.dispatch(new Auth.GetProfile());
     this.profile$.subscribe(profile => {
       if(profile) this.avatarLabel = profile.fullname.substring(0,1);
     })
-    this.items = [
-      {  icon: 'pi pi-home' , tooltip: 'Accueil'},
-      { title: 'Amies', icon: 'pi pi-users' },
-      { title: 'Messages', icon: 'pi pi-inbox'}
+    this.menuItems = [
+      { icon: 'pi pi-home' , tooltipOptions: { tooltipLabel:'Accueil', tooltipPosition: 'bottom', tooltipStyleClass: "menu-tooltip"}},
+      { icon: 'pi pi-users', tooltipOptions: { tooltipLabel:'Amies', tooltipPosition: 'bottom'} },
+      { icon: 'pi pi-inbox', tooltipOptions: { tooltipLabel:'Messages', tooltipPosition: 'bottom'} }
     ]
+
+    this.profileItems = [
+      {
+        label: 'Language',
+        icon: 'pi pi-language',
+        items: [
+          {
+            label: 'Français',
+            icon : this.selectedLanguage == "fr" ? 'pi pi-check' : '',
+            command: () => {
+              this.selectedLanguage = "fr";
+              this.selectLanguage();
+            }
+          },
+          {
+            label: 'English',
+            icon : this.selectedLanguage == "en" ? 'pi pi-check' : '',
+            command: () => {
+              this.selectedLanguage = "en";
+              this.selectLanguage();
+            }
+          }
+        ]
+      },
+      {
+        label: 'Logout',
+        icon: 'pi pi-sign-out',
+        command: () => {
+          this.logout();
+        }
+      }
+    ];
   }
 
   logout() {

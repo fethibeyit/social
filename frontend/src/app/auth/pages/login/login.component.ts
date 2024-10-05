@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
     if (token) {
       this.store.dispatch(new Auth.SetToken(token)).subscribe(() => {
         if (this.authService.isAuthenticated()) {
-          this.store.dispatch(new Auth.GetProfile());
           const redirectUrl = this.authService.redirectUrl || '/';
           this.authService.redirectUrl = null;
           this.router.navigateByUrl(redirectUrl)

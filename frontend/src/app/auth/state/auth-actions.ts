@@ -12,6 +12,10 @@ export namespace Auth {
     constructor(public token: string) {}
   }
 
+  export class SetStorageToken {
+    static readonly type = '[AUTH] Set Token';
+  }
+
   export class GetProfile {
     static readonly type = '[AUTH] Get Profile';
   }

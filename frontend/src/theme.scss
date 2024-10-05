@@ -78,27 +78,27 @@ $app-red-palette: (
   )
 );
 
-$app-primary: mat.define-palette($app-blue-palette, 700);
-$app-accent: mat.define-palette($app-green-palette, 500);
-$app-warn: mat.define-palette($app-red-palette, 500);
+//$app-primary: mat.define-palette($app-blue-palette, 700);
+//$app-accent: mat.define-palette($app-green-palette, 500);
+//$app-warn: mat.define-palette($app-red-palette, 500);
 //$my-accent: mat.define-palette(mat.$green-palette, 500);
 
-$my-theme: mat.define-light-theme((
-  color: (
-    primary: $app-primary,
-    accent: $app-accent,
-    warn: $app-warn
-  ),
-  density: 0,
-));
+//$my-theme: mat.define-light-theme((
+//  color: (
+//    primary: $app-primary,
+//    accent: $app-accent,
+//    warn: $app-warn
+//  ),
+//  density: 0,
+//));
 
 // Emit theme-dependent styles for common features used across multiple components.
-@include mat.core-theme($my-theme);
+//@include mat.core-theme($my-theme);
 
 // Emit styles for MatButton based on `$my-theme`. Because the configuration
 // passed to `define-light-theme` omits typography, `button-theme` will not
 // emit any typography styles.
-@include mat.all-component-themes($my-theme);
+//@include mat.all-component-themes($my-theme);
 
 // Include the theme mixins for other components you use here.
 

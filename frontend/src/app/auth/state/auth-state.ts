@@ -1,4 +1,4 @@
-import {Action, Selector, State, StateContext} from "@ngxs/store";
+import {Action, NgxsOnInit, Selector, State, StateContext} from "@ngxs/store";
 import {Injectable} from "@angular/core";
 import {AuthenticateService} from "../services/authenticate.service";
 import {Auth} from "./auth-actions";
@@ -62,15 +62,21 @@ export class AuthState {
     }
   }
 
+  @Action(Auth.SetStorageToken)
+  protected async setStorageToken(ctx: LocalStateContext, action: Auth.SetStorageToken): Promise<void> {
+    let token = this.authService.getToken();
+    ctx.patchState({ token: token});
+  }
+
   @Action(Auth.SetToken)
   protected async setToken(ctx: LocalStateContext, action: Auth.SetToken): Promise<void> {
     const { token } = action;
     ctx.patchState({ token: token});
-
   }
 
   @Action(Auth.GetProfile)
   protected async getProfile(ctx: LocalStateContext, action: Auth.GetProfile): Promise<void> {
+    debugger
     ctx.patchState({loading: true , error: null})
     try{
       const data = await this.authService.getProfile().toPromise();
