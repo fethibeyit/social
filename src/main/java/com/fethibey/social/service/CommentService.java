@@ -24,10 +24,9 @@ public class CommentService {
 
     public CommentModel createComment(CommentCreateModel model, Authentication authentication) {
         var entity = mapper.map(model, Comment.class);
-        var userEmail = authentication.getName();
-        var currentUser = userRepository.findByEmail(userEmail);
-        if (currentUser == null) throw new NotFoundException();
-        entity.setAuthor(currentUser);
+        var currentUser = userRepository.findById(UUID.fromString(authentication.getName()));
+        if (currentUser.isEmpty()) throw new NotFoundException();
+        entity.setAuthor(currentUser.get());
         var createdEntity = repository.saveAndFlush(entity);
         return mapper.map(createdEntity, CommentModel.class);
     }
@@ -43,6 +42,5 @@ public class CommentService {
         var entity = repository.findById(id).orElseThrow(() -> new NotFoundException(id));
         repository.delete(entity);
     }
-
 
 }

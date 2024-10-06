@@ -34,8 +34,9 @@ public class PostService {
     }
 
     public List<PostModel> getAllPostsPageable(Pageable pageable, Authentication authentication) {
-        var currentUser = userRepository.findByEmail(authentication.getName());
-        var posts = repository.findAllByAuthor(currentUser, pageable).getContent();
+        var currentUser = userRepository.findById(UUID.fromString(authentication.getName()));
+        if (currentUser.isEmpty()) throw new NotFoundException();
+        var posts = repository.findAllByAuthor(currentUser.get(), pageable).getContent();
 
         List<PostModel> result = null;
         try {
@@ -54,10 +55,9 @@ public class PostService {
 
     public PostModel createPost(PostCreateModel model, Authentication authentication) {
         var entity = mapper.map(model, Post.class);
-        var userEmail = authentication.getName();
-        var currentUser = userRepository.findByEmail(userEmail);
-        if (currentUser == null) throw new NotFoundException();
-        entity.setAuthor(currentUser);
+        var currentUser = userRepository.findById(UUID.fromString(authentication.getName()));
+        if (currentUser.isEmpty()) throw new NotFoundException();
+        entity.setAuthor(currentUser.get());
         var createdEntity = repository.saveAndFlush(entity);
         return mapper.map(createdEntity, PostModel.class);
     }

@@ -31,10 +31,9 @@ public class LikeService {
 
     public LikeModel createLike(LikeCreateModel model, Authentication authentication) {
         var entity = mapper.map(model, Like.class);
-        var userEmail = authentication.getName();
-        var currentUser = userRepository.findByEmail(userEmail);
-        if (currentUser == null) throw new NotFoundException();
-        entity.setOwner(currentUser);
+        var currentUser = userRepository.findById(UUID.fromString(authentication.getName()));
+        if (currentUser.isEmpty()) throw new NotFoundException();
+        entity.setOwner(currentUser.get());
         var createdEntity = repository.saveAndFlush(entity);
         return mapper.map(createdEntity, LikeModel.class);
     }
@@ -50,6 +49,5 @@ public class LikeService {
         var entity = repository.findById(id).orElseThrow(() -> new NotFoundException(id));
         repository.delete(entity);
     }
-
 
 }

@@ -39,13 +39,6 @@ public class AppUserService {
         return mapper.map(entity, AppUserModel.class);
     }
 
-//    public AppUserModel updateAppUser(UUID id, AppUserUpdateModel model) {
-//        var entity = repository.findById(id).orElseThrow(() -> new NotFoundException(id));
-//        mapper.map(model, entity);
-//        var updatedEntity = repository.save(entity);
-//        return mapper.map(updatedEntity, AppUserModel.class);
-//    }
-
     public void deleteAppUser(UUID id) {
         var entity = repository.findById(id).orElseThrow(() -> new NotFoundException(id));
         repository.delete(entity);
