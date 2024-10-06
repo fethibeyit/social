@@ -25,6 +25,9 @@ import {InputIconModule} from "primeng/inputicon";
 import {TabMenuModule} from "primeng/tabmenu";
 import {MenuModule} from "primeng/menu";
 import {TieredMenuModule} from "primeng/tieredmenu";
+import {MegaMenuModule} from "primeng/megamenu";
+import {OverlayPanelModule} from "primeng/overlaypanel";
+import {SlideMenuModule} from "primeng/slidemenu";
 
 
 @NgModule({
@@ -56,6 +59,9 @@ import {TieredMenuModule} from "primeng/tieredmenu";
     TabMenuModule,
     MenuModule,
     TieredMenuModule,
+    MegaMenuModule,
+    OverlayPanelModule,
+    SlideMenuModule,
   ],
   exports:[
     NavbarComponent,

@@ -3,6 +3,7 @@
   "Email" : "Adresse e-mail",
   "Password" : "Mot de passe",
   "Log In" : "Se connecter",
+  "Logout" : "Se déconnecter",
   "Create new account" : "Créer un compte",
   "Continue with" : "Continuer avec",
   "Sign Up" : "S'inscrire",
@@ -35,7 +36,8 @@
   "Smile" : "Sourire",
   "Wow" : "Wouah",
   "Sad" : "Triste",
-  "Angry" : "En colère"
+  "Angry" : "En colère",
+  "Language" : "Langue"
 
 
 

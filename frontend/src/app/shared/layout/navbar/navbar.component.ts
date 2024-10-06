@@ -1,5 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AuthenticateService} from "../../../auth/services/authenticate.service";
+import {Component, OnInit} from '@angular/core';
 import {Select, Store} from "@ngxs/store";
 import {Auth} from "../../../auth/state/auth-actions";
 import {Router} from "@angular/router";
@@ -18,33 +17,25 @@ export class NavbarComponent implements OnInit{
 
   @Select(AuthState.profile) profile$!: Observable<ProfileModel> ;
 
-  languages = [
-    {value : "en", display : "English"},
-    {value : "fr", display : "Français"}
-  ];
-
-  selectedLanguage = "en";
+  selectedLanguage = 'en';
   avatarLabel : string | null = null;
 
   menuItems: MenuItem[] | undefined;
   profileItems: MenuItem[] | undefined;
 
 
-  constructor( public authService: AuthenticateService,
-               private store: Store,
+  constructor( private store: Store,
                private router: Router,
                private translate: TranslateService
-  ) {
-    this.languages.forEach(l => {
-      if (navigator.language.startsWith(l.value)) this.selectedLanguage = l.value;
-    })
-    this.selectLanguage();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.profile$.subscribe(profile => {
       if(profile) this.avatarLabel = profile.fullname.substring(0,1);
     })
+
+    this.selectedLanguage = localStorage.getItem('language') ?? 'en';
+
     this.menuItems = [
       { icon: 'pi pi-home' , tooltipOptions: { tooltipLabel:'Accueil', tooltipPosition: 'bottom', tooltipStyleClass: "menu-tooltip"}},
       { icon: 'pi pi-users', tooltipOptions: { tooltipLabel:'Amies', tooltipPosition: 'bottom'} },
@@ -53,29 +44,29 @@ export class NavbarComponent implements OnInit{
 
     this.profileItems = [
       {
-        label: 'Language',
+        label: this.translate.instant('Language'),
+        root: true,
         icon: 'pi pi-language',
         items: [
           {
-            label: 'Français',
-            icon : this.selectedLanguage == "fr" ? 'pi pi-check' : '',
+            label: this.selectedLanguage == 'fr' ?  '<strong>Français<strong>': 'Français',
+            escape: false,
             command: () => {
-              this.selectedLanguage = "fr";
-              this.selectLanguage();
+              this.selectLanguage('fr');
             }
           },
           {
-            label: 'English',
-            icon : this.selectedLanguage == "en" ? 'pi pi-check' : '',
+            label: this.selectedLanguage == 'en' ?  '<strong>English<strong>': 'English',
+            escape: false,
             command: () => {
-              this.selectedLanguage = "en";
-              this.selectLanguage();
+              this.selectLanguage('en');
             }
           }
         ]
       },
       {
-        label: 'Logout',
+        label:  this.translate.instant('Logout'),
+        root : true,
         icon: 'pi pi-sign-out',
         command: () => {
           this.logout();
@@ -88,8 +79,9 @@ export class NavbarComponent implements OnInit{
     this.store.dispatch(new Auth.Logout()).subscribe(() => this.router.navigate(['/login']))
   }
 
-  selectLanguage() {
-    this.translate.use(this.selectedLanguage);
+  selectLanguage(language: string) {
+    localStorage.setItem('language', language) ;
+    location.reload();
   }
 
 }

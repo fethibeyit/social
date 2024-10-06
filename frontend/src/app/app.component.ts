@@ -18,8 +18,9 @@ export class AppComponent implements OnInit{
   @Select(AuthState.profile) profile$!: Observable<ProfileModel> ;
 
   constructor(translate: TranslateService) {
+    const language = localStorage.getItem('language') ?? 'en';
     translate.setDefaultLang('en');
-    translate.use('en');
+    translate.use(language);
   }
 
   ngOnInit(): void {
