@@ -18,7 +18,6 @@ export class NavbarComponent implements OnInit{
   @Select(AuthState.profile) profile$!: Observable<ProfileModel> ;
 
   selectedLanguage = 'en';
-  avatarLabel : string | null = null;
 
   menuItems: MenuItem[] | undefined;
   profileItems: MenuItem[] | undefined;
@@ -30,10 +29,6 @@ export class NavbarComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    this.profile$.subscribe(profile => {
-      if(profile) this.avatarLabel = profile.fullname.substring(0,1);
-    })
-
     this.selectedLanguage = localStorage.getItem('language') ?? 'en';
 
     this.menuItems = [

@@ -21,36 +21,15 @@
   </span>
 
   <a class="navbar-end" style="padding: 1rem" >
-    <p-avatar *ngIf=" (profile$ | async)?.fullname && !(profile$ | async)?.imageurl"
-                (click) = "panelmenu.toggle($event)"
-                 label="{{avatarLabel}}"
-                 styleClass="mr-2"
-                 [style]="{ 'background-color': '#3B82F6', color: '#fff' }"
-                 size="large"
-                 shape="circle" />
-
-    <p-avatar *ngIf=" (profile$ | async)?.imageurl"
-              (click) = "panelmenu.toggle($event)"
-              image="{{(profile$ | async)?.imageurl}}"
-              styleClass="mr-2"
-              size="large"
-              shape="circle" />
+    <span (click) = "panelmenu.toggle($event)">
+      <app-avatar-profile size="large" />
+    </span>
     <p-overlayPanel #panelmenu>
-      <div class="flex flex-column w-15rem">
+
+    <div class="flex flex-column w-15rem">
 
           <div style="padding: 1rem;">
-            <p-avatar *ngIf=" (profile$ | async)?.fullname && !(profile$ | async)?.imageurl"
-                      label="{{avatarLabel}}"
-                      styleClass="mr-2"
-                      [style]="{ 'background-color': '#3B82F6', color: '#fff' }"
-                      size="large"
-                      shape="circle" />
-
-            <p-avatar *ngIf=" (profile$ | async)?.imageurl"
-                      image="{{(profile$ | async)?.imageurl}}"
-                      styleClass="mr-2"
-                      size="large"
-                      shape="circle" />
+            <app-avatar-profile />
             <span >{{(profile$ | async)?.fullname | titlecase}}</span>
           </div>
 

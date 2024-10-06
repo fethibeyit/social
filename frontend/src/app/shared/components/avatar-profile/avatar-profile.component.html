@@ -1,0 +1,12 @@
+<p-avatar *ngIf=" (profile$ | async)?.fullname && !(profile$ | async)?.imageurl"
+          label="{{avatarLabel}}"
+          styleClass="mr-2"
+          [style]="{ 'background-color': '#3B82F6', color: '#fff' }"
+          [size]="size"
+          shape="circle" />
+
+<p-avatar *ngIf=" (profile$ | async)?.imageurl"
+          image="{{(profile$ | async)?.imageurl}}"
+          styleClass="mr-2"
+          [size]="size"
+          shape="circle" />

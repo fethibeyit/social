@@ -28,6 +28,7 @@ import {TieredMenuModule} from "primeng/tieredmenu";
 import {MegaMenuModule} from "primeng/megamenu";
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import {SlideMenuModule} from "primeng/slidemenu";
+import {AvatarProfileComponent} from "./components/avatar-profile/avatar-profile.component";
 
 
 @NgModule({
@@ -62,6 +63,7 @@ import {SlideMenuModule} from "primeng/slidemenu";
     MegaMenuModule,
     OverlayPanelModule,
     SlideMenuModule,
+    AvatarProfileComponent,
   ],
   exports:[
     NavbarComponent,
