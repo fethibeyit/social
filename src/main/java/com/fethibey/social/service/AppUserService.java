@@ -1,14 +1,11 @@
 package com.fethibey.social.service;
 
-import com.fethibey.social.entity.AppUser;
 import com.fethibey.social.exception.NotFoundException;
 import com.fethibey.social.model.user.AppUserModel;
-import com.fethibey.social.repository.AppUserRepository;
 import com.fethibey.social.repository.AppUserRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

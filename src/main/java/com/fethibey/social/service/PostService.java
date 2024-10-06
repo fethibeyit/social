@@ -1,20 +1,18 @@
 package com.fethibey.social.service;
 
 import com.fethibey.social.entity.Post;
-import com.fethibey.social.entity.Tag;
 import com.fethibey.social.exception.NotFoundException;
-import com.fethibey.social.model.post.*;
+import com.fethibey.social.model.post.PostCreateModel;
+import com.fethibey.social.model.post.PostModel;
+import com.fethibey.social.model.post.PostUpdateModel;
 import com.fethibey.social.repository.AppUserRepository;
 import com.fethibey.social.repository.PostRepository;
-import com.fethibey.social.repository.TagRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,16 +26,25 @@ public class PostService {
     private final ModelMapper mapper;
 
     public List<PostModel> getAllPost() {
-
         var result = repository.findAll().stream().map(x -> mapper.map(x, PostModel.class)).toList();
         return result;
     }
 
     public List<PostModel> getAllPostsPageable(Pageable pageable, Authentication authentication) {
-        var currentUser = userRepository.findById(UUID.fromString(authentication.getName()));
-        if (currentUser.isEmpty()) throw new NotFoundException();
-        var posts = repository.findAllByAuthor(currentUser.get(), pageable).getContent();
+        var posts = repository.findAll(pageable).getContent();
+        List<PostModel> result = null;
+        try {
+            result = posts.stream()
+                    .map(x -> mapper.map(x, PostModel.class))
+                    .toList();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());        }
+        return result;
+    }
 
+    public List<PostModel> getPostsByAuthorPageable(UUID authorId, Pageable pageable, Authentication authentication) {
+        var author = userRepository.findById(authorId).orElseThrow(() -> new NotFoundException());
+        var posts = repository.findAllByAuthor(author, pageable).getContent();
         List<PostModel> result = null;
         try {
             result = posts.stream()
@@ -55,9 +62,9 @@ public class PostService {
 
     public PostModel createPost(PostCreateModel model, Authentication authentication) {
         var entity = mapper.map(model, Post.class);
-        var currentUser = userRepository.findById(UUID.fromString(authentication.getName()));
-        if (currentUser.isEmpty()) throw new NotFoundException();
-        entity.setAuthor(currentUser.get());
+        var currentUser = userRepository.findById(UUID.fromString(authentication.getName()))
+                .orElseThrow(() -> new NotFoundException());
+        entity.setAuthor(currentUser);
         var createdEntity = repository.saveAndFlush(entity);
         return mapper.map(createdEntity, PostModel.class);
     }

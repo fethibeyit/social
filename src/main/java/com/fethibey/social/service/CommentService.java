@@ -24,9 +24,9 @@ public class CommentService {
 
     public CommentModel createComment(CommentCreateModel model, Authentication authentication) {
         var entity = mapper.map(model, Comment.class);
-        var currentUser = userRepository.findById(UUID.fromString(authentication.getName()));
-        if (currentUser.isEmpty()) throw new NotFoundException();
-        entity.setAuthor(currentUser.get());
+        var currentUser = userRepository.findById(UUID.fromString(authentication.getName()))
+                .orElseThrow(() -> new NotFoundException());
+        entity.setAuthor(currentUser);
         var createdEntity = repository.saveAndFlush(entity);
         return mapper.map(createdEntity, CommentModel.class);
     }

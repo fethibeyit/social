@@ -3,7 +3,6 @@ package com.fethibey.social.service;
 import com.fethibey.social.entity.AppFile;
 import com.fethibey.social.exception.NotFoundException;
 import com.fethibey.social.model.file.FileModel;
-import com.fethibey.social.model.post.PostModel;
 import com.fethibey.social.repository.AppFileRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -13,7 +12,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.UUID;
 import java.util.stream.Stream;
 
 
