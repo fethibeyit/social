@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import { PostListComponent } from './pages/list/post-list.component';
-import { FormComponent } from './pages/form/form.component';
+import { PostCreateComponent } from './components/post-create/post-create.component';
 import { PostCardComponent } from './components/post-card/post-card.component';
-import { PostFormComponent } from './components/post-form/post-form.component';
+import { PostDialogComponent } from './components/post-dialog/post-dialog.component';
 import {PostRoutingModule} from "./post-routing.module";
 import { PostCommandBarComponent } from './components/post-command-bar/post-command-bar.component';
 import {ReactiveFormsModule} from "@angular/forms";
@@ -21,12 +21,6 @@ import {LikeModule} from "../like/like.module";
 import {DividerModule} from "primeng/divider";
 import {AvatarGroupModule} from "primeng/avatargroup";
 import {CommentModule} from "../comment/comment.module";
-import {MatToolbarModule} from "@angular/material/toolbar";
-import {MatIconModule} from "@angular/material/icon";
-import {MatButtonModule} from "@angular/material/button";
-import {MatCardModule} from "@angular/material/card";
-import {MatInputModule} from "@angular/material/input";
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {ToolbarModule} from "primeng/toolbar";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
@@ -34,9 +28,9 @@ import {ProgressSpinnerModule} from "primeng/progressspinner";
 @NgModule({
   declarations: [
     PostListComponent,
-    FormComponent,
+    PostCreateComponent,
     PostCardComponent,
-    PostFormComponent,
+    PostDialogComponent,
     PostCommandBarComponent
   ],
   exports: [
