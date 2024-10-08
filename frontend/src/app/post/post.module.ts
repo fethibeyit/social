@@ -24,6 +24,7 @@ import {CommentModule} from "../comment/comment.module";
 import {ToolbarModule} from "primeng/toolbar";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
+import {AvatarProfileComponent} from "../shared/components/avatar-profile/avatar-profile.component";
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import {ProgressSpinnerModule} from "primeng/progressspinner";
     CommentModule,
     ToolbarModule,
     InputTextareaModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    AvatarProfileComponent
   ]
 
 })

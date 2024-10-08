@@ -1,14 +1,30 @@
-<p-card >
-  <h2>{{(selectedId ? "Update/View Post" : "Create Post") | translate }}</h2>
-  <form class="post-form" [formGroup]="form">
+<div class="flex justify-content-between align-items-center	">
+  <div>
+    <app-avatar-profile />
+    <span >{{(profile$ | async)?.fullname | titlecase}}</span>
+  </div>
 
-    <textarea rows="3" pInputTextarea [autoResize]="true" formControlName="content" [style]="{width: '100%'}" class="mb-2"></textarea>
-    <app-drag-n-drop />
+  <p-button icon="pi pi-images" severity="success" [rounded]="true" [text]="true" size="large" (onClick)="showUpload()"/>
 
-    <div class="flex justify-content-end mt-2 gap-2">
-      <p-button label="{{FormActions[actionButton] | translate}}" (click)="save()"/>
-      <p-button  label="{{'Clear' | translate}}" (click)="clear()" severity="secondary"/>
-    </div>
+</div>
+<form class="post-form" [formGroup]="form">
 
-  </form>
-</p-card>
+  <textarea rows="3" pInputTextarea
+            autofocus
+            placeholder="Quoi de neuf ?"
+            [autoResize]="true"
+            formControlName="content"
+            [style]="{width: '100%', 'font-size' : '1.8rem', 'border-width' : '0' }"
+            class="mt-3 mb-3"></textarea>
+
+  <app-drag-n-drop *ngIf="uploadEnabled" />
+
+  <p-button label="{{'Publier' | translate}}"
+            (click)="save()"
+            [disabled]="isEmptyMessage()"
+            styleClass="mt-3"
+            [style]="{width: '100%' }"
+
+  />
+
+</form>

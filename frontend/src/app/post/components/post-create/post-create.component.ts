@@ -1,11 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormActions} from "../../enums/form-actions.enum";
-import {Store} from "@ngxs/store";
+import {Select, Store} from "@ngxs/store";
 import {Post} from "../../state/post-actions";
 import {AppFile} from "../../../file/state/file-actions";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {PostDialogComponent} from "../post-dialog/post-dialog.component";
 import {PostModel} from "../../models/postModel.interface";
+import {AuthState} from "../../../auth/state/auth-state";
+import {Observable} from "rxjs";
+import {ProfileModel} from "../../../auth/models/profileModel.interface";
 
 @Component({
   selector: 'app-post-create',
@@ -16,9 +19,16 @@ import {PostModel} from "../../models/postModel.interface";
 export class PostCreateComponent implements OnInit, OnDestroy{
 
   ref: DynamicDialogRef | undefined;
+
+  @Select(AuthState.profile) profile$!: Observable<ProfileModel> ;
+  firstname : string = "";
+
   constructor(private store : Store, public dialogService: DialogService) { }
 
   ngOnInit(): void {
+    this.profile$.subscribe(profile => {
+      if(profile) this.firstname = profile.fullname.split(" ")[0];
+    });
   }
 
   formAction(data: {value: any; action: FormActions}) {
@@ -32,7 +42,7 @@ export class PostCreateComponent implements OnInit, OnDestroy{
 
   createPost() {
     this.ref = this.dialogService.open(PostDialogComponent, {
-      header: 'Ajouter une publication',
+      header: 'Créer une publication',
       contentStyle: { overflow: 'auto' },
     });
 

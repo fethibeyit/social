@@ -1,0 +1,13 @@
+:host {
+  ::ng-deep .create-post-button {
+    background-color: #F0F2F5;
+    color: #65676B;
+    border-radius: 2rem;
+    border-width: 0;
+    height: 3rem;
+    width: 100%;
+    &:hover{
+      background-color: #E4E6E9;
+    }
+  }
+}

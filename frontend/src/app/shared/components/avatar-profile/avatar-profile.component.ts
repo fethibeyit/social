@@ -28,7 +28,7 @@ export class AvatarProfileComponent implements OnInit{
   ngOnInit(): void {
     this.profile$.subscribe(profile => {
       if(profile) this.avatarLabel = profile.fullname.substring(0,1);
-    })
+    });
   }
 
 }

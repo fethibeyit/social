@@ -1,3 +1,12 @@
-<p-button (onClick)="createPost()">
-  Quoi de neuf?
-</p-button>
+<p-card >
+  <div class="flex" style="padding: 1rem;" >
+    <app-avatar-profile size="large" />
+    <p-button (onClick)="createPost()" styleClass="create-post-button" class="flex-grow-1">
+      Quoi de neuf, {{firstname}} ?
+    </p-button>
+  </div>
+</p-card>
+
+
+
+

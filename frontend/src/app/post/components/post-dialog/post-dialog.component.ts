@@ -5,6 +5,10 @@ import {HttpClient} from "@angular/common/http";
 import {PostModel} from "../../models/postModel.interface";
 import {environment} from "../../../../environments/environment";
 import {DynamicDialogRef} from "primeng/dynamicdialog";
+import {Select} from "@ngxs/store";
+import {AuthState} from "../../../auth/state/auth-state";
+import {Observable} from "rxjs";
+import {ProfileModel} from "../../../auth/models/profileModel.interface";
 
 @Component({
   selector: 'app-post-dialog',
@@ -14,7 +18,12 @@ import {DynamicDialogRef} from "primeng/dynamicdialog";
 export class PostDialogComponent implements OnInit{
 
   @Input() selectedId = "";
+
+  @Select(AuthState.profile) profile$!: Observable<ProfileModel> ;
+
+
   actionButton: FormActions = FormActions.Create;
+  uploadEnabled : boolean = false;
 
   form: FormGroup;
 
@@ -54,4 +63,11 @@ export class PostDialogComponent implements OnInit{
   }
 
   protected readonly FormActions = FormActions;
+  isEmptyMessage(): boolean {
+    return true;
+  }
+
+  showUpload() {
+    this.uploadEnabled = true;
+  }
 }
