@@ -9,6 +9,8 @@ import {Select} from "@ngxs/store";
 import {AuthState} from "../../../auth/state/auth-state";
 import {Observable} from "rxjs";
 import {ProfileModel} from "../../../auth/models/profileModel.interface";
+import {FileState} from "../../../file/state/file-state";
+import {FileUploadModel} from "../../../file/models/fileUploadModel.interface";
 
 @Component({
   selector: 'app-post-dialog',
@@ -20,10 +22,12 @@ export class PostDialogComponent implements OnInit{
   @Input() selectedId = "";
 
   @Select(AuthState.profile) profile$!: Observable<ProfileModel> ;
+  @Select(FileState.filesData) files$!: Observable<FileUploadModel[]> ;
 
 
   actionButton: FormActions = FormActions.Create;
   uploadEnabled : boolean = false;
+  existingFiles : boolean = false;
 
   form: FormGroup;
 
@@ -35,6 +39,9 @@ export class PostDialogComponent implements OnInit{
 
   ngOnInit(): void {
     this.checkAction();
+    this.files$.subscribe(files => {
+      this.existingFiles = files?.length > 0;
+    });
   }
 
   checkAction() {
@@ -55,19 +62,18 @@ export class PostDialogComponent implements OnInit{
 
   save() {
     this.ref.close(this.form.value);
-    //this.action.emit({value: this.form.value, action: this.actionButton})
-  }
-
-  clear() {
-    this.form.reset();
   }
 
   protected readonly FormActions = FormActions;
   isEmptyMessage(): boolean {
-    return true;
+    return !(this.existingFiles || this.form.get('content')?.value != "");
   }
 
   showUpload() {
     this.uploadEnabled = true;
+  }
+
+  closeUpload() {
+    this.uploadEnabled = false;
   }
 }

@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {FileUploadModel} from "../../models/fileUploadModel.interface";
 import {Select, Store} from "@ngxs/store";
 import {AppFile} from "../../state/file-actions";
-import {Guid} from "guid-typescript";
 import {Observable} from "rxjs";
 import {FileState} from "../../state/file-state";
 
@@ -12,6 +11,8 @@ import {FileState} from "../../state/file-state";
   styleUrls: ['./drag-n-drop.component.scss']
 })
 export class DragNDropComponent {
+
+  @Output() private closeEmiter : EventEmitter<void> = new EventEmitter();
 
   @Select(FileState.filesData) files$!: Observable<FileUploadModel[]> ;
 
@@ -36,7 +37,8 @@ export class DragNDropComponent {
       }
   }
 
-  deleteFile(url : string) {
+  deleteFile(event : Event , url : string) {
+    event.preventDefault();
     this.store.dispatch(new AppFile.RemoveFile(url));
   }
 
@@ -55,4 +57,13 @@ export class DragNDropComponent {
     return file?.type === 'application/pdf';
   }
 
+  preventDefault(event: Event) {
+    event.preventDefault();
+  }
+
+  close(event: Event) {
+    event.preventDefault();
+    this.store.dispatch(new AppFile.RemoveAllFiles());
+    this.closeEmiter.emit();
+  }
 }

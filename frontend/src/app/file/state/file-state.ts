@@ -76,6 +76,11 @@ export class FileState {
       filesMetadata : ctx.getState().filesMetadata.filter(x => x.url != url)})
   }
 
+  @Action(AppFile.RemoveAllFiles)
+  protected async removeAllFiles(ctx: LocalStateContext, action: AppFile.RemoveAllFiles): Promise<void> {
+    ctx.patchState({filesData : [], filesMetadata : []})
+  }
+
   @Action(AppFile.Upload)
   protected async uploadFile(ctx: LocalStateContext, action: AppFile.Upload): Promise<void> {
     const { file } = action;

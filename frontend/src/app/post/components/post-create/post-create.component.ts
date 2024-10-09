@@ -31,14 +31,14 @@ export class PostCreateComponent implements OnInit, OnDestroy{
     });
   }
 
-  formAction(data: {value: any; action: FormActions}) {
-    if(data.action === FormActions.Create){
-      this.store.dispatch(new Post.Create(data.value));
-      this.store.dispatch(new AppFile.UploadAll());
-    } else if (data.action === FormActions.Update){
-      this.store.dispatch(new Post.Update(data.value));
-    }
-  }
+  // formAction(data: {value: any; action: FormActions}) {
+  //   if(data.action === FormActions.Create){
+  //     this.store.dispatch(new Post.Create(data.value));
+  //     this.store.dispatch(new AppFile.UploadAll());
+  //   } else if (data.action === FormActions.Update){
+  //     this.store.dispatch(new Post.Update(data.value));
+  //   }
+  // }
 
   createPost() {
     this.ref = this.dialogService.open(PostDialogComponent, {

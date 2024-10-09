@@ -7,7 +7,7 @@
   <p-button icon="pi pi-images" severity="success" [rounded]="true" [text]="true" size="large" (onClick)="showUpload()"/>
 
 </div>
-<form class="post-form" [formGroup]="form">
+<form class="post-form" [formGroup]="form" style="width: 30rem;">
 
   <textarea rows="3" pInputTextarea
             autofocus
@@ -17,7 +17,7 @@
             [style]="{width: '100%', 'font-size' : '1.8rem', 'border-width' : '0' }"
             class="mt-3 mb-3"></textarea>
 
-  <app-drag-n-drop *ngIf="uploadEnabled" />
+  <app-drag-n-drop *ngIf="uploadEnabled" (closeEmiter)="closeUpload()" />
 
   <p-button label="{{'Publier' | translate}}"
             (click)="save()"
