@@ -84,10 +84,15 @@ export class PostState implements NgxsOnInit {
     post.files = [...files];
     ctx.patchState({loading: true})
     try{
-      const data = await this.PostService.createPost(post).toPromise();
-      if (data){
-        ctx.patchState( {posts : [...ctx.getState().posts, data]});
+      const newPost = await this.PostService.createPost(post).toPromise();
+      if (newPost){
+        ctx.patchState( {posts : [...ctx.getState().posts, newPost]});
         ctx.dispatch(new AppFile.ClearMetadata());
+        newPost.files.forEach(f => {
+          if(f.type.startsWith('image')){
+            ctx.dispatch(new AppFile.CreateImageUrl(f));
+          }
+        })
       }
     }finally {
       ctx.patchState({loading: false})

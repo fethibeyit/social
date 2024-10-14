@@ -13,18 +13,19 @@
     <div class="scroll-container">
       <div class="files-container">
 
-        <p-card *ngFor="let f of (files$ | async)" [style]="{width: '130px', height: '150px'}"
+        <p-card *ngFor="let f of (files$ | async)"
                 (click)="preventDefault($event)">
-          <div class="flex justify-content-between align-items-center">
-            <p style="font-size: 0.75rem;">{{displayFileName(f.file.name)}}</p>
-            <p-button icon="pi pi-times" [text]="true" (click)="deleteFile($event, f.url);" [rounded]="true" severity="danger"/>
+          <div style="position: relative; padding:1rem;">
+            <p style="font-size: 1rem;">{{displayFileName(f.file.name)}}</p>
+            <div class="close-container">
+              <p-button icon="pi pi-times" [text]="true" (click)="deleteFile($event, f.url);" [rounded]="true" severity="secondary"/>
+            </div>
           </div>
-          <div style="display: flex; justify-content: center; align-items: center; height: 120px;">
-            <img *ngIf="fileIsImage(f.file)" alt="{{f.file.name}}" src="{{f.src}}" style="width:100px; height: 100px; object-fit: cover; object-position: 50% 50%;"/>
-            <img *ngIf="fileIsPdf(f.file)" src="assets/images/pdf-icon-64.png" alt="pdf icon">
+          <div  class="image-container">
+            <img *ngIf="fileIsImage(f.file)" alt="{{f.file.name}}" src="{{f.src}}" class="image-file"/>
+            <img *ngIf="fileIsPdf(f.file)" src="assets/images/pdf-icon-64.png" alt="pdf icon" height="64" width="64">
           </div>
         </p-card>
-
       </div>
     </div>
   </div>

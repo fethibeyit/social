@@ -21,10 +21,9 @@ input[type="file"]{
   display: flex;
   justify-content:start;
   align-items:center;
-  gap:10px;
-  height: 220px;
+  gap:1.5rem;
+  height: 12.5rem;
 }
-
 
 .file-drag-drop {
   background-color: #F0F2F5;
@@ -37,4 +36,26 @@ input[type="file"]{
   &:hover{
     background-color: #E4E6E9;
   }
+}
+
+.image-file {
+  width:100px;
+  height: 100px;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem 1rem;
+}
+
+.close-container{
+  position: absolute;
+  top: -1rem;
+  right: -1rem;
+  background-color: #fff;
+  border-radius:50%;
 }

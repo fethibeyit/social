@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {DragNDropComponent} from "./components/drag-n-drop/drag-n-drop.component";
 import {DragNDropDirective} from "./directives/drag-n-drop.directive";
 import {NgxsModule} from "@ngxs/store";
@@ -17,13 +17,14 @@ import {ButtonModule} from "primeng/button";
   exports: [
     DragNDropComponent
   ],
-  imports: [
-    CommonModule,
-    NgxsModule.forFeature([FileState]),
-    CdkVirtualScrollViewport,
-    TranslateModule,
-    CardModule,
-    ButtonModule
-  ]
+    imports: [
+        CommonModule,
+        NgxsModule.forFeature([FileState]),
+        CdkVirtualScrollViewport,
+        TranslateModule,
+        CardModule,
+        ButtonModule,
+        NgOptimizedImage
+    ]
 })
 export class FileModule { }
