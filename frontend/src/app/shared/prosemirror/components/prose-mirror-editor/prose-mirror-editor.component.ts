@@ -1,11 +1,11 @@
-import {Component, ElementRef, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {EditorState, Plugin} from 'prosemirror-state'
 import {EditorView} from 'prosemirror-view'
 import {Schema, DOMParser, DOMSerializer} from 'prosemirror-model'
 
 import {addListNodes} from 'prosemirror-schema-list'
 import {buildMenuItems, exampleSetup} from 'prosemirror-example-setup'
-import {mentionPlugin} from "../plugins";
+import {mentionPlugin, placeholderPlugin} from "../plugins";
 import schema1 from "../schema";
 import {icons, wrapItem} from "prosemirror-menu";
 import {Select} from "@ngxs/store";
@@ -34,6 +34,9 @@ import {AppUserModel} from "../../../../user/models/appUserModel.interface";
 })
 export class ProseMirrorEditorComponent implements OnInit{
 
+  @Input() placeholder = "";
+
+
   @Select(AppUserState.appUsers) users$!: Observable<AppUserModel[]> ;
   users : AppUserModel[] = [];
 
@@ -61,6 +64,7 @@ export class ProseMirrorEditorComponent implements OnInit{
       // ]]
     });
     plugins.unshift(mentionPlugin(this.users));
+    plugins.unshift(placeholderPlugin(this.placeholder));
     // plugins.unshift(menu);
 
     this.mySchema = new Schema({
@@ -91,6 +95,10 @@ export class ProseMirrorEditorComponent implements OnInit{
     divPM.innerHTML = divPM.innerHTML.replaceAll("<p></p>", "");
 
     return !divPM.innerHTML;
+  }
+
+  public focus(){
+    this.view.focus()
   }
 
 }

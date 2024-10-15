@@ -14,7 +14,7 @@ import {
 })
 export class CommentComponent {
 
-  @ViewChild('editor') editor!: ProseMirrorEditorComponent;
+  @ViewChild('editor') editor: ProseMirrorEditorComponent | undefined;
 
   @Input() postId! : string;
 
@@ -23,7 +23,7 @@ export class CommentComponent {
   constructor(private store: Store) {
   }
   addComment() {
-      const commentContent = JSON.stringify(this.editor.getContent());
+      const commentContent = JSON.stringify(this.editor?.getContent() ?? "");
       const comment : CommentCreateModel = {content: commentContent,post_id: this.postId, tags: []};
       this.store.dispatch(new Comment.Create(comment));
   }

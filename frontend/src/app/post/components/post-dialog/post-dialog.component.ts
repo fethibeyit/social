@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {FormActions} from "../../enums/form-actions.enum";
 import {HttpClient} from "@angular/common/http";
@@ -11,6 +11,9 @@ import {Observable} from "rxjs";
 import {ProfileModel} from "../../../auth/models/profileModel.interface";
 import {FileState} from "../../../file/state/file-state";
 import {FileUploadModel} from "../../../file/models/fileUploadModel.interface";
+import {
+  ProseMirrorEditorComponent
+} from "../../../shared/prosemirror/components/prose-mirror-editor/prose-mirror-editor.component";
 
 @Component({
   selector: 'app-post-dialog',
@@ -18,6 +21,8 @@ import {FileUploadModel} from "../../../file/models/fileUploadModel.interface";
   styleUrls: ['./post-dialog.component.scss']
 })
 export class PostDialogComponent implements OnInit{
+
+  @ViewChild('editor') editor: ProseMirrorEditorComponent | undefined;
 
   @Input() selectedId = "";
 
@@ -42,6 +47,9 @@ export class PostDialogComponent implements OnInit{
     this.files$.subscribe(files => {
       this.existingFiles = files?.length > 0;
     });
+    if(this.editor){
+      this.editor.focus();
+    }
   }
 
   checkAction() {
@@ -61,12 +69,13 @@ export class PostDialogComponent implements OnInit{
   }
 
   save() {
-    this.ref.close(this.form.value);
+    const content = JSON.stringify(this.editor?.getContent() ?? "");
+    this.ref.close(content);
   }
 
   protected readonly FormActions = FormActions;
   isEmptyMessage(): boolean {
-    return !(this.existingFiles || this.form.get('content')?.value != "");
+    return !(this.existingFiles || !(this.editor?.isEmpty() ?? true));
   }
 
   showUpload() {

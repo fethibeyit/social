@@ -17,7 +17,7 @@
 
     <ng-template pTemplate="content">
       <div class="p-3 pt-0">
-        <p>{{post.content}}</p>
+        <app-prose-mirror-display [content]="post.content"/>
       </div>
 
       <ng-container *ngFor="let file of noImageFiles(post)">

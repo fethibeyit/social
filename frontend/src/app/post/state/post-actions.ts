@@ -5,6 +5,7 @@ import {CommentModel} from "../../comment/models/commentModel.interface";
 export namespace Post {
   export class Create {
     static readonly type = '[POST] Create';
+
     constructor(public post: PostModel) {}
   }
 

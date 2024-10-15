@@ -1,6 +1,7 @@
 import { Plugin } from 'prosemirror-state';
 import { getMentionsPlugin } from '../prosemirror-mentions';
 import {AppUserModel} from "../../../user/models/appUserModel.interface";
+import {Decoration, DecorationSet} from "prosemirror-view";
 
 /**
  * IMPORTANT: outer div's "suggestion-item-list" class is mandatory. The plugin uses this class for querying.
@@ -66,3 +67,18 @@ export const mentionPlugin = (users : AppUserModel[]) => getMentionsPlugin({
 //
 //   return plugins;
 // };
+
+export const placeholderPlugin = (text : string) => new Plugin({
+  props: {
+    decorations(state) {
+      let doc = state.doc
+      if (doc.childCount == 1 && doc.firstChild?.isTextblock && doc.firstChild.content.size == 0) {
+        let placeHolder = document.createElement('span')
+        placeHolder.classList.add('placeholder');
+        placeHolder.innerText = text;
+        return DecorationSet.create(doc, [Decoration.widget(1, placeHolder)])
+      }
+      return;
+    }
+  }
+})

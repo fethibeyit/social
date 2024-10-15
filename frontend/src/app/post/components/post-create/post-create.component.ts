@@ -46,9 +46,10 @@ export class PostCreateComponent implements OnInit, OnDestroy{
       contentStyle: { overflow: 'auto' },
     });
 
-    this.ref.onClose.subscribe((data: PostModel) => {
+    this.ref.onClose.subscribe((data: string) => {
       if (data) {
-        this.store.dispatch(new Post.Create(data));
+        let post  = {content: data} as PostModel;
+        this.store.dispatch(new Post.Create(post));
         this.store.dispatch(new AppFile.UploadAll());
       }
     });

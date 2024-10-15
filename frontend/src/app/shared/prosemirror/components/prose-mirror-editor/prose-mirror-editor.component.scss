@@ -5,3 +5,8 @@
 
 :host {display: block;}
 #content {display: none;}
+
+:host ::ng-deep .placeholder {
+  color: #999;
+  cursor: text;
+}

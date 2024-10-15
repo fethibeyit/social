@@ -25,6 +25,7 @@ import {ToolbarModule} from "primeng/toolbar";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
 import {AvatarProfileComponent} from "../shared/components/avatar-profile/avatar-profile.component";
+import {SharedModule} from "../shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -38,28 +39,29 @@ import {AvatarProfileComponent} from "../shared/components/avatar-profile/avatar
     PostCardComponent,
     PostListComponent
   ],
-  imports: [
-    CommonModule,
-    PostRoutingModule,
-    NotifierModule,
-    FileModule,
-    ReactiveFormsModule,
-    NgxsModule.forFeature([PostState]),
-    TranslateModule,
-    MatGridListModule,
-    ButtonModule,
-    CardModule,
-    AvatarModule,
-    LikeModule,
-    DividerModule,
-    AvatarGroupModule,
-    TooltipModule,
-    CommentModule,
-    ToolbarModule,
-    InputTextareaModule,
-    ProgressSpinnerModule,
-    AvatarProfileComponent
-  ]
+    imports: [
+        CommonModule,
+        PostRoutingModule,
+        NotifierModule,
+        FileModule,
+        ReactiveFormsModule,
+        NgxsModule.forFeature([PostState]),
+        TranslateModule,
+        MatGridListModule,
+        ButtonModule,
+        CardModule,
+        AvatarModule,
+        LikeModule,
+        DividerModule,
+        AvatarGroupModule,
+        TooltipModule,
+        CommentModule,
+        ToolbarModule,
+        InputTextareaModule,
+        ProgressSpinnerModule,
+        AvatarProfileComponent,
+        SharedModule
+    ]
 
 })
 export class PostModule { }

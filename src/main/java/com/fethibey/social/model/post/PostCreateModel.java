@@ -1,7 +1,6 @@
 package com.fethibey.social.model.post;
 
 import com.fethibey.social.model.file.FileCreateModel;
-import com.fethibey.social.model.file.FileModel;
 import com.fethibey.social.model.tag.TagCreateModel;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

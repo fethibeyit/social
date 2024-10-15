@@ -9,12 +9,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.sql.Date;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
 
 @Component
 @AllArgsConstructor
@@ -65,19 +61,14 @@ public class DbInitializer implements CommandLineRunner {
         admin.setRoles(adminUserRoles);
         userRepository.save(admin);
 
-//        for (int i = 0; i < 3; i++) {
-            var post = new Post();
-            post.setContent("user " + faker.lorem().paragraph());
-            post.setAuthor(user);
-            postRepository.save(post);
-//        }
+        var post = new Post();
+        post.setContent("{\"type\":\"doc\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"test user post\"}]}]}");
+        post.setAuthor(user);
+        postRepository.save(post);
 
-//        for (int i = 0; i < 3; i++) {
-            var post2 = new Post();
-            post2.setContent("admin " + faker.lorem().paragraph());
-            post2.setAuthor(admin);
-            postRepository.save(post2);
-//        }
-
+        var post2 = new Post();
+        post2.setContent("{\"type\":\"doc\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"test admin post\"}]}]}");
+        post2.setAuthor(admin);
+        postRepository.save(post2);
     }
 }
