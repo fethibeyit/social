@@ -3,14 +3,12 @@ package com.fethibey.social.repository;
 import com.fethibey.social.entity.AppRole;
 import com.fethibey.social.entity.AppUser;
 import com.fethibey.social.entity.Post;
-import com.github.javafaker.Faker;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Component
 @AllArgsConstructor
@@ -23,8 +21,6 @@ public class DbInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Faker faker = new Faker();
-        var random = ThreadLocalRandom.current();
 
         if(userRepository.count() > 0 ) return;
 

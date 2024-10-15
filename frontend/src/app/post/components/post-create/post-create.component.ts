@@ -1,5 +1,4 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormActions} from "../../enums/form-actions.enum";
 import {Select, Store} from "@ngxs/store";
 import {Post} from "../../state/post-actions";
 import {AppFile} from "../../../file/state/file-actions";

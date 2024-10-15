@@ -57,7 +57,7 @@ export class PostState implements NgxsOnInit {
   }
 
   @Action(Post.GetList)
-  protected async getList(ctx: LocalStateContext, action: Post.GetList): Promise<void> {
+  protected async getList(ctx: LocalStateContext, _: Post.GetList): Promise<void> {
     ctx.patchState({loading: true})
     try{
       const posts = await this.PostService.getPosts().toPromise();
@@ -104,8 +104,10 @@ export class PostState implements NgxsOnInit {
     const { post } = action;
     ctx.patchState({loading: true})
     try{
-      const data = await this.PostService.updatePost(post).toPromise();
-      ctx.patchState( {posts : ctx.getState().posts.map(x => x.id === post.id ? post : x)});
+      const updatedPost = await this.PostService.updatePost(post).toPromise();
+      if(updatedPost){
+        ctx.patchState( {posts : ctx.getState().posts.map(x => x.id === post.id ? updatedPost : x)});
+      }
     }finally {
       ctx.patchState({loading: false})
     }
@@ -116,7 +118,7 @@ export class PostState implements NgxsOnInit {
     const { post } = action;
     ctx.patchState({deleteLoading: true, selected : post})
     try{
-      const data = await this.PostService.deletePost(post.id).toPromise();
+      await this.PostService.deletePost(post.id).toPromise();
       ctx.patchState( {posts : ctx.getState().posts.filter(x=> x.id !== post.id)});
     }finally {
       ctx.patchState({deleteLoading: false, selected: null})

@@ -44,7 +44,7 @@
         </div>
       </div>
 
-      <div class="grid grid-nogutter"*ngIf="imageFiles(post).length === 4" >
+      <div class="grid grid-nogutter" *ngIf="imageFiles(post).length === 4" >
         <div class="col" *ngFor="let image of imageFiles(post).slice(2,4); index as i"    >
           <img  class="image-crop"
                 src="{{(imagesUrl$ | async)?.get(image.url)}}" alt="{{image.name}}">

@@ -1,13 +1,12 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {EditorState, Plugin} from 'prosemirror-state'
+import {Component, ElementRef, Input, OnInit} from '@angular/core';
+import {EditorState} from 'prosemirror-state'
 import {EditorView} from 'prosemirror-view'
-import {Schema, DOMParser, DOMSerializer} from 'prosemirror-model'
+import {DOMParser, DOMSerializer, Schema} from 'prosemirror-model'
 
 import {addListNodes} from 'prosemirror-schema-list'
-import {buildMenuItems, exampleSetup} from 'prosemirror-example-setup'
+import {exampleSetup} from 'prosemirror-example-setup'
 import {mentionPlugin, placeholderPlugin} from "../plugins";
 import schema1 from "../schema";
-import {icons, wrapItem} from "prosemirror-menu";
 import {Select} from "@ngxs/store";
 import {AppUserState} from "../../../../user/state/appUser-state";
 import {Observable} from "rxjs";
@@ -35,7 +34,6 @@ import {AppUserModel} from "../../../../user/models/appUserModel.interface";
 export class ProseMirrorEditorComponent implements OnInit{
 
   @Input() placeholder = "";
-
 
   @Select(AppUserState.appUsers) users$!: Observable<AppUserModel[]> ;
   users : AppUserModel[] = [];
