@@ -462,3 +462,13 @@ p {
 .p-slidemenu-root-list{
   width: 100% !important;
 }
+
+.p-button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.p-button:active {
+  outline: none;
+  box-shadow: none;
+}

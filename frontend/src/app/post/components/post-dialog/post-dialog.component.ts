@@ -47,9 +47,12 @@ export class PostDialogComponent implements OnInit{
     this.files$.subscribe(files => {
       this.existingFiles = files?.length > 0;
     });
-    if(this.editor){
-      this.editor.focus();
-    }
+    (async () => {
+      await new Promise(resolve => setTimeout(resolve, 50));
+      if (this.editor) {
+        this.editor.focus();
+      }
+    })();
   }
 
   checkAction() {
