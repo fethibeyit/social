@@ -34,8 +34,6 @@ import {AppUserModel} from "../../../../user/models/appUserModel.interface";
 })
 export class ProseMirrorEditorComponent implements OnInit{
 
-  @Output() action = new EventEmitter();
-
   @Select(AppUserState.appUsers) users$!: Observable<AppUserModel[]> ;
   users : AppUserModel[] = [];
 
@@ -45,9 +43,6 @@ export class ProseMirrorEditorComponent implements OnInit{
   constructor(private elRef: ElementRef){
     this.users$.subscribe(x => this.users = x);
   }
-
-
-
 
   ngOnInit(){
 
@@ -82,7 +77,7 @@ export class ProseMirrorEditorComponent implements OnInit{
     })
   }
 
-  getContent(): string { return this.view.state.doc.toJSON(); }
+  public getContent(): string { return this.view.state.doc.toJSON(); }
 
   public isEmpty(){
     const fragment = DOMSerializer
@@ -98,8 +93,4 @@ export class ProseMirrorEditorComponent implements OnInit{
     return !divPM.innerHTML;
   }
 
-  emitAction() {
-    this.action.emit(this.getContent())
-  }
 }
-
