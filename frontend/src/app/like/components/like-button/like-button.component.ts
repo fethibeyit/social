@@ -1,11 +1,12 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {ConnectionPositionPair} from "@angular/cdk/overlay";
+import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {LikeType, smileys} from "../../enums/like-type.enum";
 import {Select, Store} from "@ngxs/store";
 import {Observable} from "rxjs";
 import {LikeState} from "../../state/like-state";
 import {LikeModel} from "../../models/likeModel.interface";
 import {Like} from "../../state/like-actions";
+import {OverlayPanel} from "primeng/overlaypanel";
+
 
 @Component({
   selector: 'app-like-button',
@@ -13,6 +14,8 @@ import {Like} from "../../state/like-actions";
   styleUrls: ['./like-button.component.scss']
 })
 export class LikeButtonComponent {
+
+  @ViewChild('op') op!: OverlayPanel;
 
   protected readonly smileys = smileys;
   protected readonly Object = Object;
@@ -24,28 +27,7 @@ export class LikeButtonComponent {
 
   @Select(LikeState.loading) loading$!: Observable<boolean>;
 
-  isOpen = false;
-  positions = [
-    new ConnectionPositionPair(
-      {originX: 'center', originY: 'top'},
-      {overlayX: 'center', overlayY: 'bottom'}),
-    new ConnectionPositionPair(
-      {originX: 'center', originY: 'bottom'},
-      {overlayX: 'center', overlayY: 'top'})];
-
   constructor(private store: Store) {
-  }
-
-  openSmileys() {
-      this.isOpen = true
-  }
-
-  closeSmileys(event: any ) {
-    console.log("close", event)
-    if(!event.toElement.className.toString().includes(this.SMILEYS_CLASS)
-      && !event.toElement.className.toString().includes(this.LIKE_BUTTON_CLASS)){
-      this.isOpen = false;
-    }
   }
 
   onSmileyClick(type: LikeType) {
@@ -55,17 +37,14 @@ export class LikeButtonComponent {
     }else{
       this.likeClick.emit(type);
     }
-    this.isOpen = false;
   }
 
-  onLikeClick() {
+  onLikeClick(event: any) {
     if(this.like){
       this.store.dispatch(new Like.Delete(this.like));
     } else {
-      const defaultSmiley = Object.values(smileys)[0];
-      this.likeClick.emit(defaultSmiley.type);
+      this.op.toggle(event);
     }
-    this.isOpen = false;
   }
 
 }
