@@ -30,28 +30,28 @@ public class PostController {
                                                               Authentication authentication){
         Pageable paging = PageRequest.of(page-1, size, Sort.by(Sort.Direction.DESC, "createdAt"));
 
-        return new ResponseEntity(service.getAllPostsPageable(paging, authentication), HttpStatus.OK);
+        return new ResponseEntity<>(service.getAllPostsPageable(paging, authentication), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<PostModel> getById(@PathVariable UUID id){
-        return new ResponseEntity(service.getById(id), HttpStatus.OK);
+        return new ResponseEntity<>(service.getById(id), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<PostModel> createPost(@Valid @RequestBody PostCreateModel model, Authentication authentication){
-        return new ResponseEntity(service.createPost(model, authentication),HttpStatus.CREATED);
+        return new ResponseEntity<>(service.createPost(model, authentication),HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<PostModel> updatePost(@PathVariable UUID id, @Valid @RequestBody PostUpdateModel model) {
-        return new ResponseEntity(service.updatePost(id, model),HttpStatus.OK);
+        return new ResponseEntity<>(service.updatePost(id, model),HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity deletePost(@PathVariable UUID id){
         service.deletePost(id);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 

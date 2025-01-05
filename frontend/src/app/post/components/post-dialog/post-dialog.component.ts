@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {PostModel} from "../../models/postModel.interface";
 import {DynamicDialogConfig} from "primeng/dynamicdialog";
 import {CommentCreateModel} from "../../../comment/models/commentCreateModel.interface";
