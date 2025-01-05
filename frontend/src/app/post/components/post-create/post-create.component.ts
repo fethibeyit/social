@@ -3,7 +3,7 @@ import {Select, Store} from "@ngxs/store";
 import {Post} from "../../state/post-actions";
 import {AppFile} from "../../../file/state/file-actions";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
-import {PostDialogComponent} from "../post-dialog/post-dialog.component";
+import {PostCreateDialogComponent} from "../post-create-dialog/post-create-dialog.component";
 import {PostModel} from "../../models/postModel.interface";
 import {AuthState} from "../../../auth/state/auth-state";
 import {Observable} from "rxjs";
@@ -40,7 +40,7 @@ export class PostCreateComponent implements OnInit, OnDestroy{
   // }
 
   createPost() {
-    this.ref = this.dialogService.open(PostDialogComponent, {
+    this.ref = this.dialogService.open(PostCreateDialogComponent, {
       header: 'Créer une publication',
       contentStyle: { overflow: 'auto' },
     });
@@ -50,6 +50,7 @@ export class PostCreateComponent implements OnInit, OnDestroy{
         let post  = {content: data} as PostModel;
         this.store.dispatch(new Post.Create(post));
         this.store.dispatch(new AppFile.UploadAll());
+        this.store.dispatch(new Post.GetList());
       }
     });
   }

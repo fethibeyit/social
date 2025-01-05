@@ -2,7 +2,7 @@
 <div class="{{LIKE_BUTTON_CLASS}}">
   <p-overlayPanel #op >
     <div class="flex align-items-center gap-2 animated-smiley {{SMILEYS_CLASS}}">
-      <div class="smiley {{SMILEYS_CLASS}}" *ngFor="let smiley of Object.values(smileys)" (click)="onSmileyClick(smiley.type)"
+      <div class="smiley {{SMILEYS_CLASS}}" *ngFor="let smiley of Object.values(smileys)" (click)="onSmileyClick($event, smiley.type)"
            pTooltip="{{smiley.name | translate}}" tooltipPosition="top" >
         <img src="{{'assets/animatedSmileys/'+smiley.file}}" alt="{{smiley.alt}}" width="32" height="32" class="{{SMILEYS_CLASS}}">
       </div>

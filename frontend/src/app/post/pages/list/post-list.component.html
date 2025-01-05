@@ -9,6 +9,8 @@
 
   <ng-container *ngIf="(loading$ | async) === false">
     <div *ngIf="(posts$ | async)?.length === 0"  >No post to display </div>
-    <app-post-card *ngFor="let post of (posts$ | async)" [post]="post" />
+    <p-card class="m-3"  *ngFor="let post of (posts$ | async)">
+        <app-post-card  [post]="post" />
+    </p-card>
   </ng-container>
 </div>

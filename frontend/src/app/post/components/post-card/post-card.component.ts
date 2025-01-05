@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {PostModel} from "../../models/postModel.interface";
 import {Observable} from "rxjs";
 import {Select, Store} from "@ngxs/store";
@@ -13,24 +13,37 @@ import {LikeModel} from "../../../like/models/likeModel.interface";
 import {LikeCreateModel} from "../../../like/models/likeCreateModel.interface";
 import {AuthState} from "../../../auth/state/auth-state";
 import {ProfileModel} from "../../../auth/models/profileModel.interface";
+import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
+import {PostDialogComponent} from "../post-dialog/post-dialog.component";
 
 
 @Component({
   selector: 'app-post-card',
   templateUrl: './post-card.component.html',
-  styleUrls: ['./post-card.component.scss']
+  styleUrls: ['./post-card.component.scss'],
+  providers: [DialogService]
 })
 export class PostCardComponent implements OnInit{
 
   @Input() post! : PostModel;
+  @Input() isDialog : boolean = false;
+  @Output() commentClick = new EventEmitter();
 
-  @Select(PostState.selectedPost) selected$!: Observable<PostModel | null>;
-  @Select(PostState.deleteLoading) deleteLoading$!: Observable<boolean>;
+
+  ref: DynamicDialogRef | undefined;
+
   @Select(FileState.imagesUrl) imagesUrl$!: Observable<Map<string, string>> ;
   @Select(AuthState.profile) profile$!: Observable<ProfileModel|null> ;
 
+  protected readonly smileys = smileys;
+
   userId : string | null = null;
-  constructor(private fileService: FileService, private store: Store) {
+
+  constructor(
+    private fileService: FileService,
+    private store: Store,
+    public dialogService: DialogService
+    ) {
   }
 
   ngOnInit(): void {
@@ -54,12 +67,23 @@ export class PostCardComponent implements OnInit{
   }
 
   like(type: LikeType) {
-
     const like : LikeCreateModel = {type: type, post_id: this.post.id }
     this.store.dispatch(new Like.Create(like));
+  }
 
-    console.log(type);
-    console.log(this.post.content);
+  comment() {
+    if(!this.isDialog){
+      this.ref = this.dialogService.open(PostDialogComponent, {
+        data: {
+          post: this.post
+        },
+        header: `Publication de ${this.post.author.firstName} ${this.post.author.lastName}`,
+        width: '50vw',
+        contentStyle: { overflow: 'auto' },
+      }, );
+    }else{
+      this.commentClick.emit();
+    }
   }
 
  currentLike () : LikeModel | null {
@@ -96,5 +120,4 @@ export class PostCardComponent implements OnInit{
     return sortedLikes.slice(0,3);
   }
 
-  protected readonly smileys = smileys;
 }

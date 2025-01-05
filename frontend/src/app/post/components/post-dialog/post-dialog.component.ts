@@ -1,91 +1,62 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {FormActions} from "../../enums/form-actions.enum";
-import {HttpClient} from "@angular/common/http";
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {PostModel} from "../../models/postModel.interface";
-import {environment} from "../../../../environments/environment";
-import {DynamicDialogRef} from "primeng/dynamicdialog";
-import {Select} from "@ngxs/store";
-import {AuthState} from "../../../auth/state/auth-state";
-import {Observable} from "rxjs";
-import {ProfileModel} from "../../../auth/models/profileModel.interface";
-import {FileState} from "../../../file/state/file-state";
-import {FileUploadModel} from "../../../file/models/fileUploadModel.interface";
+import {DynamicDialogConfig} from "primeng/dynamicdialog";
+import {CommentCreateModel} from "../../../comment/models/commentCreateModel.interface";
+import {Comment} from "../../../comment/state/comment-actions";
+import {Select, Store} from "@ngxs/store";
 import {
   ProseMirrorEditorComponent
 } from "../../../shared/prosemirror/components/prose-mirror-editor/prose-mirror-editor.component";
+import {PostState} from "../../state/post-state";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-post-dialog',
   templateUrl: './post-dialog.component.html',
   styleUrls: ['./post-dialog.component.scss']
 })
-export class PostDialogComponent implements OnInit{
+export class PostDialogComponent implements OnInit, AfterViewInit {
 
   @ViewChild('editor') editor: ProseMirrorEditorComponent | undefined;
 
-  @Input() selectedId = "";
+  @Select(PostState.posts) posts$!: Observable<PostModel[]> ;
 
-  @Select(AuthState.profile) profile$!: Observable<ProfileModel> ;
-  @Select(FileState.filesData) files$!: Observable<FileUploadModel[]> ;
+  post!: PostModel;
+  postId!: string;
 
-
-  actionButton: FormActions = FormActions.Create;
-  uploadEnabled : boolean = false;
-  existingFiles : boolean = false;
-
-  form: FormGroup;
-
-  constructor(private fb: FormBuilder, private ref: DynamicDialogRef, private http: HttpClient) {
-    this.form = this.fb.group({
-      content: [''],
-    })
+  constructor(public config: DynamicDialogConfig, private store: Store, private elRef: ElementRef ) {
+    this.postId = config.data.post.id;
   }
 
   ngOnInit(): void {
-    this.checkAction();
-    this.files$.subscribe(files => {
-      this.existingFiles = files?.length > 0;
-    });
-    (async () => {
-      await new Promise(resolve => setTimeout(resolve, 50));
-      if (this.editor) {
-        this.editor.focus();
+    this.posts$.subscribe(posts => {
+      if(this.postId){
+        this.post = posts.find(p => p.id == this.postId)!;
       }
-    })();
+    });
   }
 
-  checkAction() {
-    if(this.selectedId) {
-      this.actionButton = FormActions.Update;
-      this.patchDataValues()
-    }
+  ngAfterViewInit(): void {
+    console.log("editor", this.editor);
+    setTimeout(() => {
+      this.editor?.focus();
+    }, 200);
   }
 
-  patchDataValues () {
-    this.http.get(`${environment.apiURL}/posts/${this.selectedId}`)
-      .subscribe({
-        next : value => {
-          this.form.setValue(value as PostModel);
-        }
-      })
+  addComment() {
+    const commentContent = JSON.stringify(this.editor?.getContent() ?? "");
+    const comment : CommentCreateModel = {content: commentContent,post_id: this.post.id, tags: []};
+    this.store.dispatch(new Comment.Create(comment));
+    this.editor?.clear();
   }
 
-  save() {
-    const content = JSON.stringify(this.editor?.getContent() ?? "");
-    this.ref.close(content);
+  isEmpty() :boolean {
+    return this.editor?.isEmpty() ?? true;
   }
 
-  protected readonly FormActions = FormActions;
-  isEmptyMessage(): boolean {
-    return !(this.existingFiles || !(this.editor?.isEmpty() ?? true));
+  comment() {
+    this.editor?.focus();
   }
 
-  showUpload() {
-    this.uploadEnabled = true;
-  }
 
-  closeUpload() {
-    this.uploadEnabled = false;
-  }
 }

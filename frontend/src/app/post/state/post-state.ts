@@ -67,7 +67,8 @@ export class PostState implements NgxsOnInit {
             if(f.type.startsWith('image')){
               ctx.dispatch(new AppFile.CreateImageUrl(f));
             }
-          })
+          });
+          p.comments = p.comments.reverse();
         })
         ctx.patchState({ posts: posts});
       }
@@ -83,19 +84,13 @@ export class PostState implements NgxsOnInit {
     const files = this.store.selectSnapshot(FileState.filesMetadata);
     post.files = [...files];
     ctx.patchState({loading: true})
-    try{
-      const newPost = await this.PostService.createPost(post).toPromise();
-      if (newPost){
-        ctx.patchState( {posts : [...ctx.getState().posts, newPost]});
-        ctx.dispatch(new AppFile.ClearMetadata());
-        newPost.files.forEach(f => {
-          if(f.type.startsWith('image')){
-            ctx.dispatch(new AppFile.CreateImageUrl(f));
-          }
-        })
-      }
-    }finally {
-      ctx.patchState({loading: false})
+
+    const newPost = await this.PostService.createPost(post).toPromise();
+    if (newPost){
+      ctx.dispatch(new AppFile.ClearMetadata());
+      ctx.dispatch(new Post.GetList());
+    } else {
+    ctx.patchState({loading: false})
     }
   }
 
@@ -150,6 +145,6 @@ export class PostState implements NgxsOnInit {
   protected async addComment (ctx: LocalStateContext, action: Post.AddComment): Promise<void> {
     const { comment } = action;
     ctx.patchState({posts : ctx.getState().posts.map(post =>
-        post.id === comment.post_id ? {...post, comments: [... post.comments, comment] } : post)})
+        post.id === comment.post_id ? {...post, comments: [comment, ... post.comments] } : post)})
   }
 }

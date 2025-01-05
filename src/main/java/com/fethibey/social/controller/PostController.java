@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -27,7 +28,8 @@ public class PostController {
     public ResponseEntity<List<PostModel>> getAllPostPageable(@RequestParam(defaultValue = "1")  int page,
                                                               @RequestParam(defaultValue = "10")  int size,
                                                               Authentication authentication){
-        Pageable paging = PageRequest.of(page-1, size);
+        Pageable paging = PageRequest.of(page-1, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+
         return new ResponseEntity(service.getAllPostsPageable(paging, authentication), HttpStatus.OK);
     }
 

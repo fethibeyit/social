@@ -99,4 +99,11 @@ export class ProseMirrorEditorComponent implements OnInit{
     this.view.focus()
   }
 
+  public clear(){
+    this.view.updateState(EditorState.create({
+      doc: this.mySchema.topNodeType.createAndFill()?? undefined,
+      plugins: this.view.state.plugins
+    }));
+  }
+
 }

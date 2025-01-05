@@ -30,13 +30,14 @@ export class LikeButtonComponent {
   constructor(private store: Store) {
   }
 
-  onSmileyClick(type: LikeType) {
+  onSmileyClick(event: any, type: LikeType) {
     if(this.like){
       const updatedLike = {...this.like , type};
       this.store.dispatch(new Like.Update(updatedLike));
     }else{
       this.likeClick.emit(type);
     }
+    this.op.toggle(event);
   }
 
   onLikeClick(event: any) {

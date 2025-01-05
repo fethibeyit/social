@@ -1,23 +1,13 @@
-.post-form {
-  min-width: 500px;
-  max-width: 800px;
-  width: 100%;
+.editor-container{
+  background-color: #F0F2F5;
+  border-radius: 15px;
+  padding: 1rem;
+  margin: 1rem;
 }
 
-.example-full-width {
-  width: 100%;
-}
-
-.form-card {
-  min-width: 500px;
-  max-width: 800px;
-  margin:auto;
-  padding: 15px;
-}
-
-
-
-.button-group button {
-  margin-right: 10px;
-  float: right;
+.message-container {
+  margin: 1rem;
+  padding: 1rem ;
+  background-color: #F0F2F5;
+  border-radius: 1rem;
 }

@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import { PostListComponent } from './pages/list/post-list.component';
 import { PostCreateComponent } from './components/post-create/post-create.component';
 import { PostCardComponent } from './components/post-card/post-card.component';
-import { PostDialogComponent } from './components/post-dialog/post-dialog.component';
+import { PostCreateDialogComponent } from './components/post-create-dialog/post-create-dialog.component';
 import {PostRoutingModule} from "./post-routing.module";
 import { PostCommandBarComponent } from './components/post-command-bar/post-command-bar.component';
 import {ReactiveFormsModule} from "@angular/forms";
@@ -26,12 +26,15 @@ import {InputTextareaModule} from "primeng/inputtextarea";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
 import {AvatarProfileComponent} from "../shared/components/avatar-profile/avatar-profile.component";
 import {SharedModule} from "../shared/shared.module";
+import {PostDialogComponent} from "./components/post-dialog/post-dialog.component";
+import {ScrollPanelModule} from "primeng/scrollpanel";
 
 @NgModule({
   declarations: [
     PostListComponent,
     PostCreateComponent,
     PostCardComponent,
+    PostCreateDialogComponent,
     PostDialogComponent,
     PostCommandBarComponent
   ],
@@ -39,29 +42,30 @@ import {SharedModule} from "../shared/shared.module";
     PostCardComponent,
     PostListComponent
   ],
-    imports: [
-        CommonModule,
-        PostRoutingModule,
-        NotifierModule,
-        FileModule,
-        ReactiveFormsModule,
-        NgxsModule.forFeature([PostState]),
-        TranslateModule,
-        MatGridListModule,
-        ButtonModule,
-        CardModule,
-        AvatarModule,
-        LikeModule,
-        DividerModule,
-        AvatarGroupModule,
-        TooltipModule,
-        CommentModule,
-        ToolbarModule,
-        InputTextareaModule,
-        ProgressSpinnerModule,
-        AvatarProfileComponent,
-        SharedModule
-    ]
+  imports: [
+    CommonModule,
+    PostRoutingModule,
+    NotifierModule,
+    FileModule,
+    ReactiveFormsModule,
+    NgxsModule.forFeature([PostState]),
+    TranslateModule,
+    MatGridListModule,
+    ButtonModule,
+    CardModule,
+    AvatarModule,
+    LikeModule,
+    DividerModule,
+    AvatarGroupModule,
+    TooltipModule,
+    CommentModule,
+    ToolbarModule,
+    InputTextareaModule,
+    ProgressSpinnerModule,
+    AvatarProfileComponent,
+    SharedModule,
+    ScrollPanelModule
+  ]
 
 })
 export class PostModule { }
