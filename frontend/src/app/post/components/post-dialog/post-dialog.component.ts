@@ -24,7 +24,7 @@ export class PostDialogComponent implements OnInit, AfterViewInit {
   post!: PostModel;
   postId!: string;
 
-  constructor(public config: DynamicDialogConfig, private store: Store, private elRef: ElementRef ) {
+  constructor(public config: DynamicDialogConfig, private store: Store) {
     this.postId = config.data.post.id;
   }
 

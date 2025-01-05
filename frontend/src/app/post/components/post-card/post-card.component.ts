@@ -3,7 +3,6 @@ import {PostModel} from "../../models/postModel.interface";
 import {Observable} from "rxjs";
 import {Select, Store} from "@ngxs/store";
 import {saveAs as importedSaveAs} from "file-saver";
-import {PostState} from "../../state/post-state";
 import {FileService} from "../../../file/services/file.service";
 import {FileModel} from "../../../file/models/fileModel.interface";
 import {FileState} from "../../../file/state/file-state";

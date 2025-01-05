@@ -9,7 +9,6 @@
 
 .ProseMirror {
   word-wrap: break-word;
-  white-space: pre-wrap;
   white-space: break-spaces;
   -webkit-font-variant-ligatures: none;
   font-variant-ligatures: none;
@@ -67,7 +66,6 @@ img.ProseMirror-separator {
 }
 
 .ProseMirror-tooltip .ProseMirror-menu {
-  width: -webkit-fit-content;
   width: fit-content;
   white-space: pre;
 }
@@ -180,7 +178,6 @@ img.ProseMirror-separator {
   border-bottom: 1px solid silver;
   background: white;
   z-index: 10;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   overflow: visible;
 }
@@ -348,7 +345,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .cdk-overlay-pane {
   position: static;
-  margin-top: 0px;
+  margin-top: 0;
 }
 
 .cdk-global-overlay-wrapper {
@@ -359,12 +356,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 p {
   margin: 0;
 }
-
-//.p-tooltip .p-tooltip-text {
-//  background-color: white;
-//  color: #000;
-//  width: fit-content;
-//}
 
 .p-tooltip .p-tooltip-text {
   padding : 3px;
@@ -383,7 +374,7 @@ p {
 .suggestion-item-list {
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
