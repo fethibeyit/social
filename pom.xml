@@ -154,8 +154,8 @@
 									<goal>install-node-and-npm</goal>
 								</goals>
 								<configuration>
-									<nodeVersion>v16.17.0</nodeVersion>
-									<npmVersion>8.19.1</npmVersion>
+									<nodeVersion>v18.20.5</nodeVersion>
+									<npmVersion>10.8.2</npmVersion>
 								</configuration>
 							</execution>
 							<execution>
@@ -235,8 +235,8 @@
 									<goal>install-node-and-npm</goal>
 								</goals>
 								<configuration>
-									<nodeVersion>v16.17.0</nodeVersion>
-									<npmVersion>8.19.1</npmVersion>
+									<nodeVersion>v18.20.5</nodeVersion>
+									<npmVersion>10.8.2</npmVersion>
 								</configuration>
 							</execution>
 							<execution>
